@@ -1,1 +1,11 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10508382&assignment_repo_type=AssignmentRepo)
+# Trouble Ticket Manager Website
+
+## Students
+
+- Daniel Gago (up202108791)
+- Pedro Madureira (up202108866)
+- Tomás Gaspar (up202108828)
+
+## Mockups
+
+![mockups](docs/mockups.png)
