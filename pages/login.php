@@ -1,5 +1,5 @@
 <?php
-    require_once('templates/common.php');
+    require_once('../templates/common.php');
 
     output_header();
 ?>
@@ -19,5 +19,4 @@
 
 <?php
     output_footer();
-
 ?>
