@@ -12,7 +12,7 @@
         <body>
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
-                <h2><a href="#">FAQ</a></h2>
+                <a href="faq.php"><h2>FAQ</h2></a>
             </header>
         <?php }
 
