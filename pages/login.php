@@ -15,6 +15,7 @@
     </label>
     <button type="submit">Login</button>
     </form>
+    <span id="not_registered">Don't have an account yet? Click <a href="register.php">here</a> to register!</span>
 </section>
 
 <?php
