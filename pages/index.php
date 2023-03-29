@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     require_once(__DIR__ . '/../templates/common.php');
 
     output_header();
