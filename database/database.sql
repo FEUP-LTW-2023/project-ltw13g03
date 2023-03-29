@@ -6,18 +6,17 @@ DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Modification;
 
 CREATE TABLE Client (
-    clientId INTEGER PRIMARY KEY,
+    username NVAR(25) PRIMARY KEY,
     name NVARCHAR(120) NOT NULL,
-    username NVAR(20) NOT NULL,
     email NVARCHAR(60) NOT NULL,
     password NVARCHAR(40) NOT NULL
 );
 
 CREATE TABLE Agent (
     isAgent BOOLEAN NOT NULL,
-    clientId INTEGER PRIMARY KEY,
+    username NVAR(25) PRIMARY KEY,
     departmentId INTEGER,
-    FOREIGN KEY (clientID) REFERENCES Client(clientID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (username) REFERENCES Client(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
