@@ -8,7 +8,7 @@ section#login, section#register {
     background-color: var(--box-color);
     border-radius: 1em;
     padding: 1em;
-    margin: 0 auto;
+    margin: 2em auto;
 }
 
 section#login {
@@ -87,9 +87,6 @@ section#register #user_info{
     grid-column: mid / end;
     display: flex;
     flex-direction: column;
-}
-
-section#register #user_info{
     gap: 2em;
     padding: 1em;
 }
@@ -101,3 +98,28 @@ section#register button {
 }
 
 
+@media (max-width: 30em){
+    section#register, section#login {
+        max-width: 85%;
+    }
+
+    section#register img {
+        width: 5rem;
+    }
+
+    section#register #user_info{
+        grid-column: start / end;
+    }
+
+    section#register form > label:first-child{
+        grid-column: start / end;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    section#register input[type="file"]{
+        height: 0;
+    }
+}
