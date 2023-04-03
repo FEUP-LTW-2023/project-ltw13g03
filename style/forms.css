@@ -5,6 +5,7 @@
 }
 
 section#login, section#register {
+    grid-area: 2 / 1 / span 1 / span 2;
     background-color: var(--box-color);
     border-radius: 1em;
     padding: 1em;

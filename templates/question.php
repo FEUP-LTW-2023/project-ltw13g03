@@ -22,3 +22,11 @@ function output_question() { ?>
     </div>
 <?php }
 ?>
+
+<?php function output_questions() { ?>
+    <section id="questions">
+        <?php for ($i = 1; $i <= 3; $i++) {
+            output_question();
+        } ?>
+    </section>
+<?php } ?>

@@ -1,0 +1,24 @@
+#questions {
+    grid-area: 2 / 1 / span 1 / span 2;
+}
+
+.question {
+    background-color: #675D50 ;
+    color: white;
+    border-radius: 0.5em;
+
+    margin: 1em;
+    padding: 1em;
+}
+
+.question h3 {
+    font-size: 3em;
+
+    margin: 0;
+    padding: 0;
+}
+
+.question p {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}

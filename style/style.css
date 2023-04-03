@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap');
 
 body {
+    display: grid;
+    
     background-color: #F3DEBA;
     margin: auto;
     font-family: Roboto, sans-serif;
 }
 
 header {
+    grid-area: 1 / 1 / span 1 / span 2;
+
     background-color: #A9907E;
     padding: 1em;
 }
@@ -38,32 +42,11 @@ header h2 {
     margin: 0 1em;
 }
 
-/* faq */
-
-.question {
-    background-color: #675D50 ;
-    color: white;
-    border-radius: 0.5em;
-
-    margin: 1em;
-    padding: 1em;
-}
-
-.question h3 {
-    font-size: 3em;
-
-    margin: 0;
-    padding: 0;
-}
-
-.question p {
-    font-size: 1.2em;
-    line-height: 1.5em;
-}
 
 /* footer */
 
 body > footer {
+    grid-area: 4 / 1 / span 1 / span 2;
     background-color: #675D50;
     color: white;
 
