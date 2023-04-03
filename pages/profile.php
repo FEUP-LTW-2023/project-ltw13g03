@@ -7,9 +7,7 @@
 
     output_user_profile();
 
-    for ($i = 1; $i <= 3; $i++) {
-        output_ticket_preview();
-    }
+    output_main_content();
 
     output_footer();
 ?>
