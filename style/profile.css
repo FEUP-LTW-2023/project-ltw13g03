@@ -1,0 +1,132 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: grid;
+    row-gap: .8em;
+    margin: 0 1em;
+    padding: 0;
+}
+
+
+header {
+    grid-area: 1 / 1 / span 1 / span 2;
+}
+  
+
+/* Profile */
+
+.userprofile {
+    grid-area: 2 / 1 / span 1 / span 2;
+    display: grid;
+    grid-template-columns: 10em auto;
+
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.userprofile img {
+    grid-area: 1 / 1 / span 2 / span 1;
+
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.userprofile h2 {
+    grid-area: 1/2;
+
+    margin: auto .5em;
+    font-size: 1.7rem;
+}
+
+.userprofile ul {
+    grid-area: 2 / 2;
+
+    margin: 0 1.1em;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    color: rgb(100, 100, 100);
+}
+
+.userprofile li {
+    font-size: .9rem;
+}
+
+.userprofile li:last-child::before {
+    content: " \22C6 ";
+    margin: 0 1em;
+}
+
+button {
+    grid-area: 3 / 1;
+    margin-top: 1.2em;
+    width: 8.5em;
+    margin: 1em auto 0 auto;
+    padding: .4em .8em;
+
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    
+    background-color: #ABC4AA;
+    color: white;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8d816f;
+}
+
+
+/* Tickets */
+
+section#tickets {
+    margin-top: .6em;
+
+    grid-area: 3 / 1 / span 1 / span 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(21em, 1fr));
+    gap: .5em;
+}
+
+.ticketpreview {
+    background-color: #f8f8f8;
+    border-radius: 6px;
+    padding: 1.2em;
+}
+
+.ticketpreview h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    margin-bottom: .8em;
+}
+
+.ticketpreview p {
+    margin: 0;
+    font-size: .95rem;
+}
+
+.ticketpreview p:nth-child(2) {
+    color: #282828;
+    margin-bottom: .5em;
+}
+
+.ticketpreview p:nth-child(3)::before {
+    content: "Status: ";
+    font-weight: bold;
+}
+
+.ticketpreview p:nth-child(4)::before {
+    content: "Date: ";
+    font-weight: bold;
+}
+
+.ticketpreview p:nth-child(3), .ticketpreview p:nth-child(4) {
+    font-size: .85rem;
+    color: #666;
+}
