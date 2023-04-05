@@ -61,7 +61,7 @@ section#login #not_registered a {
 }
 
 section#register {
-    width: 40em;
+    max-width: 40em;
 }
 
 section#register form {
@@ -80,7 +80,7 @@ section#register input[type="file"]{
 }
 
 section#register img {
-    width: 12rem;
+    width: 80%;
     height: auto;
     filter: invert(10%) sepia(62%) saturate(3291%) hue-rotate(245deg) brightness(100%) contrast(99%);
 }
@@ -99,14 +99,23 @@ section#register button {
     margin: 1em 1.5em 0 0;
 }
 
+@media (max-width: 47em){
+    section#register {
+        max-width: 85%;
+    }
+}
 
 @media (max-width: 30em){
-    section#register, section#login {
+    section#login {
         max-width: 85%;
     }
 
+    section#register {
+        min-width: 85%;
+    }
+
     section#register img {
-        width: 5rem;
+        width: 6rem;
     }
 
     section#register #user_info{
