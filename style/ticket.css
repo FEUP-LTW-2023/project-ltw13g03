@@ -1,0 +1,61 @@
+:root {
+    --box-color: #DEE2FF;
+    --text-color: #DEE2FF;
+    --ticket-box-color: #f2e4fd;
+    --text-color-2: #DEE2FF;
+}
+
+#ticket {
+    background-color: var(--ticket-box-color);
+    padding: 1.2em;
+    margin: 1.2em;
+    border-radius: 6px;
+
+    display: grid;
+    grid-template-columns: [start] 80% [aside] 20% [end];
+    grid-template-rows: [start] min-content [title] min-content [desc] min-content [end];
+}
+
+#ticket h2 {
+    font-size: 2.5rem;
+    margin: 0;
+
+    grid-row: start / title;
+    grid-column: start / end;
+}
+
+#ticket aside {
+    grid-row: title / end;
+    grid-column: aside;
+}
+
+#ticket article#ticket_description {
+    margin: 0;
+    font-size: 1.1rem;
+    padding: 0 1em;
+    
+    grid-row: title / desc;
+    grid-column: start / aside;
+}
+
+#ticket #comments {
+    grid-row: desc / end;
+    grid-column: start / aside;
+}
+
+#ticket aside {
+    padding: 1em;
+    line-height: 200%;
+}
+
+#ticket aside div, #ticket aside time {
+    color: #2E1760;
+    font-weight: bold;
+}
+
+#ticket .tag {
+    background-color: var(--box-color);
+    padding: .2em .5em;
+    margin: .2em;
+    border-radius: 5px;
+}

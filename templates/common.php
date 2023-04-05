@@ -10,6 +10,7 @@
             <link href="../style/profile.css" rel="stylesheet">
             <link href="../style/faq.css" rel="stylesheet">
             <link href="../style/forms.css" rel="stylesheet">
+            <link href="../style/ticket.css" rel="stylesheet">
         </head>
         <body>
             <header>
