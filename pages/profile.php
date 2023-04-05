@@ -5,7 +5,7 @@
 
     output_header();
 
-    output_user_profile();
+    //output_user_profile();
 
     output_main_content();
 

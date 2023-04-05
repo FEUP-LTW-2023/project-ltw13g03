@@ -1,7 +1,8 @@
 :root {
-    --box-color: #ABC4AA;
-    --text-color: #675D50;
-    --text-color-2: #A9907E;
+
+    --box-color: #DEE2FF;
+    --text-color: #2c1c6d;
+    --text-color-2: #DEE2FF;
 }
 
 section#login, section#register {
@@ -56,7 +57,7 @@ section#login #not_registered {
 }
 
 section#login #not_registered a {
-    color: var(--text-color-2);
+    color: var(--text-color);
 }
 
 section#register {
@@ -81,7 +82,7 @@ section#register input[type="file"]{
 section#register img {
     width: 12rem;
     height: auto;
-    filter: invert(35%) sepia(6%) saturate(1204%) hue-rotate(354deg) brightness(98%) contrast(86%);
+    filter: invert(10%) sepia(62%) saturate(3291%) hue-rotate(245deg) brightness(100%) contrast(99%);
 }
 
 section#register #user_info{

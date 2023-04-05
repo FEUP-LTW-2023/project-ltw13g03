@@ -15,6 +15,7 @@
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
                 <a href="faq.php"><h2>FAQ</h2></a>
+                <a id="profpic" href="profile.php"><img src="https://picsum.photos/80/80" alt=""></a>
             </header>
         <?php }
 

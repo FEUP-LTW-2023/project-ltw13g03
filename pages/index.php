@@ -5,10 +5,12 @@
 
     output_header();
 ?>
-
-    <a href="profile.php">profile</a>
-    <a href="login.php">login</a>
-    <a href="register.php">register</a>
+<main>
+    
+        <a href="profile.php">profile</a>
+        <a href="login.php">login</a>
+        <a href="register.php">register</a>
+</main>
 
 <?php
     output_footer();
