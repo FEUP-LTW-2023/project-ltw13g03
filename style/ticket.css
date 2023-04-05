@@ -1,15 +1,18 @@
 :root {
     --box-color: #DEE2FF;
-    --text-color: #DEE2FF;
+    --text-color: #2c1c6d;
     --ticket-box-color: #f2e4fd;
-    --text-color-2: #DEE2FF;
+    --text-color-2: #2E1760;
 }
 
 #ticket {
+    grid-area: 2/1/span 1/span 2;
     background-color: var(--ticket-box-color);
     padding: 1.2em;
     margin: 1.2em;
     border-radius: 6px;
+    max-width: 80em;
+    justify-self: center;
 
     display: grid;
     grid-template-columns: [start] 80% [aside] 20% [end];
@@ -49,7 +52,7 @@
 }
 
 #ticket aside div, #ticket aside time {
-    color: #2E1760;
+    color: var(--text-color-2);
     font-weight: bold;
 }
 
@@ -58,4 +61,62 @@
     padding: .2em .5em;
     margin: .2em;
     border-radius: 5px;
+}
+#ticket .comment img {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    margin-right: 0.5em;
+}
+
+#ticket .comment .comment_username {
+    vertical-align: 50%;
+    color: var(--text-color-2);
+    font-weight: bold;
+}
+
+#ticket .comment time {
+    vertical-align: 50%;
+    color: var(--text-color-2);
+    font-weight: bold;
+    float: right;
+}
+
+#ticket .comment {
+    background-color: white;
+    border: 1em solid #d2c6db;
+    box-shadow: 10px 10px #aba1b346;
+    padding: 1em;
+    margin: 1em;
+    margin-bottom: 2em;
+    overflow: scroll;
+}
+
+#ticket #comments form {
+    display: flex;
+    flex-direction: column;
+}
+
+#ticket #comments textarea {
+    border: 1em solid #d2c6db;
+    box-shadow: 10px 10px #aba1b346;
+    padding: 1em;
+    margin: 1em;
+    padding: 1em;
+    outline: none;
+    resize: vertical;
+    font-family: Roboto, sans-serif;
+}
+
+#ticket #comments form button {
+    width: 5em;
+    height: 2em;
+    border: none;
+    border-radius: 0.5em;
+    background-color: var(--text-color);
+    color: white;
+    font-size: 1rem;
+    align-self: flex-end;
+    margin-right: 1.5em;
+    cursor: pointer;
 }

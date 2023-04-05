@@ -10,7 +10,7 @@
         <div id="author">
 
         </div>
-        <time datetime="">Date: 
+        <time datetime="">Date:</time>
         <div id="department">
             Department:
         </div>
@@ -38,10 +38,23 @@
     </article>
     <section id="comments">
         <article class="comment">
-            <p></p>
+            <img src="https://picsum.photos/80/80" alt="comment profile picture">
+            <span class="comment_username">Username</span>
+            <time datetime="">date</time>
+            <p>
+                This is a comment
+            </p>
+        </article>
+        <article class="comment">
+            <img src="https://picsum.photos/80/80" alt="comment profile picture">
+            <span class="comment_username">Username</span>
+            <time datetime="">date</time>
+            <p>
+               This is a comment
+            </p>
         </article>
         <form>
-            <textarea></textarea>
+            <textarea placeholder="Leave a comment"></textarea>
             <button type="submit">Reply</button>
         </form>
     </section>

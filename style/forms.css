@@ -35,6 +35,7 @@ section#login input, section#register #user_info input {
     margin-top: 1em;
     background-color: var(--box-color);
     border: none;
+    outline: none;
     border-bottom: solid var(--text-color) 1px;
 }
 
