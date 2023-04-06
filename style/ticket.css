@@ -36,6 +36,7 @@
     margin: 0;
     font-size: 1.1rem;
     padding: 0 1em;
+    text-align: justify;
     
     grid-row: title / desc;
     grid-column: start / aside;
@@ -95,6 +96,9 @@
 #ticket #comments form {
     display: flex;
     flex-direction: column;
+
+    border-top: 2px dashed #d2c6db;
+    padding-top: 1em;
 }
 
 #ticket #comments textarea {
@@ -117,6 +121,26 @@
     color: white;
     font-size: 1rem;
     align-self: flex-end;
-    margin-right: 1.5em;
+    margin: 1em;
     cursor: pointer;
+}
+
+@media (max-width: 40em){
+    #ticket {
+        grid-template-rows: [start] min-content [title] auto [aside] min-content [desc] min-content [end];
+    }
+
+    #ticket aside {
+        grid-column: start / end;
+        grid-row: title / aside;
+    }
+
+    #ticket article#ticket_description {
+        grid-column: start / end;
+        grid-row: aside / desc;
+    }
+
+    #ticket #comments {
+        grid-column: start / end;
+    }
 }

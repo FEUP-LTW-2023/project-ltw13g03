@@ -19,8 +19,8 @@
         </div>
         <div id="status">Status: </div>
         <div id="tags">
-            <span class="tag">A</span>
-            <span class="tag">B</span>
+            <span class="tag">Lorem</span>
+            <span class="tag">Ipsum</span>
         </div>
     </aside>
     <article id="ticket_description">
