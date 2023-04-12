@@ -10,6 +10,7 @@
             <link href="../style/profile.css" rel="stylesheet">
             <link href="../style/faq.css" rel="stylesheet">
             <link href="../style/forms.css" rel="stylesheet">
+            <script src="../javascript/faq_dropdown.js" defer></script>
         </head>
         <body>
             <header>

@@ -22,8 +22,8 @@ CREATE TABLE Agent (
 
 CREATE TABLE Admin (
     isAdmin BOOLEAN NOT NULL,
-    agentId INTEGER PRIMARY KEY,
-    FOREIGN KEY (agentID) REFERENCES Agent(agentID) ON DELETE NO ACTION ON UPDATE NO ACTION
+    username NVAR(25) PRIMARY KEY,
+    FOREIGN KEY (username) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Ticket (
@@ -32,11 +32,11 @@ CREATE TABLE Ticket (
     priority INTEGER NOT NULL,
     status NVARCHAR(20) NOT NULL,
     date DATE NOT NULL,
-    clientId INTEGER NOT NULL,
-    agentId INTEGER,
+    clientUsername NVAR(25) NOT NULL,
+    agentUsername NVAR(25),
 
-    FOREIGN KEY (clientId) REFERENCES Client(clientId) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (agentId) REFERENCES Agent(clientId) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (clientUsername) REFERENCES Client(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (agentUsername) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Department (
@@ -55,19 +55,19 @@ CREATE TABLE Modification (
 );
 
 
-INSERT INTO Client (clientId, name, username, email, password) VALUES (1, 'Pedro Madureira', 'RAM', 'pedro@gmail.com', 'passwordsecreta');
-INSERT INTO Client (clientId, name, username, email, password) VALUES (2, 'Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '1234567');
-INSERT INTO Client (clientId, name, username, email, password) VALUES (3, 'Daniel Gago', 'Gago', 'danielgago@gmail.com', 'daniel_faro123');
+INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', 'passwordsecreta');
+INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '1234567');
+INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', 'daniel_faro123');
 
 
-INSERT INTO Agent (isAgent, clientId, departmentId) VALUES (true, 1, 1);
-INSERT INTO Agent (isAgent, clientId, departmentId) VALUES (true, 2, 1);
-INSERT INTO Agent (isAgent, clientId, departmentId) VALUES (true, 3, 1);
+INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'RAM', 1);
+INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'Gaspar', 1);
+INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'Gago', 1);
 
 
-INSERT INTO Admin (isAdmin, agentId) VALUES (true, 1);
-INSERT INTO Admin (isAdmin, agentId) VALUES (true, 2);
-INSERT INTO Admin (isAdmin, agentId) VALUES (true, 3);
+INSERT INTO Admin (isAdmin, username) VALUES (true, 'RAM');
+INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gaspar');
+INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gago');
 
 
 INSERT INTO Department (departmentId, name) VALUES (1, 'Accounting');
