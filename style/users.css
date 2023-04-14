@@ -1,0 +1,93 @@
+:root {
+    --box-color: #DEE2FF;
+    --text-color: #2c1c6d;
+    --ticket-box-color: #f2e4fd;
+    --text-color-2: #2E1760;
+}
+
+section#form-manage-users {
+    grid-area: 2/1/span 1/span 2;
+    width: 80vw;
+    margin: 0 auto;
+}
+
+table#manage-users {
+    width: 100%;
+    height: fit-content;
+    border-spacing: separate;
+    border-spacing: 0 1em;
+}
+
+#manage-users th {
+    padding: .5em;
+    text-align: left;
+    color: var(--text-color-2);
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+#manage-users td {
+    text-align: left;
+    padding: 10px;
+    background-color: var(--ticket-box-color);
+    color: var(--text-color-2);
+    font-size: .8rem;
+}
+
+#manage-users thead tr th {
+    padding-left: 1em;
+}
+
+#manage-users tbody > td:first-child {
+    width: 100%;
+}
+
+#manage-users tbody tr {
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.182);
+}
+
+#manage-users td div.user_info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#manage-users td div.user_info img {
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em;
+    margin-right: .8em;
+}
+
+#manage-users td div.user_info .username p {
+    margin: 0;
+    padding: 0;
+}
+
+#manage-users td div.user_info .username > p:nth-child(1) {
+    font-size: .9rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+#manage-users td div.user_info .username > p:nth-child(2) {
+    font-size: .65rem;
+    margin-top: .2em;
+    color: var(--text-color-2);
+}
+
+#manage-users td select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: rgba(0, 0, 255, 0.862);
+    cursor: pointer;
+    color: white;
+    font-size: .65rem;
+    border-radius: 6px;
+    width: 12em;
+    text-align: center;
+    border: none;
+    padding: .7em;
+}

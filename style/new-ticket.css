@@ -1,0 +1,74 @@
+:root {
+    --box-color: #DEE2FF;
+    --text-color: #DEE2FF;
+    --ticket-box-color: #f2e4fd;
+    --text-color-2: #DEE2FF;
+    --header-root-color: #4111a8;
+}
+
+section.create_ticket {
+    grid-area: 2/1/span 1/span 2;
+    grid-template-columns: auto auto;
+    padding: 3em;
+    height: fit-content;
+    justify-self: center;
+    margin-top: 2em;
+    max-width: 50em;
+    width: 60vw;
+    border-radius: 5px;
+    background-color: var(--box-color);
+}
+
+section.create_ticket > form {
+    display: grid;
+    column-gap: .5em;
+    row-gap: 1em;
+}
+
+section.create_ticket > h2 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+section.create_ticket form label {
+    display: flex;
+    flex-direction: column;
+    font-size: .7rem;
+    font-weight: bold;
+}
+
+section.create_ticket form label select {
+    margin-top: .3em;
+    padding: .4em 0 .4em .3em;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.618);
+}
+
+section.create_ticket form label textarea {
+    margin-top: .3em;
+    padding: .4em 0 .4em .3em;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.618);
+}
+
+section.create_ticket form #department {
+    grid-area: 1 / 1;
+}
+
+section.create_ticket form #ticket_description {
+    grid-area: 2 / 1;
+}
+
+section.create_ticket form button {
+    grid-area: 5 / 1 / span 1 / span 1;
+    width: 10em;
+    justify-self: center;
+    color: white;
+    background-color: var(--header-root-color);
+    border: none;
+    padding: .6em;
+    justify-self: right;
+    cursor: pointer;
+    border-radius: 3px;
+}
