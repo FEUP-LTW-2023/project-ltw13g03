@@ -7,7 +7,7 @@
 
     require_once(__DIR__ . '/../templates/common.php');
 
-    output_header();
+    output_header(true);
 ?>
 
 <section id="ticket">

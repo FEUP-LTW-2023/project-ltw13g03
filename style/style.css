@@ -67,6 +67,17 @@ header img {
     margin-right: 1em;
 }
 
+header a#logout {
+    margin-left: 2em;
+}
+
+header #logout img {
+    border-radius: 0;
+    width: 2em;
+    height: 2em;
+    filter: invert(15%) sepia(69%) saturate(3791%) hue-rotate(348deg) brightness(103%) contrast(112%);
+}
+
 /* Tickets */
 section#tickets {
     margin-top: .6em;

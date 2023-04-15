@@ -1,5 +1,5 @@
 <?php
-    function output_header(){ ?>
+    function output_header(bool $logged_in){ ?>
         <!DOCTYPE html>
         <html lang="en-US">
         <head>
@@ -16,7 +16,10 @@
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
                 <a href="faq.php"><h2>FAQ</h2></a>
-                <a id="profpic" href="profile.php"><img src="https://picsum.photos/80/80" alt=""></a>
+                <?php if ($logged_in) { ?>
+                    <a id="logout" href="../actions/action_logout.php"><img src="https://freesvg.org/img/artmaster_logout_mini_icon.png" alt="logout button"></a>
+                    <a id="profpic" href="profile.php"><img src="https://picsum.photos/80/80" alt=""></a>
+                <?php } ?>
             </header>
         <?php }
 

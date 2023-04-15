@@ -8,7 +8,7 @@
     require_once(__DIR__ . '/../templates/common.php');
     require_once(__DIR__ . '/../templates/ticket.php');
 
-    output_header();
+    output_header(true);
 
     output_main_content();
 
