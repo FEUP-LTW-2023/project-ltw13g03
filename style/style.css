@@ -35,10 +35,13 @@ header h1, header h2 {
     margin: 0;
 }
 
+header > a:nth-child(2) {
+    margin-left: auto;
+}
+
 header a {
     text-decoration: none;
     color: white;
-    margin-left: auto;
 }
 
 header a#profpic {
