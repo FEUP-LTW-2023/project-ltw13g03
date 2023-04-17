@@ -34,7 +34,26 @@
         }
 
         static function updateUserRole(PDO $db, string $username, bool $isAgent, bool $isAdmin) {
-            
+            $stmt = $db->prepare('
+                UPDATE Admin SET isAdmin = ?
+                WHERE username = ?
+            ');
+
+            $stmt->execute(array($isAdmin, $username));
+            if ($isAdmin) {
+                $stmt = $db->prepare('
+                    UPDATE Agent SET isAgent = true
+                    WHERE username = ?
+                ');
+                $stmt->execute(array($username));
+            } else {
+                $stmt = $db->prepare('
+                    UPDATE Agent SET isAgent = ?
+                    WHERE username = ?
+               ');
+
+                $stmt->execute(array($isAgent, $username));
+            }
         }
     }
 ?>

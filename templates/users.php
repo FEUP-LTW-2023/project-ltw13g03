@@ -2,6 +2,12 @@
     require_once(__DIR__ . '/../database/connection.php');
     require_once(__DIR__ . '/../database/client.class.php');
 
+    function updateUser($value, $id) {
+        echo $value;
+        //$db = getDatabaseConnection();
+        //Client::updateUserRole($db, id, true, true);
+    }
+
     function output_users() { ?>
     
         <section id="form-manage-users">
@@ -40,7 +46,7 @@
                 <td>
                     <select>
                         <option value="client">Client</option>
-                        <option value="agent" <?= (!$user->isAgent && $user->isAdmin) ? 'selected' : '' ?>>Agent</option>
+                        <option value="agent" <?= (!$user->isAdmin && $user->isAgent) ? 'selected' : '' ?>>Agent</option>
                         <option value="admin" <?= $user->isAdmin ? 'selected' : '' ?>>Admin</option>
                     </select>
                 </td>

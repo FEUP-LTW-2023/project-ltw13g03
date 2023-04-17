@@ -23,6 +23,12 @@ function createAccount($name, $username, $email, $password){
     $stmt = $db->prepare('INSERT INTO Client (name, username, email, password) VALUES (?, ?, ?, ?)');
     $stmt->execute(array($name, $username, $email, sha1($password)));
 
+    $stmt = $db->prepare('INSERT INTO Agent (isAgent, username, departmentId) VALUES (false, ?, null)');
+    $stmt->execute(array($username));
+
+    $stmt = $db->prepare('INSERT INTO Admin (isAdmin, username) VALUES (false, ?)');
+    $stmt->execute(array($username));
+
     return true;
 }
 
