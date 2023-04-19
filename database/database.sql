@@ -55,9 +55,10 @@ CREATE TABLE Modification (
 );
 
 
-INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', 'passwordsecreta');
-INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '1234567');
-INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', 'daniel_faro123');
+
+INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '3678b4619913882f81cb27e5a1a723291fa8da0d'); --passwordsecreta
+INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '20eabe5d64b0e216796e834f52d61fd0b70332fc'); --1234567
+INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '02aea1da66459976cc45823b47bc219a9799f166'); --daniel_faro123
 
 
 INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'RAM', 1);

@@ -17,4 +17,27 @@
             } ?>
         </section>
     <?php }
+
+    function new_ticket_form(){ ?>
+        <section class="create_ticket">
+            <h2>Create a New Ticket</h2>
+            <form>
+                <label id="department">
+                    Department
+                    <select>
+                        <option value="hr">Human Resources</option>
+                        <option value="it">Information Technology</option>
+                        <option value="sales">Sales</option>
+                        <option value="finance">Finance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </label>
+                <label id="ticket_description">
+                    Description
+                    <textarea name="ticket_description" id="" cols="30" rows="10" placeholder="Write a description of your ticket here..."></textarea>
+                </label>
+                <button>Submit</button>
+            </form>
+        </section>
+    <?php }
 ?>

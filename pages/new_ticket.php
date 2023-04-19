@@ -1,16 +1,10 @@
 <?php
-    session_start();
-
-    if(!isset($_SESSION['username'])){
-        header("Location: /pages/login.php");
-    }
-    
     require_once(__DIR__ . '/../templates/common.php');
     require_once(__DIR__ . '/../templates/ticket.php');
 
     output_header(true);
 
-    output_main_content();
+    new_ticket_form();
 
     output_footer();
 ?>
