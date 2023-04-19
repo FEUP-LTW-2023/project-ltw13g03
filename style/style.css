@@ -96,6 +96,7 @@ section#tickets {
     border-radius: 6px;
     padding: 1.2em;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.071);
+    text-decoration: none;
 }
 
 .ticketpreview h3 {
@@ -116,17 +117,8 @@ section#tickets {
     margin-bottom: .5em;
 }
 
-.ticketpreview p:nth-child(3)::before {
-    content: "Status: ";
+.ticketpreview time, .ticketpreview #status {
     font-weight: bold;
-}
-
-.ticketpreview p:nth-child(4)::before {
-    content: "Date: ";
-    font-weight: bold;
-}
-
-.ticketpreview p:nth-child(3), .ticketpreview p:nth-child(4) {
     font-size: .85rem;
     color: #2E1760
 }

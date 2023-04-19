@@ -28,15 +28,17 @@ CREATE TABLE Admin (
 
 CREATE TABLE Ticket (
     ticketId INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
     hashtags TEXT NOT NULL, /* Aqui vamos guardar um JSON com uma lista */
     priority INTEGER NOT NULL,
     status NVARCHAR(20) NOT NULL,
     date DATE NOT NULL,
-    clientId INTEGER NOT NULL,
-    agentId INTEGER,
+    client NVAR(25) NOT NULL,
+    agent NVAR(25),
 
-    FOREIGN KEY (clientId) REFERENCES Client(clientId) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (agentId) REFERENCES Agent(clientId) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (client) REFERENCES Client(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (agent) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Department (
