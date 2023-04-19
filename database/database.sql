@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS Client;
 DROP TABLE IF EXISTS Agent;
 DROP TABLE IF EXISTS Admin;
 DROP TABLE IF EXISTS Ticket;
+DROP TABLE IF EXISTS Comment;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Modification;
 
@@ -41,6 +42,17 @@ CREATE TABLE Ticket (
     FOREIGN KEY (agent) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+CREATE TABLE Comment (
+  id INTEGER PRIMARY KEY,
+  ticketId INTEGER,
+  username NVAR(25) NOT NULL,
+  date DATE NOT NULL,
+  text TEXT,
+
+  FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID),
+  FOREIGN KEY (username) REFERENCES Client(username)
+);
+
 CREATE TABLE Department (
     departmentId INTEGER PRIMARY KEY,
     name NVARCHAR(20) NOT NULL
@@ -73,3 +85,7 @@ INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gago');
 
 
 INSERT INTO Department (departmentId, name) VALUES (1, 'Accounting');
+
+INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '#gandafixe', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
+
+INSERT INTO Comment (id, ticketID, username, date, text) VALUES (1, 1, 'Gaspar', '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');

@@ -6,6 +6,7 @@
     }
 
     require_once(__DIR__ . '/../templates/common.php');
+    require_once(__DIR__ . '/../templates/comments.php');
     require_once(__DIR__ . '/../database/tickets.php');
 
     output_header(true);
@@ -19,7 +20,7 @@
         <div id="author">
             <?=$ticket['client']?>
         </div>
-        <time datetime="">Date:</time>
+        <time datetime="<?=$ticket['date']?>">Date: <?=$ticket['date']?></time>
         <div id="department">
             Department:
         </div>
@@ -37,28 +38,7 @@
             <?=$ticket['body']?>
         </p>
     </article>
-    <section id="comments">
-        <article class="comment">
-            <img src="https://picsum.photos/80/80" alt="comment profile picture">
-            <span class="comment_username">Username</span>
-            <time datetime="">date</time>
-            <p>
-                This is a comment
-            </p>
-        </article>
-        <article class="comment">
-            <img src="https://picsum.photos/80/80" alt="comment profile picture">
-            <span class="comment_username">Username</span>
-            <time datetime="">date</time>
-            <p>
-               This is a comment
-            </p>
-        </article>
-        <form>
-            <textarea placeholder="Leave a comment"></textarea>
-            <button type="submit">Reply</button>
-        </form>
-    </section>
+    <?php output_comments($ticket['ticketId']); ?>
 </section>
 
 

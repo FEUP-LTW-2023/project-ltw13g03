@@ -11,7 +11,7 @@
             else $body = $ticket['body'];
             echo $body;?></p>
             <div id="status">Status: <?=$ticket['status']?></div>
-            <time datetime="<?=$ticket['date']?>">Date:</time>
+            <time datetime="<?=$ticket['date']?>">Date: <?=$ticket['date']?></time>
         </a>
     <?php }
 

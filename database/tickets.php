@@ -20,4 +20,13 @@ function getTicket($ticketId){
     return $stmt->fetch();
 }
 
+function getComments($ticketId){
+    $db = getDatabaseConnection();
+
+    $stmt = $db->prepare('SELECT * FROM Comment WHERE ticketId=?');
+    $stmt->execute(array($ticketId));
+
+    return $stmt->fetchAll();
+}
+
 ?>
