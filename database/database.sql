@@ -32,11 +32,11 @@ CREATE TABLE Ticket (
     priority INTEGER NOT NULL,
     status NVARCHAR(20) NOT NULL,
     date DATE NOT NULL,
-    clientId INTEGER NOT NULL,
-    agentId INTEGER,
+    clientUsername NVAR(25) NOT NULL,
+    agentUsername NVAR(25),
 
-    FOREIGN KEY (clientId) REFERENCES Client(clientId) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (agentId) REFERENCES Agent(clientId) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (clientUsername) REFERENCES Client(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (agentUsername) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Department (
@@ -53,6 +53,7 @@ CREATE TABLE Modification (
     ticketID INTEGER NOT NULL,
     FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
 
 
 INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '3678b4619913882f81cb27e5a1a723291fa8da0d'); --passwordsecreta
