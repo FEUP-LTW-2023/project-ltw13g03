@@ -17,6 +17,7 @@
 
     function output_main_content(){ ?>
         <section id="tickets">
+            <input id="searchticket" type="text" placeholder="SEARCH">
             <?php 
             $tickets = getTickets();
             foreach ($tickets as $ticket) {
