@@ -51,7 +51,7 @@
                     UPDATE Agent SET isAgent = ?
                     WHERE username = ?
                ');
-
+               
                 $stmt->execute(array($isAgent, $username));
             }
         }
