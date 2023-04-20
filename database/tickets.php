@@ -29,4 +29,13 @@ function getComments($ticketId){
     return $stmt->fetchAll();
 }
 
+function addComment($ticketId, $username, $text){
+    $date = date('Y-m-d');
+
+    $db = getDatabaseConnection();
+
+    $stmt = $db->prepare('INSERT INTO Comment (ticketID, username, date, text) VALUES (?, ?, ?, ?)');
+    $stmt->execute(array($ticketId, $username, $date, $text));
+}
+
 ?>

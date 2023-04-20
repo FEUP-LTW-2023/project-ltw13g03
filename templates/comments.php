@@ -15,8 +15,9 @@ function output_comments($id){
                 </p>
             </article>
         <?php } ?>
-    <form>
-        <textarea placeholder="Leave a comment"></textarea>
+    <form method="post" action="../actions/action_comment.php">
+        <input type="hidden" name="ticketId" value="<?=$id?>"/>
+        <textarea name="text" placeholder="Leave a comment"></textarea>
         <button type="submit">Reply</button>
     </form>
     </section>
