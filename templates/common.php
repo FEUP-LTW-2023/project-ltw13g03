@@ -14,14 +14,15 @@
             <link href="../style/new-ticket.css" rel="stylesheet">
             <link href="../style/users.css" rel="stylesheet">
             <link href="../style/ticket.css" rel="stylesheet">
+            <script src="../javascript/faq_dropdown.js" defer></script>
         </head>
         <body>
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
-                <a href="new-ticket.php"><h2>New Ticket</h2></a>
-                <a href="manage-users.php"><h2>Users</h2></a>
-                <a href="faq.php"><h2>FAQ</h2></a>
                 <?php if ($logged_in) { ?>
+                    <a href="new_ticket.php"><h2>New Ticket</h2></a>
+                    <a href="manage_users.php"><h2>Users</h2></a>
+                    <a href="faq.php"><h2>FAQ</h2></a>
                     <a id="logout" href="../actions/action_logout.php"><img src="https://freesvg.org/img/artmaster_logout_mini_icon.png" alt="logout button"></a>
                     <a id="profpic" href="profile.php"><img src="https://picsum.photos/80/80" alt=""></a>
                 <?php } ?>
