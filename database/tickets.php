@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../database/connection.php');
+require_once(__DIR__ . '/../database/connection.db.php');
 
 function getTickets(){
     $db = getDatabaseConnection();
