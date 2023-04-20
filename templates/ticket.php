@@ -1,19 +1,26 @@
 <?php 
-    function output_ticket_preview() { ?>
-        <div class="ticketpreview">
-            <h3>Ticket X</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus posuere volutpat diam et 
-            facilisis. Ut vel vulputate risus. Sed metus enim, viverra bibendum malesuada pellentesque, 
-            mollis eu nunc. </p>
-            <p>Open</p>
-            <p>March 23, 2023</p>
-        </div>
+    require_once(__DIR__ . '/../database/tickets.php');
+
+    function output_ticket_preview($ticket_id) {
+        $ticket = getTicket($ticket_id); ?>
+        <a class="ticketpreview" href="../pages/ticket.php?id=<?=$ticket['ticketId']?>">
+            <h3><?=$ticket['title']?></h3>
+            <p><?php 
+            if (strlen($ticket['body']) > 200)
+                $body = substr($ticket['body'], 0, 200) . '...';
+            else $body = $ticket['body'];
+            echo $body;?></p>
+            <div id="status">Status: <?=$ticket['status']?></div>
+            <time datetime="<?=$ticket['date']?>">Date: <?=$ticket['date']?></time>
+        </a>
     <?php }
 
     function output_main_content(){ ?>
         <section id="tickets">
-            <?php for ($i = 1; $i <= 9; $i++) {
-                output_ticket_preview();
+            <?php 
+            $tickets = getTickets();
+            foreach ($tickets as $ticket) {
+                output_ticket_preview($ticket['ticketId']);
             } ?>
         </section>
     <?php }
