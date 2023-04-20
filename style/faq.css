@@ -6,9 +6,8 @@
   
 #questions {
     grid-area: 2 / 1 /span 1 /span 2;
-    max-width: 700px;
-    margin: 0 auto;
-    margin-top: 1em;
+    width: 60%;
+    margin: 1em auto 0;
 }
 
 .question {
@@ -42,10 +41,15 @@
 }
 
 .faq-answer {
+    display: none;
     padding: 0 1em;
 }
 
 .faq-answer > p {
     margin: 0;
     padding: 1em 0;
+}
+
+.show {
+    display: block;
 }

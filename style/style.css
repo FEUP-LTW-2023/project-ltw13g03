@@ -83,7 +83,6 @@ header #logout img {
 
 /* Tickets */
 section#tickets {
-    margin-top: .6em;
     margin: .6em;
     grid-area: 2 / 1 / span 1 / span 2;
     display: grid;
@@ -100,10 +99,9 @@ section#tickets {
 }
 
 .ticketpreview h3 {
-    margin: 0;
     color:black;
     font-size: 1.2rem;
-    margin-bottom: .8em;
+    margin: 0 0 .8em;
 }
 
 .ticketpreview p {

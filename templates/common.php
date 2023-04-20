@@ -13,6 +13,7 @@
             <link href="../style/new-ticket.css" rel="stylesheet">
             <link href="../style/users.css" rel="stylesheet">
             <link href="../style/ticket.css" rel="stylesheet">
+            <script src="../javascript/faq_dropdown.js" defer></script>
         </head>
         <body>
             <header>
