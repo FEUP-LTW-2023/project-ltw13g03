@@ -1,9 +1,11 @@
 <?php
 
-require_once(__DIR__ . '/../database/tickets.php');
+require_once(__DIR__ . '/../database/connection.db.php');
+require_once(__DIR__ . '/../database/ticket.class.php');
 
 function output_comments($id){ 
-    $comments = getComments($id); ?>
+    $db = getDatabaseConnection();
+    $comments = Ticket::getComments($db, $id); ?>
     <section id="comments">
         <?php foreach ($comments as $comment) { ?>
             <article class="comment">

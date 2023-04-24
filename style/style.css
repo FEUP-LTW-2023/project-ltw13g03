@@ -88,6 +88,7 @@ section#tickets {
     grid-column: 1 / span 2;
     display: grid;
     grid-template-columns: auto min-content;
+    width: 85em;
 }
 
 section#tickets #searchticket {
