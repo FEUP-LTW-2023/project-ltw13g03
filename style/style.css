@@ -86,11 +86,12 @@ section#tickets {
     margin: 0 auto;
     height: 10em;
     grid-column: 1 / span 2;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto min-content;
 }
 
 section#tickets #searchticket {
+    grid-column: 1 / span 1;
     margin-top: 2em;
     padding: 0.5em;
     padding-left: 1em;
@@ -105,6 +106,14 @@ section#tickets #searchticket {
     color: #5e5e5e;
 }
 
+section#tickets a > img {
+    grid-column: 2 / span 1;
+    margin-top: 2.5em;
+    margin-left: 0.5em;
+    width: 2.5em;
+    filter: invert(15%) sepia(42%) saturate(3731%) hue-rotate(247deg) brightness(114%) contrast(128%);
+}
+
 @media (max-width: 89em) {
     section#tickets {
         width: 95%;
@@ -112,6 +121,7 @@ section#tickets #searchticket {
 }
 
 .ticketpreview {
+    grid-column: 1 / span 2;
     margin-top: 1em;
     background-color: var(--ticket-box-color);
     border-radius: 6px;

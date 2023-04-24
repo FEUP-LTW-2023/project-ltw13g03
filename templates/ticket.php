@@ -18,6 +18,7 @@
     function output_main_content(){ ?>
         <section id="tickets">
             <input id="searchticket" type="text" placeholder="SEARCH">
+            <a href="new_ticket.php"><img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="create a new ticket"></a>
             <?php 
             $tickets = getTickets();
             foreach ($tickets as $ticket) {

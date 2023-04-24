@@ -20,7 +20,6 @@
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
                 <?php if ($logged_in) { ?>
-                    <a href="new_ticket.php"><h2>New Ticket</h2></a>
                     <a href="manage_users.php"><h2>Users</h2></a>
                     <a href="faq.php"><h2>FAQ</h2></a>
                     <a id="logout" href="../actions/action_logout.php"><img src="https://freesvg.org/img/artmaster_logout_mini_icon.png" alt="logout button"></a>
