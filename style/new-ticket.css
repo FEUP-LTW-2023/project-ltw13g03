@@ -45,19 +45,83 @@ section.create_ticket form label select {
     border: 1px solid rgba(0, 0, 0, 0.618);
 }
 
-section.create_ticket form label textarea {
+section.create_ticket form label textarea, section.create_ticket form label input {
     margin-top: .3em;
     padding: .4em 0 .4em .3em;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.618);
 }
 
+section.create_ticket datalist#ticket_priority_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/*Chrome*/
+section.create_ticket form #ticket_priority input[type="range"] {
+    overflow: hidden;
+    -webkit-appearance: none;
+}
+  
+section.create_ticket form #ticket_priority input[type='range']::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 100%;
+}
+
+section.create_ticket form #ticket_priority #low_priority::-webkit-slider-thumb{
+    box-shadow: -80px 0 0 80px green;
+}
+
+section.create_ticket form #ticket_priority #medium_priority::-webkit-slider-thumb{
+    box-shadow: -80px 0 0 80px yellow;
+}
+
+section.create_ticket form #ticket_priority #high_priority::-webkit-slider-thumb{
+    box-shadow: -80px 0 0 80px red;
+}
+/********/
+
+/*Firefox + Microsoft*/
+section.create_ticket form #ticket_priority #low_priority::-moz-range-progress, 
+    section.create_ticket form #ticket_priority #low_priority::-moz-range-thumb {
+    background-color: green;
+    height: 200%;
+}
+
+section.create_ticket form #ticket_priority #medium_priority::-moz-range-progress,
+    section.create_ticket form #ticket_priority #medium_priority::-moz-range-thumb { 
+    background-color: yellow;
+    height: 200%;
+}
+
+section.create_ticket form #ticket_priority #high_priority::-moz-range-progress,
+    section.create_ticket form #ticket_priority #high_priority::-moz-range-thumb{ 
+    background-color: red;
+    height: 200%;
+}
+/*********/
+
+section.create_ticket form label textarea {
+    resize: vertical;
+}
+
 section.create_ticket form #department {
     grid-area: 1 / 1;
 }
 
-section.create_ticket form #ticket_description {
+section.create_ticket form #ticket_title {
     grid-area: 2 / 1;
+}
+
+section.create_ticket form #ticket_priority {
+    grid-area: 3 / 1;
+    width: 15em;
+}
+
+section.create_ticket form #ticket_description {
+    grid-area: 4 / 1;
 }
 
 section.create_ticket form button {

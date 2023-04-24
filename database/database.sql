@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS Comment;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Modification;
+DROP TABLE IF EXISTS Hashtag;
 
 CREATE TABLE Client (
     username NVAR(25) PRIMARY KEY,
@@ -58,6 +59,10 @@ CREATE TABLE Department (
     name NVARCHAR(20) NOT NULL
 );
 
+CREATE TABLE Hashtag (
+    name NVARCHAR(20) NOT NULL PRIMARY KEY
+);
+
 CREATE TABLE Modification (
     modificationID INTEGER PRIMARY KEY,
     field NVARCHAR(30) NOT NULL,
@@ -85,7 +90,10 @@ INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gaspar');
 INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gago');
 
 
-INSERT INTO Department (departmentId, name) VALUES (1, 'Accounting');
+INSERT INTO Department (departmentId, name) VALUES (1, 'Human Resources');
+INSERT INTO Department (departmentId, name) VALUES (2, 'Information Technology');
+INSERT INTO Department (departmentId, name) VALUES (3, 'Sales');
+INSERT INTO Department (departmentId, name) VALUES (4, 'Finance');
 
 INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '{"0":"gandafixe", "1":"bimbas"}', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
 

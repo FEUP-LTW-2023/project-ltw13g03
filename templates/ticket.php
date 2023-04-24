@@ -1,6 +1,7 @@
 <?php 
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/ticket.class.php');
+    require_once(__DIR__ . '/../database/misc.php');
 
     function output_ticket_preview(int $ticket_id) {
         $db = getDatabaseConnection();
@@ -36,14 +37,28 @@
             <h2>Create a New Ticket</h2>
             <form>
                 <label id="department">
-                    Department
+                    Department (optional)
                     <select>
-                        <option value="hr">Human Resources</option>
-                        <option value="it">Information Technology</option>
-                        <option value="sales">Sales</option>
-                        <option value="finance">Finance</option>
-                        <option value="other">Other</option>
+                        <option value="unspecified" selected> - </option>
+                        <?php 
+                        $departments = getDepartments();
+                        foreach ($departments as $department) { ?>
+                            <option><?=$department['name']?></option>
+                        <?php } ?>
                     </select>
+                </label>
+                <label id="ticket_title">
+                    Title
+                    <input type="text" name="ticket_title">
+                </label>
+                <label id="ticket_priority">
+                    Priority
+                    <input id="low_priority" type="range" value="0" min="0" max="2" step="1" list="ticket_priority_list">
+                    <datalist id="ticket_priority_list">
+                        <option value="0" label="Low"></option>
+                        <option value="1" label="Medium"></option>
+                        <option value="2" label="High"></option>
+                    </datalist>
                 </label>
                 <label id="ticket_description">
                     Description
