@@ -54,6 +54,29 @@
             }
         }
 
+        static function getTicketsFiltered(PDO $db, string $search) {
+            $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
+            $stmt->execute(array($search . '%'));
+
+            $tickets = array();
+
+            while ($ticket = $stmt->fetch()) {
+                $tickets[] = new Ticket(
+                    $ticket['ticketId'],
+                    $ticket['title'],
+                    $ticket['body'],
+                    $ticket['hashtags'],
+                    $ticket['priority'],
+                    $ticket['status'],
+                    $ticket['date'],
+                    $ticket['client'],
+                    $ticket['agent']
+                );
+            }
+
+            return $tickets;
+        }
+
         static function getComments(PDO $db, int $ticketId) {
             $stmt = $db->prepare('SELECT * FROM Comment WHERE ticketId=?');
             $stmt->execute(array($ticketId));
