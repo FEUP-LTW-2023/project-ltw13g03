@@ -104,6 +104,7 @@ section#tickets {
     grid-column: 1 / span 2;
     display: grid;
     grid-template-columns: auto min-content;
+    grid-template-rows: min-content auto;
     width: 85em;
 }
 
