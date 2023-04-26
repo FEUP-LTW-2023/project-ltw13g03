@@ -11,7 +11,7 @@
     padding: 1.2em;
     margin: 1.2em;
     border-radius: 6px;
-    max-width: 80em;
+    width: 90%;
     justify-self: center;
 
     display: grid;
@@ -130,7 +130,13 @@
     cursor: pointer;
 }
 
-@media (max-width: 40em){
+@media (min-width: 80em){
+    #ticket {
+        max-width: 80em;
+    }
+}
+
+@media (max-width: 56em){
     #ticket {
         grid-template-rows: [start] min-content [title] auto [aside] min-content [desc] min-content [end];
     }

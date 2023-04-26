@@ -10,10 +10,10 @@
         public string $status;
         public DateTime $date;
         public string $client;
-        public string $agent;
+        public ?string $agent;
 
         public function __construct(int $ticketId, string $title, string $body, string $hashtag, int $priority,
-                                        string $status, string $date, string $client, string $agent) {
+                                        string $status, string $date, string $client, ?string $agent) {
 
             $this->ticketId = $ticketId;
             $this->title = $title;
@@ -89,6 +89,20 @@
         
             $stmt = $db->prepare('INSERT INTO Comment (ticketID, username, date, text) VALUES (?, ?, ?, ?)');
             $stmt->execute(array($ticketId, $username, $date, $text));
+        }
+
+        static function createTicket(PDO $db, $title, $body, $hashtags, $priority, $client) {
+            $stmt = $db->prepare('INSERT INTO Ticket (title, body, hashtags, priority, status, date, client) VALUES (?, ?, ?, ?, ?, ?, ?)');
+
+            $stmt->execute(array(
+                $title,
+                $body,
+                $hashtags,
+                $priority,
+                'Open',
+                date('Y-m-d'),
+                $client
+            ));
         }
     }
 ?>
