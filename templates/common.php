@@ -8,6 +8,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="../javascript/script.js" defer></script>
             <script src="../javascript/ticket_search.js" defer></script>
+            <script src="../javascript/priority_slider.js" defer></script>
             <link href="../style/style.css" rel="stylesheet">
             <link href="../style/profile.css" rel="stylesheet">
             <link href="../style/faq.css" rel="stylesheet">
