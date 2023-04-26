@@ -6,6 +6,9 @@
             <title>Tickets</title>    
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script src="../javascript/script.js" defer></script>
+            <script src="../javascript/faq_dropdown.js" defer></script>
+            <script src="../javascript/ticket_search.js" defer></script>
             <link href="../style/style.css" rel="stylesheet">
             <link href="../style/profile.css" rel="stylesheet">
             <link href="../style/faq.css" rel="stylesheet">
@@ -20,7 +23,6 @@
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
                 <?php if ($logged_in) { ?>
-                    <a href="new_ticket.php"><h2>New Ticket</h2></a>
                     <a href="manage_users.php"><h2>Users</h2></a>
                     <a href="faq.php"><h2>FAQ</h2></a>
                     <div class="profile-dropdown">

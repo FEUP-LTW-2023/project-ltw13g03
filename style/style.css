@@ -99,18 +99,52 @@ header h2 {
 
 /* Tickets */
 section#tickets {
-    margin: .6em;
-    grid-area: 2 / 1 / span 1 / span 2;
+    margin: 0 auto;
+    height: 10em;
+    grid-column: 1 / span 2;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(21em, 1fr));
-    gap: .7em;
+    grid-template-columns: auto min-content;
+    width: 85em;
+}
+
+section#tickets #searchticket {
+    grid-column: 1 / span 1;
+    margin-top: 2em;
+    padding: 0.5em;
+    padding-left: 1em;
+    border: none;
+    border-bottom: solid 3px var(--header-root-color);
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.071);
+    background-color: var(--ticket-box-color);
+    font-weight: bold;
+    font-size: large;
+    outline: none;
+    color: #5e5e5e;
+}
+
+section#tickets a > img {
+    grid-column: 2 / span 1;
+    margin-top: 2.5em;
+    margin-left: 0.5em;
+    width: 2.5em;
+    filter: invert(15%) sepia(42%) saturate(3731%) hue-rotate(247deg) brightness(114%) contrast(128%);
+}
+
+@media (max-width: 89em) {
+    section#tickets {
+        width: 95%;
+    }
 }
 
 .ticketpreview {
+    grid-column: 1 / span 2;
+    margin-top: 1em;
     background-color: var(--ticket-box-color);
     border-radius: 6px;
     padding: 1.2em;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.071);
+    text-decoration: none;
 }
 
 .ticketpreview h3 {
@@ -130,17 +164,8 @@ section#tickets {
     margin-bottom: .5em;
 }
 
-.ticketpreview p:nth-child(3)::before {
-    content: "Status: ";
+.ticketpreview time, .ticketpreview #status {
     font-weight: bold;
-}
-
-.ticketpreview p:nth-child(4)::before {
-    content: "Date: ";
-    font-weight: bold;
-}
-
-.ticketpreview p:nth-child(3), .ticketpreview p:nth-child(4) {
     font-size: .85rem;
     color: #2E1760
 }

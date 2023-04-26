@@ -1,19 +1,32 @@
 <?php 
-    function output_ticket_preview() { ?>
-        <div class="ticketpreview">
-            <h3>Ticket X</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus posuere volutpat diam et 
-            facilisis. Ut vel vulputate risus. Sed metus enim, viverra bibendum malesuada pellentesque, 
-            mollis eu nunc. </p>
-            <p>Open</p>
-            <p>March 23, 2023</p>
-        </div>
+    require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/ticket.class.php');
+
+    function output_ticket_preview(int $ticket_id) {
+        $db = getDatabaseConnection();
+        $ticket = Ticket::getTicket($db, $ticket_id); ?>
+        <a class="ticketpreview" href="../pages/ticket.php?id=<?=$ticket->ticketId?>">
+            <h3><?=$ticket->title?></h3>
+            <p><?php 
+            if (strlen($ticket->body) > 200)
+                $body = substr($ticket->body, 0, 200) . '...';
+            else $body = $ticket->body;
+            echo $body;?></p>
+            <div id="status">Status: <?=$ticket->status?></div>
+            <time datetime="<?=$ticket->date->format('Y-m-d')?>">Date: <?=$ticket->date->format('Y-m-d')?></time>
+        </a>
     <?php }
 
-    function output_main_content(){ ?>
+    function output_main_content(){ 
+        $db = getDatabaseConnection();
+        ?>
         <section id="tickets">
-            <?php for ($i = 1; $i <= 9; $i++) {
-                output_ticket_preview();
+            <input id="searchticket" type="text" placeholder="SEARCH">
+            <a href="new_ticket.php"><img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="create a new ticket"></a>
+            <?php 
+            $tickets = Ticket::getAllTickets($db);
+            foreach ($tickets as $ticket) {
+                output_ticket_preview($ticket['ticketId']);
             } ?>
         </section>
     <?php }
