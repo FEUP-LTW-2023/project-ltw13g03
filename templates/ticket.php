@@ -35,10 +35,10 @@
     function new_ticket_form(){ ?>
         <section class="create_ticket">
             <h2>Create a New Ticket</h2>
-            <form>
+            <form method="post" action="../actions/action_create_ticket.php">
                 <label id="department">
                     Department (optional)
-                    <select>
+                    <select name="department">
                         <option value="unspecified" selected> - </option>
                         <?php 
                         $departments = getDepartments();
@@ -53,7 +53,7 @@
                 </label>
                 <label id="ticket_priority">
                     Priority
-                    <input id="low_priority" type="range" value="0" min="0" max="2" step="1" list="ticket_priority_list">
+                    <input id="low_priority" name="ticket_priority" type="range" value="0" min="0" max="2" step="1" list="ticket_priority_list">
                     <datalist id="ticket_priority_list">
                         <option value="0" label="Low"></option>
                         <option value="1" label="Medium"></option>
