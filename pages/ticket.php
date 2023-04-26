@@ -7,38 +7,41 @@
 
     require_once(__DIR__ . '/../templates/common.php');
     require_once(__DIR__ . '/../templates/comments.php');
-    require_once(__DIR__ . '/../database/tickets.php');
+    require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/ticket.class.php');
 
     output_header(true);
 
-    $ticket = getTicket($_GET['id']);
+    $db = getDatabaseConnection();
+    $ticket = Ticket::getTicket($db, $_GET['id']);
 ?>
 
 <section id="ticket">
-    <h2><?=$ticket['title']?></h2>
+    <h2><?=$ticket->title?></h2>
     <aside>
         <div id="author">
-            <?=$ticket['client']?>
+            <?=$ticket->client?>
         </div>
-        <time datetime="<?=$ticket['date']?>">Date: <?=$ticket['date']?></time>
+        <time datetime="<?=$ticket->date->format('Y-m-d')?>">Date: <?=$ticket->date->format('Y-m-d')?></time>
         <div id="department">
             Department:
         </div>
         <div id="agent">
 
         </div>
-        <div id="status">Status: <?=$ticket['status']?></div>
+        <div id="status">Status: <?=$ticket->status?></div>
         <div id="tags">
-            <span class="tag">Lorem</span>
-            <span class="tag">Ipsum</span>
+            <?php foreach ($ticket->hashtags as $hashtag) { ?>
+                <span class="tag"><?=$hashtag?></span>
+            <?php } ?>
         </div>
     </aside>
     <article id="ticket_description">
         <p>
-            <?=$ticket['body']?>
+            <?=$ticket->body?>
         </p>
     </article>
-    <?php output_comments($ticket['ticketId']); ?>
+    <?php output_comments($ticket->ticketId); ?>
 </section>
 
 

@@ -87,6 +87,6 @@ INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gago');
 
 INSERT INTO Department (departmentId, name) VALUES (1, 'Accounting');
 
-INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '#gandafixe', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
+INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '{"0":"gandafixe", "1":"bimbas"}', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
 
 INSERT INTO Comment (id, ticketID, username, date, text) VALUES (1, 1, 'Gaspar', '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');

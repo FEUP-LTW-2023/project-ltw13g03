@@ -1,25 +1,30 @@
 <?php 
-    require_once(__DIR__ . '/../database/tickets.php');
+    require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/ticket.class.php');
 
-    function output_ticket_preview($ticket_id) {
-        $ticket = getTicket($ticket_id); ?>
-        <a class="ticketpreview" href="../pages/ticket.php?id=<?=$ticket['ticketId']?>">
-            <h3><?=$ticket['title']?></h3>
+    function output_ticket_preview(int $ticket_id) {
+        $db = getDatabaseConnection();
+        $ticket = Ticket::getTicket($db, $ticket_id); ?>
+        <a class="ticketpreview" href="../pages/ticket.php?id=<?=$ticket->ticketId?>">
+            <h3><?=$ticket->title?></h3>
             <p><?php 
-            if (strlen($ticket['body']) > 200)
-                $body = substr($ticket['body'], 0, 200) . '...';
-            else $body = $ticket['body'];
+            if (strlen($ticket->body) > 200)
+                $body = substr($ticket->body, 0, 200) . '...';
+            else $body = $ticket->body;
             echo $body;?></p>
-            <div id="status">Status: <?=$ticket['status']?></div>
-            <time datetime="<?=$ticket['date']?>">Date: <?=$ticket['date']?></time>
+            <div id="status">Status: <?=$ticket->status?></div>
+            <time datetime="<?=$ticket->date->format('Y-m-d')?>">Date: <?=$ticket->date->format('Y-m-d')?></time>
         </a>
     <?php }
 
-    function output_main_content(){ ?>
+    function output_main_content(){ 
+        $db = getDatabaseConnection();
+        ?>
         <section id="tickets">
             <input id="searchticket" type="text" placeholder="SEARCH">
+            <a href="new_ticket.php"><img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="create a new ticket"></a>
             <?php 
-            $tickets = getTickets();
+            $tickets = Ticket::getAllTickets($db);
             foreach ($tickets as $ticket) {
                 output_ticket_preview($ticket['ticketId']);
             } ?>

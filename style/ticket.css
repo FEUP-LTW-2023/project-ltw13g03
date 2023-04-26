@@ -63,6 +63,11 @@
     margin: .2em;
     border-radius: 5px;
 }
+
+#ticket .tag::before {
+    content: '#';
+}
+
 #ticket .comment img {
     width: 2em;
     height: 2em;
