@@ -44,12 +44,6 @@ header a {
     color: white;
 }
 
-header a#profpic {
-    text-decoration: none;
-    margin-left: 2em;
-    color: white;
-}
-
 header h1 {
     font-family: Oswald, sans-serif;
     font-size: 3rem;
@@ -63,22 +57,44 @@ header h2 {
     margin-left: 1em;
 }
 
-header img {
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-dropdown img {
     width: 4em;
     height: 4em;
     border-radius: 50%;
     margin-right: 1em;
-}
-
-header a#logout {
     margin-left: 2em;
 }
 
-header #logout img {
-    border-radius: 0;
-    width: 2em;
-    height: 2em;
-    filter: invert(15%) sepia(69%) saturate(3791%) hue-rotate(348deg) brightness(103%) contrast(112%);
+.profile-dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 3.5em;
+    right: 0;
+    min-width: 8em;
+    box-shadow: 0 0.5em 1em 0 rgba(0,0,0,0.2);
+    background-color: var(--box-color);
+    padding: 0.5em 1em;
+    border-radius: 1em;
+}
+
+.profile-dropdown-content a {
+    display: block;
+    color: var(--text-color);
+    font-size: .9rem;
+    padding: 1em;
+    border-radius: 1em;
+    text-decoration: none;
+}
+
+.profile-dropdown-content a:hover {
+    background-color: var(--ticket-box-color);
+    color: var(--text-color-2);
 }
 
 /* Tickets */
@@ -88,6 +104,7 @@ section#tickets {
     grid-column: 1 / span 2;
     display: grid;
     grid-template-columns: auto min-content;
+    grid-template-rows: min-content auto;
     width: 85em;
 }
 
