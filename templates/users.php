@@ -51,7 +51,7 @@
                         <?php
                         $departmentsUser = $user->departments;
                         foreach ($departmentsUser as $departmentUser) { ?>
-                            <li ><?=$departmentUser['name']?></li>
+                            <li><?=$departmentUser['name']?></li>
                         <?php } ?>
                     </ul>
 

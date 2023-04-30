@@ -68,13 +68,11 @@
 
             $stmt->execute(array($isAdmin ? 1 : 0, $username));
             
-            
             $stmt = $db->prepare('
                 UPDATE Agent SET isAgent = ?
                 WHERE username = ?
             ');
-            $stmt->execute(array(($isAdmin || (!$isAdmin && $isAgent)) ? 1 : 0, $username));
-            
+            $stmt->execute(array(($isAdmin || (!$isAdmin && $isAgent)) ? 1 : 0, $username));      
         }
 
         static function updateUserDepartments(PDO $db, string $username, string $department, bool $add) {
@@ -92,7 +90,11 @@
                 
                 if (!($isAgent && !$isAgent['isAgent'])) {
                     return;
-                } 
+                }
+                $stmt2 = $db->prepare('SELECT * FROM AgentDepartment WHERE username = ? and departmentID = ?');
+                $stmt2->execute(array($username, $departmentId));
+                $exists = $stmt2->fetch();
+                if ($exists !== false) return;
 
                 $stmt = $db->prepare('INSERT INTO AgentDepartment (username, departmentID) VALUES (?, ?)');
                 $stmt->execute(array($username, $departmentId));

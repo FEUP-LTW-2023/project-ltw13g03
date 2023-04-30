@@ -1,6 +1,30 @@
 const selects = document.querySelectorAll('section#form-manage-users td:nth-child(2) > select');
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
-let liDepartment = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > ul > li');
+
+document.body.addEventListener('click', async function (event) {
+  if (event.target.tagName === 'LI') {
+    const id = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')
+    const selectedOption = event.target.innerHTML
+    
+    const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');
+    
+    const response = await fetch('../api/remove_department.php?username=' + id + '&department=' + selectedOption)
+    const client = await response.json()
+
+    if (client !== null) {
+      while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+      }
+
+      const departments = client['departments']
+      departments.forEach((element) => {
+        const newLi = document.createElement('li');
+        newLi.textContent = element.name;
+        ul.appendChild(newLi);
+      });
+    }
+  }
+});
 
 selects.forEach(select => {
   select.addEventListener('change', async (event) => {
@@ -28,34 +52,25 @@ selectsDepartments.forEach(select => {
   select.addEventListener('change', async (event) => {
     const id = event.target.parentElement.parentElement.parentElement.getAttribute('data-id')
     const selectedOption = event.target.value
-    //const sel = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > select')
     select.value = "unspecified"
         
     const response = await fetch('../api/add_department.php?username=' + id + '&department=' + selectedOption)
-
-  });
-});
-
-liDepartment.forEach(select => {
-  select.addEventListener('click', async (event) => {
-    const id = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')
-    const selectedOption = event.target.innerHTML
-    
-    const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');
-    
-    const response = await fetch('../api/remove_department.php?username=' + id + '&department=' + selectedOption)
     const client = await response.json()
 
+    if (client !== null) {
+      const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');
 
-    while (ul.firstChild) {
-      ul.removeChild(ul.firstChild);
+      while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+      }
+
+      const departments = client['departments']
+      departments.forEach((element) => {
+        const newLi = document.createElement('li');
+        newLi.textContent = element.name;
+        ul.appendChild(newLi);
+      });
     }
-
-    const departments = client['departments']
-    departments.forEach((element) => {
-      const newLi = document.createElement('li');
-      newLi.textContent = element.name;
-      ul.appendChild(newLi);
-    });
   });
 });
+
