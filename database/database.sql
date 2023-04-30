@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS Comment;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Modification;
 DROP TABLE IF EXISTS Hashtag;
+DROP TABLE IF EXISTS AgentDepartment;
 
 CREATE TABLE Client (
     username NVAR(25) PRIMARY KEY,
@@ -16,10 +17,15 @@ CREATE TABLE Client (
 
 CREATE TABLE Agent (
     isAgent BOOLEAN NOT NULL,
-    username NVAR(25) PRIMARY KEY,
+    username NVAR(25) PRIMARY KEY
+);
+
+CREATE TABLE AgentDepartment (
+    username NVAR(25),
     departmentId INTEGER,
-    FOREIGN KEY (username) REFERENCES Client(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (departmentID) REFERENCES Department(departmentID) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (username) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (departmentID) REFERENCES Department(departmentID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    UNIQUE (username, departmentId)
 );
 
 CREATE TABLE Admin (
@@ -80,9 +86,9 @@ INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Ga
 INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '02aea1da66459976cc45823b47bc219a9799f166'); --daniel_faro123
 
 
-INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'RAM', 1);
-INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'Gaspar', 1);
-INSERT INTO Agent (isAgent, username, departmentId) VALUES (true, 'Gago', 1);
+INSERT INTO Agent (isAgent, username) VALUES (true, 'RAM');
+INSERT INTO Agent (isAgent, username) VALUES (true, 'Gaspar');
+INSERT INTO Agent (isAgent, username) VALUES (true, 'Gago');
 
 
 INSERT INTO Admin (isAdmin, username) VALUES (true, 'RAM');
@@ -94,6 +100,11 @@ INSERT INTO Department (departmentId, name) VALUES (1, 'Human Resources');
 INSERT INTO Department (departmentId, name) VALUES (2, 'Information Technology');
 INSERT INTO Department (departmentId, name) VALUES (3, 'Sales');
 INSERT INTO Department (departmentId, name) VALUES (4, 'Finance');
+
+
+INSERT INTO AgentDepartment (username, departmentID) VALUES ('RAM', 1);
+INSERT INTO AgentDepartment (username, departmentID) VALUES ('RAM', 2);
+INSERT INTO AgentDepartment (username, departmentID) VALUES ('Gago', 3);
 
 INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '{"0":"gandafixe", "1":"bimbas"}', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
 
