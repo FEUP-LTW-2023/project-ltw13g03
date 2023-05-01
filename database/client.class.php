@@ -86,9 +86,9 @@
             if ($add) {
                 $stmt = $db->prepare('SELECT isAgent FROM Agent WHERE username = ?');
                 $stmt->execute(array($username));
-                $isAgent = (bool) $stmt->fetch();
+                $isAgent = $stmt->fetch()['isAgent'];
                 
-                if (!($isAgent && !$isAgent['isAgent'])) {
+                if (!isAgent) {
                     return;
                 }
                 $stmt2 = $db->prepare('SELECT * FROM AgentDepartment WHERE username = ? and departmentID = ?');
