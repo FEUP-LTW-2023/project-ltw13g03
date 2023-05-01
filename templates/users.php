@@ -1,6 +1,7 @@
 <?php
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/client.class.php');
+    require_once(__DIR__ . '/../database/misc.php');
 
     function output_users() { ?>
     
@@ -45,14 +46,24 @@
                 </select>
             </td>
             <td>
-                <select>
-                    <option value="hr">Human Resources</option>
-                    <option value="it">Information Technology</option>
-                    <option value="sales">Sales</option>
-                    <option value="finance">Finance</option>
-                    <option value="none" selected>None</option>
-                    <option value="other">Other</option>
-                </select>
+                <div class="departments">
+                    <ul>
+                        <?php
+                        $departmentsUser = $user->departments;
+                        foreach ($departmentsUser as $departmentUser) { ?>
+                            <li><?=$departmentUser['name']?></li>
+                        <?php } ?>
+                    </ul>
+
+                    <select>
+                        <option value="unspecified" selected>+</option>
+                        <?php 
+                        $departments = getDepartments();
+                        foreach ($departments as $department) { ?>
+                            <option><?=$department['name']?></option>
+                        <?php } ?>
+                    </select>
+                </div>
             </td>
         </tr>
     <?php }
