@@ -104,5 +104,37 @@
                 $client
             ));
         }
+
+        static function removeHashtag(PDO $db, int $ticketId, string $hashtag) {
+            $stmt = $db->prepare('SELECT hashtags FROM Ticket WHERE ticketId=?');
+            $stmt->execute(array($ticketId));
+            
+            $hashtags = json_decode($stmt->fetch()['hashtags'], true);
+
+            array_splice($hashtags, array_search($hashtag, $hashtags), 1);
+
+            $hashtags = json_encode($hashtags);
+
+            $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
+            $stmt->execute(array($hashtags, $ticketId));
+
+            return $hashtags;
+        }
+
+        static function addHashtag(PDO $db, int $ticketId, string $hashtag) {
+            $stmt = $db->prepare('SELECT hashtags FROM Ticket WHERE ticketId=?');
+            $stmt->execute(array($ticketId));
+            
+            $hashtags = json_decode($stmt->fetch()['hashtags'], true);
+
+            array_push($hashtags, array($hashtag));
+
+            $hashtags = json_encode($hashtags);
+
+            $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
+            $stmt->execute(array($hashtags, $ticketId));
+
+            return $hashtags;
+        }
     }
 ?>

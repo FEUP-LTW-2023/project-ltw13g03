@@ -17,7 +17,7 @@
     $ticket = Ticket::getTicket($db, $_GET['id']);
 ?>
 
-<section id="ticket">
+<section id="ticket" data-id="<?=$_GET['id']?>">
     <h2><?=$ticket->title?></h2>
     <aside>
         <div id="author">
