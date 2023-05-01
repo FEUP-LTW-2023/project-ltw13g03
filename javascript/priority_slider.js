@@ -1,7 +1,4 @@
-function updateSlider(e) {
-    const slider = e.currentTarget
-    console.log(slider)
-
+function updateSliderId(slider){
     switch (slider.value) {
         case "0":
             slider.id = 'low_priority'
@@ -13,7 +10,17 @@ function updateSlider(e) {
             slider.id = 'high_priority'
             break;
     }
-
 }
 
-document.querySelector('section.create_ticket form #ticket_priority input').addEventListener('input', updateSlider)
+function updateSlider(e) {
+    const slider = e.currentTarget
+
+    updateSliderId(slider)
+}
+
+const slider = document.querySelector('section.create_ticket form #ticket_priority input')
+
+if (slider) {
+    updateSliderId(slider)
+    slider.addEventListener('input', updateSlider)
+}
