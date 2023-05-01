@@ -1,7 +1,7 @@
 const selects = document.querySelectorAll('section#form-manage-users td:nth-child(2) > select');
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
 
-if (selects && selectsDepartments){
+if (selects.length !== 0 && selectsDepartments.length !== 0){
 
   document.body.addEventListener('click', async function (event) {
     if (event.target.tagName === 'LI') {
