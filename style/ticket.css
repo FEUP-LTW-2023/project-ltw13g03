@@ -57,6 +57,45 @@
     font-weight: bold;
 }
 
+#ticket select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--box-color);
+    cursor: pointer;
+    color: var(--text-color-2);
+    font-weight: bold;
+    border-radius: 6px;
+    width: 12em;
+    text-align: center;
+    border: none;
+    padding: .7em;
+}
+
+#ticket div#tags {
+    display: flex;
+    align-items: center;
+}
+
+#ticket div#tags select {
+    width: 2em;
+    height: 2em;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+}
+
+#ticket div#tags ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+#ticket div#tags ul > li {
+    cursor: pointer;
+}
+
 #ticket .tag {
     background-color: var(--box-color);
     padding: .2em .5em;

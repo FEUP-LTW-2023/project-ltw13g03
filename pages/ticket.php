@@ -9,6 +9,7 @@
     require_once(__DIR__ . '/../templates/comments.php');
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/ticket.class.php');
+    require_once(__DIR__ . '/../database/misc.php');
 
     output_header(true);
 
@@ -16,7 +17,7 @@
     $ticket = Ticket::getTicket($db, $_GET['id']);
 ?>
 
-<section id="ticket">
+<section id="ticket" data-id="<?=$_GET['id']?>">
     <h2><?=$ticket->title?></h2>
     <aside>
         <div id="author">
@@ -31,9 +32,20 @@
         </div>
         <div id="status">Status: <?=$ticket->status?></div>
         <div id="tags">
-            <?php foreach ($ticket->hashtags as $hashtag) { ?>
-                <span class="tag"><?=$hashtag?></span>
-            <?php } ?>
+            <ul>
+                <?php foreach ($ticket->hashtags as $hashtag) { ?>
+                    <li class="tag"><?=$hashtag?></li>
+                <?php } ?>
+            </ul>
+
+            <select>
+                <option value="unspecified" selected>+</option>
+                <?php 
+                    $tags = getHashtags();
+                    foreach ($tags as $tag) { ?>
+                        <option><?=$tag['name']?></option>
+                <?php } ?>
+            </select>
         </div>
     </aside>
     <article id="ticket_description">

@@ -1,15 +1,15 @@
 const selects = document.querySelectorAll('section#form-manage-users td:nth-child(2) > select');
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
 
-if (selects.length !== 0 && selectsDepartments.length !== 0){
+if (selects.length !== 0 && selectsDepartments.length !== 0) {
 
   document.body.addEventListener('click', async function (event) {
     if (event.target.tagName === 'LI') {
       const id = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')
       const selectedOption = event.target.innerHTML
-
+      
       const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');
-
+      
       const response = await fetch('../api/remove_department.php?username=' + id + '&department=' + selectedOption)
       const client = await response.json()
 
@@ -38,8 +38,8 @@ if (selects.length !== 0 && selectsDepartments.length !== 0){
 
       const client = await response.json()
       if (client !== null) {
-         const select = document.querySelector('section#form-manage-users tr[data-id="' + client['username'] + '"] > td:nth-child(2) > select')
-         if (client['isAdmin']) {
+        const select = document.querySelector('section#form-manage-users tr[data-id="' + client['username'] + '"] > td:nth-child(2) > select')
+        if (client['isAdmin']) {
           select.value = 'admin'
         } else if (client['isAgent']) {
           select.value = 'agent'
@@ -55,7 +55,7 @@ if (selects.length !== 0 && selectsDepartments.length !== 0){
       const id = event.target.parentElement.parentElement.parentElement.getAttribute('data-id')
       const selectedOption = event.target.value
       select.value = "unspecified"
-
+          
       const response = await fetch('../api/add_department.php?username=' + id + '&department=' + selectedOption)
       const client = await response.json()
 
