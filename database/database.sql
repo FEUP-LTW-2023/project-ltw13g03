@@ -101,11 +101,32 @@ INSERT INTO Department (departmentId, name) VALUES (2, 'Information Technology')
 INSERT INTO Department (departmentId, name) VALUES (3, 'Sales');
 INSERT INTO Department (departmentId, name) VALUES (4, 'Finance');
 
+INSERT INTO Hashtag (name) VALUES ('login issues');
+INSERT INTO Hashtag (name) VALUES('payment problems');
+INSERT INTO Hashtag (name) VALUES('bug report');
+INSERT INTO Hashtag (name) VALUES('feature request');
+INSERT INTO Hashtag (name) VALUES('account help');
+INSERT INTO Hashtag (name) VALUES('billing inquiry');
+INSERT INTO Hashtag (name) VALUES('technical support');
+INSERT INTO Hashtag (name) VALUES('installation issues');
+INSERT INTO Hashtag (name) VALUES('performance problems');
+INSERT INTO Hashtag (name) VALUES('product feedback');
+INSERT INTO Hashtag (name) VALUES('general inquiry');
+INSERT INTO Hashtag (name) VALUES('cancellation request');
+INSERT INTO Hashtag (name) VALUES('upgrades and downgrades');
+INSERT INTO Hashtag (name) VALUES('website navigation issues');
+INSERT INTO Hashtag (name) VALUES('mobile app issues');
+INSERT INTO Hashtag (name) VALUES('product usage questions');
+INSERT INTO Hashtag (name) VALUES('account security');
+INSERT INTO Hashtag (name) VALUES('data privacy concerns');
+INSERT INTO Hashtag (name) VALUES('server downtime');
+INSERT INTO Hashtag (name) VALUES('product integration issues');
+INSERT INTO Hashtag (name) VALUES('user interface feedback');
 
 INSERT INTO AgentDepartment (username, departmentID) VALUES ('RAM', 1);
 INSERT INTO AgentDepartment (username, departmentID) VALUES ('RAM', 2);
 INSERT INTO AgentDepartment (username, departmentID) VALUES ('Gago', 3);
 
-INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '{"0":"gandafixe", "1":"bimbas"}', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
+INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '{"0":"login issues", "1":"bug report"}', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
 
 INSERT INTO Comment (id, ticketID, username, date, text) VALUES (1, 1, 'Gaspar', '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');

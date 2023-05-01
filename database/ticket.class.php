@@ -127,7 +127,7 @@
             
             $hashtags = json_decode($stmt->fetch()['hashtags'], true);
 
-            array_push($hashtags, array($hashtag));
+            array_push($hashtags, $hashtag);
 
             $hashtags = json_encode($hashtags);
 
