@@ -1,7 +1,6 @@
 async function addTag(event){
     const ticketId = event.target.parentElement.parentElement.parentElement.getAttribute('data-id')
     const selectedOption = event.target.parentElement.querySelector('input')
-    const options = event.target.parentElement.querySelectorAll('datalist option')
         
     const response = await fetch('../api/add_hashtag.php?ticketId=' + ticketId + '&hashtag=' + selectedOption.value)
     const hashtags = await response.json()

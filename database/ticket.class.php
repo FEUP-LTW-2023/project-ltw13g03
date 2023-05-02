@@ -122,10 +122,24 @@
         }
 
         static function addHashtag(PDO $db, int $ticketId, string $hashtag) {
+            $stmt = $db->prepare('SELECT name FROM Hashtag');
+            $stmt->execute();
+            $global_hashtags = $stmt->fetchAll();
+
             $stmt = $db->prepare('SELECT hashtags FROM Ticket WHERE ticketId=?');
             $stmt->execute(array($ticketId));
             
-            $hashtags = json_decode($stmt->fetch()['hashtags'], true);
+            $hashtags = $stmt->fetch()['hashtags'];
+
+            $found = false;
+            foreach ($global_hashtags as $global_hashtag){
+                if ($global_hashtag['name'] === $hashtag)
+                    $found = true;
+            }
+            if (!$found)
+                return $hashtags;
+
+            $hashtags = json_decode($hashtags, true);
 
             array_push($hashtags, $hashtag);
 
