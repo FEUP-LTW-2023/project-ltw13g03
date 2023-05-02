@@ -2,7 +2,7 @@
     --box-color: #DEE2FF;
     --text-color: #DEE2FF;
     --ticket-box-color: #f2e4fd;
-    --text-color-2: #DEE2FF;
+    --text-color-2: #2E1760;
     --header-root-color: #4111a8;
 }
 
@@ -83,7 +83,7 @@ section.create_ticket form #ticket_priority #high_priority::-webkit-slider-thumb
 }
 /********/
 
-/*Firefox + Microsoft*/
+/*Firefox*/
 section.create_ticket form #ticket_priority #low_priority::-moz-range-progress, 
     section.create_ticket form #ticket_priority #low_priority::-moz-range-thumb {
     background-color: green;
@@ -103,6 +103,64 @@ section.create_ticket form #ticket_priority #high_priority::-moz-range-progress,
 }
 /*********/
 
+.create_ticket div#tags {
+    display: grid;
+    grid-template-rows: auto min-content;
+    grid-template-columns: min-content min-content 100%;
+}
+
+.create_ticket div#tags input {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: inline-block;
+    background-color: var(--box-color);
+    height: 2.5em;
+    padding: .2em .5em;
+    margin: .2em;
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+    min-width: 0;
+}
+
+.create_ticket div#tags img {
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    cursor: pointer;
+    width: 1.5em;
+    margin-left: 0.5em;
+    align-self: center;
+    filter: invert(15%) sepia(42%) saturate(3731%) hue-rotate(247deg) brightness(114%) contrast(128%);
+}
+
+.create_ticket div#tags ul {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 3;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+.create_ticket div#tags ul > li {
+    cursor: pointer;
+}
+
+.create_ticket .tag {
+    background-color: var(--box-color);
+    color: var(--text-color-2);
+    padding: .2em .5em;
+    margin: .2em;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.create_ticket .tag::before {
+    content: '#';
+}
+
 section.create_ticket form label textarea {
     resize: vertical;
 }
@@ -120,12 +178,17 @@ section.create_ticket form #ticket_priority {
     width: 15em;
 }
 
-section.create_ticket form #ticket_description {
+section.create_ticket form #tags {
     grid-area: 4 / 1;
+    width: 15em;
+}
+
+section.create_ticket form #ticket_description {
+    grid-area: 5 / 1;
 }
 
 section.create_ticket form button {
-    grid-area: 5 / 1 / span 1 / span 1;
+    grid-area: 6 / 1 / span 1 / span 1;
     width: 10em;
     justify-self: center;
     color: white;

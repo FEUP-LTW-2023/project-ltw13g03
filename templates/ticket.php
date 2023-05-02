@@ -38,7 +38,7 @@
             <form method="post" action="../actions/action_create_ticket.php">
                 <label id="department">
                     Department (optional)
-                    <select name="department">
+                    <select name="department" autocomplete="off">
                         <option value="unspecified" selected> - </option>
                         <?php 
                         $departments = getDepartments();
@@ -49,20 +49,34 @@
                 </label>
                 <label id="ticket_title">
                     Title
-                    <input type="text" name="ticket_title">
+                    <input type="text" name="ticket_title" autocomplete="off">
                 </label>
                 <label id="ticket_priority">
                     Priority
-                    <input id="low_priority" name="ticket_priority" type="range" value="0" min="0" max="2" step="1" list="ticket_priority_list">
+                    <input id="low_priority" name="ticket_priority" type="range" value="0" min="0" max="2" step="1" list="ticket_priority_list" autocomplete="off">
                     <datalist id="ticket_priority_list">
                         <option value="0" label="Low"></option>
                         <option value="1" label="Medium"></option>
                         <option value="2" label="High"></option>
                     </datalist>
                 </label>
+                <div id="tags">
+                    <ul></ul>
+
+                    <input list="hashtags" placeholder="Add more tags">
+                    <input type="hidden" value="" name="tags">
+                    <datalist id="hashtags">
+                        <?php 
+                            $tags = getHashtags();
+                            foreach ($tags as $tag) { ?>
+                                <option><?=$tag['name']?></option>
+                        <?php } ?>
+                    </datalist>
+                    <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                </div>
                 <label id="ticket_description">
                     Description
-                    <textarea name="ticket_description" id="" cols="30" rows="10" placeholder="Write a description of your ticket here..."></textarea>
+                    <textarea name="ticket_description" id="" cols="30" rows="10" placeholder="Write a description of your ticket here..." autocomplete="off"></textarea>
                 </label>
                 <button>Submit</button>
             </form>

@@ -88,7 +88,7 @@
     border-radius: 5px;
     border-style: none;
     outline: none;
-    width: 100%;
+    min-width: 0;
 }
 
 #ticket div#tags img {
