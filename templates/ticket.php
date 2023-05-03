@@ -2,6 +2,7 @@
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/ticket.class.php');
     require_once(__DIR__ . '/../database/misc.php');
+    require_once(__DIR__ . '/../database/department.php');
 
     function output_ticket_preview(int $ticket_id) {
         $db = getDatabaseConnection();

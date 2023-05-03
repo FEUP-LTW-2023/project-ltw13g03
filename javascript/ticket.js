@@ -67,4 +67,53 @@ function ticket_tags() {
   }
 }
 
-ticket_tags()
+function ticket_department() {
+  const selectDepartment = document.querySelector('#ticket #department > select')
+
+  if (selectDepartment) {
+    selectDepartment.addEventListener('change', async function (event) {
+      const ticketId = event.target.parentElement.parentElement.parentElement.getAttribute('data-id')
+
+      await fetch('../api/update_ticket_department.php?ticketId=' + ticketId + '&department=' + selectDepartment.value)
+
+      //when department changes, need to change the available agents
+      const assignAgent = document.querySelector('#ticket #agent > select')
+      assignAgent.innerHTML = ''
+
+      const hintText = document.createElement('option')
+      hintText.textContent = 'assign an agent'
+      hintText.disabled = true
+      hintText.selected = true
+      
+      assignAgent.appendChild(hintText)
+
+      const response = await fetch('../api/get_department_agents.php?department=' + selectDepartment.value);
+      const department_agents = await response.json()
+
+      department_agents.forEach((element) => {
+        const agent = document.createElement('option')
+        agent.textContent = element['username']
+        assignAgent.appendChild(agent)
+      })
+    })
+  }
+}
+
+function ticket_agent(){
+  const selectAgent = document.querySelector('#ticket #agent > select')
+  if (selectAgent) {
+    selectAgent.addEventListener('change', async function(event) {
+      const ticketId = event.target.parentElement.parentElement.parentElement.getAttribute('data-id')
+
+      await fetch('../api/update_ticket_agent.php?ticketId=' + ticketId + '&agent=' + selectAgent.value)
+    })
+  }
+}
+
+function ticket() {
+  ticket_tags()
+  ticket_department()
+  ticket_agent()
+}
+
+ticket()

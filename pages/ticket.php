@@ -10,6 +10,7 @@
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/ticket.class.php');
     require_once(__DIR__ . '/../database/misc.php');
+    require_once(__DIR__ . '/../database/department.php');
 
     output_header(true);
 
@@ -23,14 +24,36 @@
         <div id="author">
             <?=$ticket->client?>
         </div>
-        <time datetime="<?=$ticket->date->format('Y-m-d')?>">Date: <?=$ticket->date->format('Y-m-d')?></time>
+        <time datetime="<?=$ticket->date->format('Y-m-d')?>"><?=$ticket->date->format('Y-m-d')?></time>
         <div id="department">
-            Department: <?=$ticket->department?>
+            <select>
+                <?php $departments = getDepartments();
+                foreach ($departments as $department) {
+                    if ($department['name'] === $ticket->department) { ?>
+                        <option selected><?=$department['name']?></option>
+                    <?php } else {?> 
+                        <option><?=$department['name']?></option>
+                    <?php } ?>
+                <?php } ?>
+            </select>
         </div>
         <div id="agent">
-
+            <select>
+                <?php 
+                $db = getDatabaseConnection();
+                $selected_agent = Ticket::getAgent($db, $_GET['id']);
+                if (is_null($selected_agent['agent'])) { ?>
+                    <option disabled selected>assign an agent</option>
+                <?php } else { ?>
+                    <option selected><?=$selected_agent['agent']?></option>
+                <?php }
+                $department_agents = getDepartmentAgents($ticket->department);
+                foreach ($department_agents as $agent) { ?>
+                    <option><?=$agent['username']?></option>
+                <?php } ?>
+            </select>
         </div>
-        <div id="status">Status: <?=$ticket->status?></div>
+        <div id="status"><?=$ticket->status?></div>
         <div id="tags">
             <ul>
                 <?php foreach ($ticket->hashtags as $hashtag) { ?>

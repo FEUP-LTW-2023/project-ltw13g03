@@ -1,5 +1,4 @@
 <?php
-    require_once(__DIR__ . '/../database/misc.php');
     class Client {
         public string $username;
         public string $name;

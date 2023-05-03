@@ -1,7 +1,7 @@
 <?php
     declare(strict_types = 1);
 
-    require_once(__DIR__ . '/../database/misc.php');
+    require_once(__DIR__ . '/../database/department.php');
 
     class Ticket {
         public int $ticketId;
@@ -156,6 +156,25 @@
             $stmt->execute(array($hashtags, $ticketId));
 
             return $hashtags;
+        }
+
+        static function changeDepartment(PDO $db, int $ticketId, string $department) {
+            $departmentId = getDepartmentId($department);
+
+            $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
+            $stmt->execute(array($departmentId, $ticketId));
+        }
+
+        static function changeAgent(PDO $db, int $ticketId, string $agent) {
+            $stmt = $db->prepare('UPDATE Ticket SET agent=? WHERE ticketId=?');
+            $stmt->execute(array($agent, $ticketId));
+        }
+
+        static function getAgent(PDO $db, int $ticketId) {
+            $stmt = $db->prepare('SELECT agent FROM Ticket WHERE ticketId=?');
+            $stmt->execute(array($ticketId));
+
+            return $stmt->fetch();
         }
     }
 ?>

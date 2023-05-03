@@ -143,10 +143,9 @@ async function filter(){
 function search_tickets(){
     const searchBox = document.querySelector('#searchticket')
 
-    search_tags()
-    search_date()
-
     if (searchBox) {
+        search_tags()
+        search_date()
         searchBox.addEventListener('input', filter)
     }
 }
