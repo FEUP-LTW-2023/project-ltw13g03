@@ -1,10 +1,13 @@
 <?php
     declare(strict_types = 1);
 
+    require_once(__DIR__ . '/../database/misc.php');
+
     class Ticket {
         public int $ticketId;
         public string $title;
         public string $body;
+        public ?string $department;
         public array $hashtags;
         public int $priority;
         public string $status;
@@ -12,12 +15,13 @@
         public string $client;
         public ?string $agent;
 
-        public function __construct(int $ticketId, string $title, string $body, string $hashtags, int $priority,
+        public function __construct(int $ticketId, string $title, string $body, ?int $department, string $hashtags, int $priority,
                                         string $status, string $date, string $client, ?string $agent) {
 
             $this->ticketId = $ticketId;
             $this->title = $title;
             $this->body = $body;
+            $this->department = getDepartment($department);
             $this->hashtags = json_decode($hashtags, true);
             $this->priority = $priority;
             $this->status = $status;
@@ -44,6 +48,7 @@
                     $ticket['ticketId'],
                     $ticket['title'],
                     $ticket['body'],
+                    $ticket['department'],
                     $ticket['hashtags'],
                     $ticket['priority'],
                     $ticket['status'],
@@ -65,6 +70,7 @@
                     $ticket['ticketId'],
                     $ticket['title'],
                     $ticket['body'],
+                    $ticket['department'],
                     $ticket['hashtags'],
                     $ticket['priority'],
                     $ticket['status'],
@@ -91,12 +97,13 @@
             $stmt->execute(array($ticketId, $username, $date, $text));
         }
 
-        static function createTicket(PDO $db, $title, $body, $hashtags, $priority, $client) {
-            $stmt = $db->prepare('INSERT INTO Ticket (title, body, hashtags, priority, status, date, client) VALUES (?, ?, ?, ?, ?, ?, ?)');
+        static function createTicket(PDO $db, $title, $body, $department, $hashtags, $priority, $client) {
+            $stmt = $db->prepare('INSERT INTO Ticket (title, body, department, hashtags, priority, status, date, client) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 
             $stmt->execute(array(
                 $title,
                 $body,
+                getDepartmentId($department),
                 $hashtags,
                 $priority,
                 'Open',

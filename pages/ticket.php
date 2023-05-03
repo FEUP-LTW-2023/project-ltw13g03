@@ -25,7 +25,7 @@
         </div>
         <time datetime="<?=$ticket->date->format('Y-m-d')?>">Date: <?=$ticket->date->format('Y-m-d')?></time>
         <div id="department">
-            Department:
+            Department: <?=$ticket->department?>
         </div>
         <div id="agent">
 
