@@ -32,28 +32,40 @@ function search_tags() {
                     if (li.textContent == selectedOption)
                         ul.removeChild(li)
                 })
-                filter_tags()
+                filter()
             }
         });
 
         addTags.addEventListener('click', (event) => {
             addTagSearch(event)
-            filter_tags()
+            filter()
         })
 
         selectTags.addEventListener('keydown', (event) => {
             if (event.key === 'Enter'){
                 event.preventDefault()
                 addTagSearch(event)
-                filter_tags()
+                filter()
             }
         })
     }
 }
 
-async function filter_tags(){
+function search_date(){
+    const startDate = document.querySelector('#tickets #date_filter #start_date')
+    const endDate = document.querySelector('#tickets #date_filter #end_date')
+
+    startDate.addEventListener('change', filter)
+    endDate.addEventListener('change', filter)
+}
+
+async function filter(){
     const input = document.querySelector('#tickets #searchticket').value
     const selectedTags = Array.from(document.querySelector('#tickets #tags > ul').childNodes).map((tag) => tag.textContent)
+
+    let startDate = document.querySelector('#tickets #date_filter #start_date').value
+    let endDate = document.querySelector('#tickets #date_filter #end_date').value
+
     const response = await fetch('../api/search_tickets.php?search=' + input)
     const tickets = await response.json()
 
@@ -74,7 +86,14 @@ async function filter_tags(){
         })
 
         if (!tags_match) continue
-        
+
+        if (!startDate) startDate = '1970-01-01'
+        if (!endDate) endDate = new Date().toISOString().slice(0,10)
+
+        const ticketDate = ticket['date']['date'].slice(0,10)
+
+        if (ticketDate < startDate || ticketDate > endDate) continue
+
         const link = document.createElement('a')
         link.classList.add('ticketpreview')
         link.href = '../pages/ticket.php?id=' + ticket.ticketId
@@ -113,9 +132,10 @@ function search_tickets(){
     const searchBox = document.querySelector('#searchticket')
 
     search_tags()
+    search_date()
 
     if (searchBox) {
-        searchBox.addEventListener('input', filter_tags)
+        searchBox.addEventListener('input', filter)
     }
 }
 
