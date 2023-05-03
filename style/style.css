@@ -132,6 +132,64 @@ section#tickets a > img {
     filter: invert(15%) sepia(42%) saturate(3731%) hue-rotate(247deg) brightness(114%) contrast(128%);
 }
 
+#tickets div#tags {
+    display: grid;
+    grid-template-rows: auto min-content;
+    grid-template-columns: min-content min-content auto;
+}
+
+#tickets div#tags input {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: inline-block;
+    background-color: var(--box-color);
+    height: 2.5em;
+    padding: .2em .5em;
+    margin: .2em;
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+    min-width: 0;
+}
+
+#tickets div#tags img {
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    cursor: pointer;
+    width: 1.5em;
+    margin-left: 0.5em;
+    align-self: center;
+    filter: invert(15%) sepia(42%) saturate(3731%) hue-rotate(247deg) brightness(114%) contrast(128%);
+}
+
+#tickets div#tags ul {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 3;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+#tickets div#tags ul > li {
+    cursor: pointer;
+}
+
+#tickets .tag {
+    background-color: var(--box-color);
+    color: var(--text-color-2);
+    padding: .2em .5em;
+    margin: .2em;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#tickets .tag::before {
+    content: '#';
+}
+
 @media (max-width: 89em) {
     section#tickets {
         width: 95%;

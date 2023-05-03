@@ -24,6 +24,19 @@
         <section id="tickets">
             <input id="searchticket" type="text" placeholder="SEARCH">
             <a href="new_ticket.php"><img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="create a new ticket"></a>
+            <div id="tags">
+                <ul></ul>
+
+                <input list="hashtags" placeholder="Add more tags">
+                <datalist id="hashtags">
+                    <?php 
+                        $tags = getHashtags();
+                        foreach ($tags as $tag) { ?>
+                            <option><?=$tag['name']?></option>
+                    <?php } ?>
+                </datalist>
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+            </div>
             <?php 
             $tickets = Ticket::getAllTickets($db);
             foreach ($tickets as $ticket) {
