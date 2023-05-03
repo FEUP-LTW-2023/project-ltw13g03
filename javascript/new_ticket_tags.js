@@ -32,13 +32,22 @@ function new_ticket_tags() {
         document.body.addEventListener('click', async function (event) {
             if (event.target.tagName === 'LI') {
                 const selectedOption = event.target.innerHTML
+                const submitOptions = event.target.parentElement.parentElement.querySelector('input[name="tags"]')
 
                 const ul = document.querySelector('.create_ticket #tags > ul');
+                let currentTags = []
 
-                ul.childNodes.forEach((li) => {
-                    if (li.textContent == selectedOption)
-                        ul.removeChild(li)
-                })
+                for (let i = 0; i < ul.childNodes.length; ){
+                    if (ul.childNodes[i].textContent == selectedOption) {
+                        ul.removeChild(ul.childNodes[i])
+                    } else {
+                        currentTags.push(ul.childNodes[i].textContent)
+                        i++
+                    }
+                }
+                
+                if (currentTags.length == 0) submitOptions.value = ""
+                else submitOptions.value = JSON.stringify(currentTags)
             }
         });
 
