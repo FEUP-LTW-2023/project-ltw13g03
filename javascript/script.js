@@ -2,7 +2,15 @@ const selects = document.querySelectorAll('section#form-manage-users td:nth-chil
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
 
 if (selects.length !== 0 && selectsDepartments.length !== 0) {
-
+  document.body.addEventListener('change', async function (event) {
+    if (event.target.tagName === "SELECT" && event.target.value == "client") {
+      const id = event.target.parentElement.parentElement.getAttribute('data-id')
+      const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');
+      while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+      }
+    }
+  });
   document.body.addEventListener('click', async function (event) {
     if (event.target.tagName === 'LI') {
       const id = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')

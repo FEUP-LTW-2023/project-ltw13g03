@@ -72,7 +72,12 @@
                 UPDATE Agent SET isAgent = ?
                 WHERE username = ?
             ');
-            $stmt->execute(array(($isAdmin || (!$isAdmin && $isAgent)) ? 1 : 0, $username));      
+            $stmt->execute(array(($isAdmin || (!$isAdmin && $isAgent)) ? 1 : 0, $username));
+
+            if (!$isAdmin && !$isAgent) {
+                $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE username=?');
+                $stmt->execute(array($username));
+            }
         }
 
         static function updateUserDepartments(PDO $db, string $username, string $department, bool $add) {

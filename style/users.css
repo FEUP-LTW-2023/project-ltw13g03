@@ -108,6 +108,7 @@ table#manage-users {
 #manage-users td div.departments ul {
     list-style: none;
     display: flex;
+    padding: 0;
     flex-wrap: wrap;
 }
 
@@ -115,9 +116,15 @@ table#manage-users {
     background-color: rgba(0, 0, 255, 0.862);
     color: white;
     font-size: .65rem;
-    padding: .1em .3em;
+    padding: .3em .5em;
     border-radius: 4px;
     margin-right: .2em;
     margin-top: .2em;
     cursor: pointer;
+}
+
+@media (max-width: 35em) {
+    section#form-manage-users {
+        width: 90%;
+    }
 }
