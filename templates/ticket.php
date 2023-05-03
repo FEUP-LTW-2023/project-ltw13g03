@@ -13,6 +13,14 @@
                 $body = substr($ticket->body, 0, 200) . '...';
             else $body = $ticket->body;
             echo $body;?></p>
+            <div id="tags">
+                <ul>
+                    <?php $tags = $ticket->hashtags;
+                        foreach ($tags as $tag) { ?>
+                            <li class="tag"><?=$tag?></li>
+                    <?php } ?>
+                </ul>
+            </div>
             <div id="status">Status: <?=$ticket->status?></div>
             <time datetime="<?=$ticket->date->format('Y-m-d')?>">Date: <?=$ticket->date->format('Y-m-d')?></time>
         </a>

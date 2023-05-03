@@ -67,7 +67,6 @@ async function filter_tags(){
         const ticket_hashtags = ticket['hashtags']
         
         let tags_match = true
-        console.log(ticket_hashtags)
                 
         selectedTags.forEach((tag) => {
             if (!ticket_hashtags.includes(tag))
