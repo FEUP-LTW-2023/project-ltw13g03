@@ -105,12 +105,12 @@ section#tickets {
     grid-column: 1 / span 2;
     display: grid;
     grid-template-columns: auto min-content;
-    grid-template-rows: min-content auto;
     width: 85em;
 }
 
 section#tickets #searchticket {
     grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
     margin-top: 2em;
     padding: 0.5em;
     padding-left: 1em;
@@ -127,6 +127,7 @@ section#tickets #searchticket {
 
 section#tickets a > img {
     grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
     margin-top: 2.5em;
     margin-left: 0.5em;
     width: 2.5em;
@@ -134,6 +135,7 @@ section#tickets a > img {
 }
 
 div#tags {
+    grid-row: 2 / span 1;
     display: grid;
     grid-template-rows: auto min-content;
     grid-template-columns: min-content min-content auto;
@@ -189,6 +191,15 @@ div#tags ul > li {
 
 .tag::before {
     content: '#';
+}
+
+#date_filter {
+    grid-row: 3 / span 1;
+    padding: 1em 0;
+}
+
+#date_filter input {
+    background-color: var(--box-color);
 }
 
 @media (max-width: 89em) {

@@ -45,6 +45,14 @@
                 </datalist>
                 <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
             </div>
+            <div id="date_filter">
+                <label> Start: 
+                    <input type="date" min="1970-01-01" id="start_date">
+                </label>
+                <label> End: 
+                    <input type="date" min="1970-01-01" id="end_date">
+                </label>
+            </div>
             <?php 
             $tickets = Ticket::getAllTickets($db);
             foreach ($tickets as $ticket) {
