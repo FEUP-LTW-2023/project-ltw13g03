@@ -111,6 +111,17 @@ async function filter(){
         }
         else description.textContent = ticket.body
 
+        const div_tags = document.createElement('div')
+        div_tags.id = 'tags'
+        const list_tags = document.createElement('ul')
+        ticket_hashtags.forEach((tag) => {
+            const tag_item = document.createElement('li')
+            tag_item.classList.add('tag')
+            tag_item.textContent = tag
+            list_tags.appendChild(tag_item)
+        })
+        div_tags.appendChild(list_tags)
+
         const status = document.createElement('div')
         status.id = 'status'
         status.textContent = 'Status: ' + ticket.status
@@ -121,6 +132,7 @@ async function filter(){
 
         link.appendChild(title)
         link.appendChild(description)
+        link.appendChild(div_tags)
         link.appendChild(status)
         link.appendChild(date)
 
