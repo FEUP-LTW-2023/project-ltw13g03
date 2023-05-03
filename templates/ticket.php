@@ -85,7 +85,7 @@
                     <ul></ul>
 
                     <input list="hashtags" placeholder="Add more tags">
-                    <input type="hidden" value="" name="tags">
+                    <input type="hidden" value="[]" name="tags">
                     <datalist id="hashtags">
                         <?php 
                             $tags = getHashtags();

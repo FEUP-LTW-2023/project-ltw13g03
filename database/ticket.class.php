@@ -7,7 +7,7 @@
         public int $ticketId;
         public string $title;
         public string $body;
-        public string $department;
+        public ?string $department;
         public array $hashtags;
         public int $priority;
         public string $status;
@@ -15,7 +15,7 @@
         public string $client;
         public ?string $agent;
 
-        public function __construct(int $ticketId, string $title, string $body, int $department, string $hashtags, int $priority,
+        public function __construct(int $ticketId, string $title, string $body, ?int $department, string $hashtags, int $priority,
                                         string $status, string $date, string $client, ?string $agent) {
 
             $this->ticketId = $ticketId;

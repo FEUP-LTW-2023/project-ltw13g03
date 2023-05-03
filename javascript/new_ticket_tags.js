@@ -46,7 +46,7 @@ function new_ticket_tags() {
                     }
                 }
                 
-                if (currentTags.length == 0) submitOptions.value = ""
+                if (currentTags.length == 0) submitOptions.value = "[]"
                 else submitOptions.value = JSON.stringify(currentTags)
             }
         });
