@@ -12,13 +12,13 @@
         public string $client;
         public ?string $agent;
 
-        public function __construct(int $ticketId, string $title, string $body, string $hashtag, int $priority,
+        public function __construct(int $ticketId, string $title, string $body, string $hashtags, int $priority,
                                         string $status, string $date, string $client, ?string $agent) {
 
             $this->ticketId = $ticketId;
             $this->title = $title;
             $this->body = $body;
-            $this->hashtags = json_decode($hashtag, true);
+            $this->hashtags = json_decode($hashtags, true);
             $this->priority = $priority;
             $this->status = $status;
             $this->date = new DateTime($date);
