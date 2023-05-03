@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS Hashtag;
 DROP TABLE IF EXISTS AgentDepartment;
 
 CREATE TABLE Client (
-    username NVAR(25) PRIMARY KEY,
+    userId INTEGER PRIMARY KEY AUTOINCREMENT,
+    username NVAR(25) UNIQUE,
     name NVARCHAR(120) NOT NULL,
     email NVARCHAR(60) NOT NULL,
     password NVARCHAR(40) NOT NULL
@@ -17,21 +18,22 @@ CREATE TABLE Client (
 
 CREATE TABLE Agent (
     isAgent BOOLEAN NOT NULL,
-    username NVAR(25) PRIMARY KEY
+    userId INTEGER PRIMARY KEY,
+    FOREIGN KEY (userId) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE AgentDepartment (
-    username NVAR(25),
+    userId INTEGER,
     departmentId INTEGER,
-    FOREIGN KEY (username) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (userId) REFERENCES Agent(userId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    UNIQUE (username, departmentId)
+    UNIQUE (userId, departmentId)
 );
 
 CREATE TABLE Admin (
     isAdmin BOOLEAN NOT NULL,
-    username NVAR(25) PRIMARY KEY,
-    FOREIGN KEY (username) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
+    userId INTEGER PRIMARY KEY,
+    FOREIGN KEY (userId) REFERENCES Agent(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Ticket (
@@ -42,22 +44,22 @@ CREATE TABLE Ticket (
     priority INTEGER NOT NULL,
     status NVARCHAR(20) NOT NULL,
     date DATE NOT NULL,
-    client NVAR(25) NOT NULL,
-    agent NVAR(25),
+    client INTEGER NOT NULL,
+    agent INTEGER,
 
-    FOREIGN KEY (client) REFERENCES Client(username) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (agent) REFERENCES Agent(username) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (client) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (agent) REFERENCES Agent(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Comment (
   id INTEGER PRIMARY KEY,
   ticketId INTEGER,
-  username NVAR(25) NOT NULL,
+  userId INTEGER NOT NULL,
   date DATE NOT NULL,
   text TEXT,
 
   FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID),
-  FOREIGN KEY (username) REFERENCES Client(username)
+  FOREIGN KEY (userId) REFERENCES Client(userId)
 );
 
 CREATE TABLE Department (
@@ -86,14 +88,14 @@ INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Ga
 INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '02aea1da66459976cc45823b47bc219a9799f166'); --daniel_faro123
 
 
-INSERT INTO Agent (isAgent, username) VALUES (true, 'RAM');
-INSERT INTO Agent (isAgent, username) VALUES (true, 'Gaspar');
-INSERT INTO Agent (isAgent, username) VALUES (true, 'Gago');
+INSERT INTO Agent (isAgent, userId) VALUES (true, 1);
+INSERT INTO Agent (isAgent, userId) VALUES (true, 2);
+INSERT INTO Agent (isAgent, userId) VALUES (true, 3);
 
 
-INSERT INTO Admin (isAdmin, username) VALUES (true, 'RAM');
-INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gaspar');
-INSERT INTO Admin (isAdmin, username) VALUES (true, 'Gago');
+INSERT INTO Admin (isAdmin, userId) VALUES (true, 1);
+INSERT INTO Admin (isAdmin, userId) VALUES (true, 2);
+INSERT INTO Admin (isAdmin, userId) VALUES (true, 3);
 
 
 INSERT INTO Department (departmentId, name) VALUES (1, 'Human Resources');
@@ -123,10 +125,10 @@ INSERT INTO Hashtag (name) VALUES('server downtime');
 INSERT INTO Hashtag (name) VALUES('product integration issues');
 INSERT INTO Hashtag (name) VALUES('user interface feedback');
 
-INSERT INTO AgentDepartment (username, departmentID) VALUES ('RAM', 1);
-INSERT INTO AgentDepartment (username, departmentID) VALUES ('RAM', 2);
-INSERT INTO AgentDepartment (username, departmentID) VALUES ('Gago', 3);
+INSERT INTO AgentDepartment (userId, departmentID) VALUES ('RAM', 1);
+INSERT INTO AgentDepartment (userId, departmentID) VALUES ('RAM', 2);
+INSERT INTO AgentDepartment (userId, departmentID) VALUES ('Gago', 3);
 
 INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '["login issues","bug report"]', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
 
-INSERT INTO Comment (id, ticketID, username, date, text) VALUES (1, 1, 'Gaspar', '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');
+INSERT INTO Comment (id, ticketID, userId, date, text) VALUES (1, 1, 'Gaspar', '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');

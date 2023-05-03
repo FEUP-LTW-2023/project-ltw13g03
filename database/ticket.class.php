@@ -86,9 +86,9 @@
 
         static function addComment(PDO $db, int $ticketId, string $username, string $text) {
             $date = date('Y-m-d');
-        
-            $stmt = $db->prepare('INSERT INTO Comment (ticketID, username, date, text) VALUES (?, ?, ?, ?)');
-            $stmt->execute(array($ticketId, $username, $date, $text));
+            $userId = Client::getUserId($db, $username);
+            $stmt = $db->prepare('INSERT INTO Comment (ticketID, userId, date, text) VALUES (?, ?, ?, ?)');
+            $stmt->execute(array($ticketId, $userId, $date, $text));
         }
 
         static function createTicket(PDO $db, $title, $body, $hashtags, $priority, $client) {

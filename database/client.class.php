@@ -18,14 +18,14 @@
         }
 
         static function getAgentDepartments(PDO $db, string $username) {
-            $stmt2 = $db->prepare('SELECT username, name FROM AgentDepartment LEFT JOIN Department USING(departmentID) WHERE username = ?');
+            $stmt2 = $db->prepare('SELECT username, D.name FROM AgentDepartment JOIN Client using(userId) JOIN Department as D USING(departmentID) WHERE username = ?');
             $stmt2->execute(array($username));
             $dep = $stmt2->fetchAll();
             return $dep;
         }
 
         static function getAllUsers(PDO $db) : array {
-            $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.username = a.username LEFT JOIN Admin ad ON a.username = ad.username');
+            $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.userId = a.userId LEFT JOIN Admin ad ON a.userId = ad.userId');
             $stmt->execute();
             $users = array();
             while ($user = $stmt->fetch()) {
@@ -45,7 +45,7 @@
         }
 
         static function getUser(PDO $db, string $username) {
-            $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.username = a.username LEFT JOIN Admin ad ON a.username = ad.username WHERE c.username = ?');
+            $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.userId = a.userId LEFT JOIN Admin ad ON a.userId = ad.userId WHERE c.username = ?');
             $stmt->execute(array($username));
             $user = $stmt->fetch();
             $dep = Client::getAgentDepartments($db, $username);
@@ -63,21 +63,27 @@
         static function updateUserRole(PDO $db, string $username, bool $isAgent, bool $isAdmin) {
             $stmt = $db->prepare('
                 UPDATE Admin SET isAdmin = ?
-                WHERE username = ?
+                WHERE userId = (SELECT userId FROM Client WHERE username = ?)
             ');
 
             $stmt->execute(array($isAdmin ? 1 : 0, $username));
             
             $stmt = $db->prepare('
                 UPDATE Agent SET isAgent = ?
-                WHERE username = ?
+                WHERE userId = (SELECT userId FROM Client WHERE username = ?)
             ');
             $stmt->execute(array(($isAdmin || (!$isAdmin && $isAgent)) ? 1 : 0, $username));
 
             if (!$isAdmin && !$isAgent) {
-                $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE username=?');
+                $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE userId=(SELECT userId FROM Client WHERE username = ?)');
                 $stmt->execute(array($username));
             }
+        }
+
+        static function getUserId(PDO $db, string $username) {
+            $stmt2 = $db->prepare('SELECT userId FROM Client WHERE username = ?');
+            $stmt2->execute(array($username));
+            return $stmt2->fetch()['userId'];
         }
 
         static function updateUserDepartments(PDO $db, string $username, string $department, bool $add) {
@@ -89,23 +95,24 @@
                 $departmentId = $departmentId['departmentId'];
             } else return;
             if ($add) {
-                $stmt = $db->prepare('SELECT isAgent FROM Agent WHERE username = ?');
+                $stmt = $db->prepare('SELECT isAgent FROM Agent JOIN Client using(userId) WHERE username = ?');
                 $stmt->execute(array($username));
                 $isAgent = $stmt->fetch()['isAgent'];
                 
                 if (!$isAgent) {
                     return;
                 }
-                $stmt2 = $db->prepare('SELECT * FROM AgentDepartment WHERE username = ? and departmentID = ?');
-                $stmt2->execute(array($username, $departmentId));
+                $userId = Client::getUserId($db, $username);
+                $stmt2 = $db->prepare('SELECT * FROM AgentDepartment WHERE userId = ? and departmentID = ?');
+                $stmt2->execute(array($userId, $departmentId));
                 $exists = $stmt2->fetch();
                 if ($exists !== false) return;
 
-                $stmt = $db->prepare('INSERT INTO AgentDepartment (username, departmentID) VALUES (?, ?)');
-                $stmt->execute(array($username, $departmentId));
+                $stmt = $db->prepare('INSERT INTO AgentDepartment (userId, departmentID) VALUES (?, ?)');
+                $stmt->execute(array(Client::getUserId($db, $username), $departmentId));
             } else {
-                $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE username=? AND departmentID=?');
-                $stmt->execute(array($username, $departmentId));
+                $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE userId=? AND departmentID=?');
+                $stmt->execute(array(Client::getUserId($db, $username), $departmentId));
             }
         }
     }

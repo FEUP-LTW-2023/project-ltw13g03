@@ -9,8 +9,9 @@ $name = $_POST['name'];
 $username = $_SESSION['username'];
 $email = $_POST['email'];
 
-$stmt = $db->prepare('UPDATE Client SET name=?, email=? WHERE username=?');
-$stmt->execute(array($name, $email, $username));
+$id = Client::getUserId($db, $_SESSION['username']);
+$stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=? WHERE userId=?');
+$stmt->execute(array($name, $email, $username, $id));
 
 
 $response = array('success' => true);
