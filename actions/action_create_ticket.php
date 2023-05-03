@@ -10,7 +10,7 @@
     $db, 
     $_POST['ticket_title'], 
     $_POST['ticket_description'], 
-    '{"0":"mudar action create"}', 
+    $_POST['tags'], 
     $_POST['ticket_priority'],
     $_SESSION['username']
     );

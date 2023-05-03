@@ -38,14 +38,15 @@
                 <?php } ?>
             </ul>
 
-            <select>
-                <option value="unspecified" selected>+</option>
+            <input list="hashtags" placeholder="Add more tags">
+            <datalist id="hashtags">
                 <?php 
                     $tags = getHashtags();
                     foreach ($tags as $tag) { ?>
                         <option><?=$tag['name']?></option>
                 <?php } ?>
-            </select>
+            </datalist>
+            <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
         </div>
     </aside>
     <article id="ticket_description">
