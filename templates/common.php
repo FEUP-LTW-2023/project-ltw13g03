@@ -1,4 +1,5 @@
 <?php
+    require_once(__DIR__ . '/../database/users.php');
     function output_header(bool $logged_in){ ?>
         <!DOCTYPE html>
         <html lang="en-US">
@@ -24,12 +25,16 @@
         <body>
             <header>
                 <h1><a href="index.php">TICKETS</a></h1>
-                <?php if ($logged_in) { ?>
-                    <a href="manage_users.php"><h2>Users</h2></a>
+                <?php if ($logged_in) { 
+                    $user = getUserInfo($_SESSION['username']); ?>
                     <a href="faq.php"><h2>FAQ</h2></a>
                     <div class="profile-dropdown">
                         <img src="https://picsum.photos/80/80" alt="User profile picture">
                         <div class="profile-dropdown-content">
+                            <?php
+                            if ($user['isAdmin']) { ?>
+                                <a href="manage_users.php">Users
+                            <?php } ?>
                             <a href="edit_profile.php">Edit profile</a>
                             <a href="../actions/action_logout.php">Sign out</a>
                         </div>
