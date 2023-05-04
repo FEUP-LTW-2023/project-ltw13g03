@@ -28,7 +28,8 @@
         <div id="department">
             <select>
                 <?php $departments = getDepartments();
-                foreach ($departments as $department) {
+                if (empty($departments)) ?> <option disabled selected>choose a department</option>
+                <?php foreach ($departments as $department) {
                     if ($department['name'] === $ticket->department) { ?>
                         <option selected><?=$department['name']?></option>
                     <?php } else {?> 

@@ -29,7 +29,9 @@
         return $stmt->fetch()['departmentId'];
     }
 
-    function getDepartmentAgents(string $department) {
+    function getDepartmentAgents(?string $department) {
+        if (is_null($department)) return array();
+
         $db = getDatabaseConnection();
         
         $departmentId = getDepartmentId($department);
