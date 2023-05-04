@@ -52,6 +52,18 @@
     line-height: 200%;
 }
 
+#ticket aside div#close_ticket {
+    background-color: #b62525;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    width: fit-content;
+    padding: 0 .5em;
+    margin: 0 auto 1em;
+    cursor: pointer;
+}
+
 #ticket aside div::before {
     color: var(--text-color-2);
     font-weight: bold;

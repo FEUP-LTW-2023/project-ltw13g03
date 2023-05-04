@@ -176,5 +176,10 @@
 
             return $stmt->fetch();
         }
+
+        static function changeStatus(PDO $db, int $ticketId, string $status) {
+            $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
+            $stmt->execute(array($status, $ticketId));
+        }
     }
 ?>

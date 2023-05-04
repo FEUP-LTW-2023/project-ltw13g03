@@ -21,6 +21,9 @@
 <section id="ticket" data-id="<?=$_GET['id']?>">
     <h2><?=$ticket->title?></h2>
     <aside>
+        <?php if ($ticket->status != 'Closed') {?>
+            <div id="close_ticket">Close Ticket</div>
+        <?php } ?>
         <div id="author">
             <?=$ticket->client?>
         </div>
@@ -32,7 +35,7 @@
                 <?php foreach ($departments as $department) {
                     if ($department['name'] === $ticket->department) { ?>
                         <option selected><?=$department['name']?></option>
-                    <?php } else {?> 
+                    <?php } else if ($ticket->status != 'Closed'){?> 
                         <option><?=$department['name']?></option>
                     <?php } ?>
                 <?php } ?>
@@ -49,9 +52,11 @@
                     <option selected><?=$selected_agent['agent']?></option>
                 <?php }
                 $department_agents = getDepartmentAgents($ticket->department);
-                foreach ($department_agents as $agent) { ?>
+                foreach ($department_agents as $agent) { 
+                    if ($ticket->status != 'Closed') {?>
                     <option><?=$agent['username']?></option>
-                <?php } ?>
+                <?php }
+                    } ?>
             </select>
         </div>
         <div id="status"><?=$ticket->status?></div>
@@ -62,15 +67,17 @@
                 <?php } ?>
             </ul>
 
-            <input list="hashtags" placeholder="Add more tags">
-            <datalist id="hashtags">
-                <?php 
-                    $tags = getHashtags();
-                    foreach ($tags as $tag) { ?>
-                        <option><?=$tag['name']?></option>
-                <?php } ?>
-            </datalist>
-            <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+            <?php if ($ticket->status != 'Closed') {?>
+                <input list="hashtags" placeholder="Add more tags">
+                <datalist id="hashtags">
+                    <?php 
+                        $tags = getHashtags();
+                        foreach ($tags as $tag) { ?>
+                            <option><?=$tag['name']?></option>
+                    <?php } ?>
+                </datalist>
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+            <?php } ?>
         </div>
     </aside>
     <article id="ticket_description">
@@ -78,7 +85,7 @@
             <?=$ticket->body?>
         </p>
     </article>
-    <?php output_comments($ticket->ticketId); ?>
+    <?php output_comments($ticket->ticketId, $ticket->status); ?>
 </section>
 
 
