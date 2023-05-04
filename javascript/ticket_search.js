@@ -67,8 +67,9 @@ async function filter(){
     let endDate = document.querySelector('#tickets #date_filter #end_date').value
 
     const status = document.querySelector('#tickets #status_filter select').value
+    const priority = document.querySelector('#tickets #priority_filter select').value
 
-    const response = await fetch('../api/search_tickets.php?search=' + input + '&status=' + status)
+    const response = await fetch('../api/search_tickets.php?search=' + input + '&status=' + status + '&priority=' + priority)
     const tickets = await response.json()
 
     const section = document.querySelector('#tickets')
@@ -152,6 +153,9 @@ function search_tickets(){
 
         const status = document.querySelector('#tickets #status_filter select')
         status.addEventListener('change', filter)
+
+        const priority = document.querySelector('#tickets #priority_filter select')
+        priority.addEventListener('change', filter)
     }
 }
 

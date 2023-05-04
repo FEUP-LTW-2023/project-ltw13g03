@@ -62,6 +62,14 @@
                     <option>Closed</option>
                 </select>
             </label>
+            <label id="priority_filter"> Priority: 
+                <select>
+                    <option></option>
+                    <option value="0">Low</option>
+                    <option value="1">Medium</option>
+                    <option value="2">High</option>
+                </select>
+            </label>
             <?php 
             $tickets = Ticket::getAllTickets($db);
             foreach ($tickets as $ticket) {
