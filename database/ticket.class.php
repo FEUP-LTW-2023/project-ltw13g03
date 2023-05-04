@@ -59,9 +59,15 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search) {
-            $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
-            $stmt->execute(array($search . '%'));
+        static function getTicketsFiltered(PDO $db, string $search, string $status) {
+            if (empty($status)){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
+                $stmt->execute(array('%' . $search . '%'));
+            }
+            else {
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=?');
+                $stmt->execute(array('%' . $search . '%', $status));
+            }
 
             $tickets = array();
 

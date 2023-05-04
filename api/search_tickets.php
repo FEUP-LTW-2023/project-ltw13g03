@@ -7,7 +7,7 @@
 
     $db = getDatabaseConnection();
 
-    $tickets = Ticket::getTicketsFiltered($db, $_GET['search']);
+    $tickets = Ticket::getTicketsFiltered($db, $_GET['search'], $_GET['status']);
 
     echo json_encode($tickets);
 ?>
