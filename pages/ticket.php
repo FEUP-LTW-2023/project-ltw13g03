@@ -47,10 +47,10 @@
                 <?php 
                 $db = getDatabaseConnection();
                 $selected_agent = Ticket::getAgent($db, $_GET['id']);
-                if (is_null($selected_agent['agent'])) { ?>
+                if (is_null($selected_agent['username'])) { ?>
                     <option disabled selected>assign an agent</option>
                 <?php } else { ?>
-                    <option selected><?=$selected_agent['agent']?></option>
+                    <option selected><?=$selected_agent['username']?></option>
                 <?php }
                 $department_agents = getDepartmentAgents($ticket->department);
                 foreach ($department_agents as $agent) { 

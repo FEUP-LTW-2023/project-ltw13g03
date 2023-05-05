@@ -185,7 +185,7 @@
         }
 
         static function getAgent(PDO $db, int $ticketId) {
-            $stmt = $db->prepare('SELECT agent FROM Ticket WHERE ticketId=?');
+            $stmt = $db->prepare('SELECT username FROM Client WHERE userId = (SELECT agent FROM Ticket WHERE ticketId=?)');
             $stmt->execute(array($ticketId));
 
             return $stmt->fetch();
