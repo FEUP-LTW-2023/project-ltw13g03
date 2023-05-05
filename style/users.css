@@ -26,6 +26,18 @@ table#manage-users {
     font-weight: bold;
 }
 
+#manage-users th:nth-child(1) {
+    width: 30%;
+}
+
+#manage-users th:nth-child(2) {
+    width: 25%;
+}
+
+#manage-users th:nth-child(3) {
+    width: 45%;
+}
+
 #manage-users td {
     text-align: left;
     padding: 10px;
@@ -123,8 +135,11 @@ table#manage-users {
     cursor: pointer;
 }
 
-@media (max-width: 35em) {
+@media (max-width: 28em) {
     section#form-manage-users {
-        width: 90%;
+        width: 100%;
+    }
+    #manage-users th {
+        width: auto;
     }
 }

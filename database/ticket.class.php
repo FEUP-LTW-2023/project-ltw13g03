@@ -1,5 +1,6 @@
 <?php
     declare(strict_types = 1);
+    require_once(__DIR__ . '/../database/client.class.php');
 
     require_once(__DIR__ . '/../database/department.php');
 
@@ -12,11 +13,12 @@
         public int $priority;
         public string $status;
         public DateTime $date;
-        public string $client;
-        public ?string $agent;
+        public int $client;
+        public ?int $agent;
+
 
         public function __construct(int $ticketId, string $title, string $body, ?int $department, string $hashtags, int $priority,
-                                        string $status, string $date, string $client, ?string $agent) {
+                                        string $status, string $date, int $client, ?int $agent) {
 
             $this->ticketId = $ticketId;
             $this->title = $title;
@@ -104,9 +106,9 @@
 
         static function addComment(PDO $db, int $ticketId, string $username, string $text) {
             $date = date('Y-m-d');
-        
-            $stmt = $db->prepare('INSERT INTO Comment (ticketID, username, date, text) VALUES (?, ?, ?, ?)');
-            $stmt->execute(array($ticketId, $username, $date, $text));
+            $userId = Client::getUserId($db, $username);
+            $stmt = $db->prepare('INSERT INTO Comment (ticketID, userId, date, text) VALUES (?, ?, ?, ?)');
+            $stmt->execute(array($ticketId, $userId, $date, $text));
         }
 
         static function createTicket(PDO $db, $title, $body, $department, $hashtags, $priority, $client) {

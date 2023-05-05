@@ -7,6 +7,11 @@
 
     require_once(__DIR__ . '/../templates/common.php');
     require_once(__DIR__ . '/../templates/users.php');
+    $user = getUserInfo($_SESSION['username']);
+
+    if (!$user['isAdmin']) {
+        header("Location: /pages/index.php");
+    }
 
     output_header(true);
 

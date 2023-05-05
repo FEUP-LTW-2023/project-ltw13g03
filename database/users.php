@@ -25,11 +25,12 @@ function createAccount($name, $username, $email, $password){
     $stmt = $db->prepare('INSERT INTO Client (name, username, email, password) VALUES (?, ?, ?, ?)');
     $stmt->execute(array($name, $username, $email, sha1($password)));
 
-    $stmt = $db->prepare('INSERT INTO Agent (isAgent, username, departmentId) VALUES (false, ?, null)');
-    $stmt->execute(array($username));
+    $id = Client::getUserId($db, $username);
+    $stmt = $db->prepare('INSERT INTO Agent (isAgent, userId, departmentId) VALUES (false, ?, null)');
+    $stmt->execute(array($id));
 
-    $stmt = $db->prepare('INSERT INTO Admin (isAdmin, username) VALUES (false, ?)');
-    $stmt->execute(array($username));
+    $stmt = $db->prepare('INSERT INTO Admin (isAdmin, userId) VALUES (false, ?)');
+    $stmt->execute(array($id));
 
     return true;
 }
@@ -37,7 +38,7 @@ function createAccount($name, $username, $email, $password){
 function getUserInfo($username): array{
     $db = getDatabaseConnection();
 
-    $stmt = $db->prepare('SELECT username, name, email, isAdmin FROM Client LEFT JOIN Admin using(username) WHERE username=?');
+    $stmt = $db->prepare('SELECT username, name, email, isAdmin FROM Client LEFT JOIN Admin using(userId) WHERE username=?');
     $stmt->execute(array($username));
     return $stmt->fetch();
 }

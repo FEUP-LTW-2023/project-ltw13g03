@@ -8,6 +8,7 @@
     require_once(__DIR__ . '/../templates/common.php');
     require_once(__DIR__ . '/../templates/comments.php');
     require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/client.class.php');
     require_once(__DIR__ . '/../database/ticket.class.php');
     require_once(__DIR__ . '/../database/misc.php');
     require_once(__DIR__ . '/../database/department.php');
@@ -25,7 +26,7 @@
             <div id="close_ticket">Close Ticket</div>
         <?php } ?>
         <div id="author">
-            <?=$ticket->client?>
+            <?=Client::getUsername($db, $ticket->client)?>
         </div>
         <time datetime="<?=$ticket->date->format('Y-m-d')?>"><?=$ticket->date->format('Y-m-d')?></time>
         <div id="department">

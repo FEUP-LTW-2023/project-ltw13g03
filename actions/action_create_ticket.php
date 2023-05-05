@@ -3,6 +3,7 @@
 
   require_once(__DIR__ . '/../database/connection.db.php');
   require_once(__DIR__ . '/../database/ticket.class.php');
+  require_once(__DIR__ . '/../database/client.class.php');
 
   $db = getDatabaseConnection();
     
@@ -13,7 +14,7 @@
     $_POST['department'],
     $_POST['tags'], 
     $_POST['ticket_priority'],
-    $_SESSION['username']
+    Client::getUserId($db, $_SESSION['username'])
     );
 
     header('Location: /pages/');
