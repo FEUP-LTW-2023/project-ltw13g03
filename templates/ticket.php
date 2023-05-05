@@ -2,6 +2,7 @@
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/ticket.class.php');
     require_once(__DIR__ . '/../database/misc.php');
+    require_once(__DIR__ . '/../database/department.php');
 
     function output_ticket_preview(int $ticket_id) {
         $db = getDatabaseConnection();
@@ -45,6 +46,30 @@
                 </datalist>
                 <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
             </div>
+            <div id="date_filter">
+                <label> Start: 
+                    <input type="date" min="1970-01-01" id="start_date">
+                </label>
+                <label> End: 
+                    <input type="date" min="1970-01-01" id="end_date">
+                </label>
+            </div>
+            <label id="status_filter"> Status: 
+                <select>
+                    <option></option>
+                    <option>Open</option>
+                    <option>Assigned</option>
+                    <option>Closed</option>
+                </select>
+            </label>
+            <label id="priority_filter"> Priority: 
+                <select>
+                    <option></option>
+                    <option value="0">Low</option>
+                    <option value="1">Medium</option>
+                    <option value="2">High</option>
+                </select>
+            </label>
             <?php 
             $tickets = Ticket::getAllTickets($db);
             foreach ($tickets as $ticket) {
@@ -85,7 +110,7 @@
                     <ul></ul>
 
                     <input list="hashtags" placeholder="Add more tags">
-                    <input type="hidden" value="" name="tags">
+                    <input type="hidden" value="[]" name="tags">
                     <datalist id="hashtags">
                         <?php 
                             $tags = getHashtags();

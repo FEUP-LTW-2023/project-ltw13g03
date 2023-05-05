@@ -11,6 +11,7 @@
     $db, 
     $_POST['ticket_title'], 
     $_POST['ticket_description'], 
+    $_POST['department'],
     $_POST['tags'], 
     $_POST['ticket_priority'],
     Client::getUserId($db, $_SESSION['username'])

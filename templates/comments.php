@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 
-function output_comments($id){ 
+function output_comments($id, $status){ 
     $db = getDatabaseConnection();
     $comments = Ticket::getComments($db, $id); ?>
     <section id="comments">
@@ -17,14 +17,13 @@ function output_comments($id){
                     <?=$comment['text']?>
                 </p>
             </article>
-        <?php } ?>
+        <?php }  if ($status != 'Closed') {?>
     <form method="post" action="../actions/action_comment.php">
         <input type="hidden" name="ticketId" value="<?=$id?>"/>
         <textarea name="text" placeholder="Leave a comment"></textarea>
         <button type="submit">Reply</button>
     </form>
+    <?php } ?>
     </section>
 
 <?php } ?>
-
-?>

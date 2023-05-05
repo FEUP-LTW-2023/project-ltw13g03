@@ -52,9 +52,57 @@
     line-height: 200%;
 }
 
-#ticket aside div, #ticket aside time {
+#ticket aside div#close_ticket {
+    background-color: #b62525;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    width: fit-content;
+    padding: 0 .5em;
+    margin: 0 auto 1em;
+    cursor: pointer;
+}
+
+#ticket aside div::before {
     color: var(--text-color-2);
     font-weight: bold;
+}
+
+#ticket aside div#author {
+    line-height: 1.5em;
+}
+
+#ticket aside div#author::before {
+    content: 'Author: ';
+}
+
+#ticket aside time::before {
+    content: 'Date: ';
+    color: var(--text-color-2);
+    font-weight: bold;
+}
+
+#ticket aside div#department {
+    line-height: 1.5em;
+}
+
+#ticket aside div#department::before {
+    content: 'Department: ';
+    display: block;
+}
+
+#ticket aside div#agent::before {
+    content: 'Agent: ';
+    display: block;
+}
+
+#ticket aside div#agent option[disabled] {
+    display: none;
+}
+
+#ticket aside div#status::before {
+    content: 'Status: ';
 }
 
 #ticket select {
@@ -66,16 +114,17 @@
     color: var(--text-color-2);
     font-weight: bold;
     border-radius: 6px;
-    width: 12em;
     text-align: center;
     border: none;
     padding: .7em;
+    width: 100%;
 }
 
 #ticket div#tags {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto min-content;
+    margin-top: 1em;
 }
 
 #ticket div#tags input {
@@ -169,6 +218,15 @@
     #ticket aside {
         grid-column: start / end;
         grid-row: title / aside;
+    }
+
+    #ticket select {
+        width: auto;
+        margin-bottom: 1em;
+    }
+
+    #ticket aside div#department::before, #ticket aside div#agent::before {
+        display: inline;
     }
 
     #ticket article#ticket_description {

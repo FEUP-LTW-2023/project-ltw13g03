@@ -2,10 +2,13 @@
     declare(strict_types = 1);
     require_once(__DIR__ . '/../database/client.class.php');
 
+    require_once(__DIR__ . '/../database/department.php');
+
     class Ticket {
         public int $ticketId;
         public string $title;
         public string $body;
+        public ?string $department;
         public array $hashtags;
         public int $priority;
         public string $status;
@@ -13,12 +16,14 @@
         public int $client;
         public ?int $agent;
 
-        public function __construct(int $ticketId, string $title, string $body, string $hashtags, int $priority,
+
+        public function __construct(int $ticketId, string $title, string $body, ?int $department, string $hashtags, int $priority,
                                         string $status, string $date, int $client, ?int $agent) {
 
             $this->ticketId = $ticketId;
             $this->title = $title;
             $this->body = $body;
+            $this->department = getDepartment($department);
             $this->hashtags = json_decode($hashtags, true);
             $this->priority = $priority;
             $this->status = $status;
@@ -45,6 +50,7 @@
                     $ticket['ticketId'],
                     $ticket['title'],
                     $ticket['body'],
+                    $ticket['department'],
                     $ticket['hashtags'],
                     $ticket['priority'],
                     $ticket['status'],
@@ -55,9 +61,21 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search) {
-            $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
-            $stmt->execute(array($search . '%'));
+        static function getTicketsFiltered(PDO $db, string $search, string $status, string $priority) {
+            if (empty($status) && strlen($priority) === 0){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
+                $stmt->execute(array('%' . $search . '%'));
+            }
+            else if (strlen($priority) === 0){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=?');
+                $stmt->execute(array('%' . $search . '%', $status));
+            } else if (empty($status)){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND priority=?');
+                $stmt->execute(array('%' . $search . '%', intval($priority, 10)));
+            } else {
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=? AND priority=?');
+                $stmt->execute(array('%' . $search . '%', $status, intval($priority, 10)));
+            }
 
             $tickets = array();
 
@@ -66,6 +84,7 @@
                     $ticket['ticketId'],
                     $ticket['title'],
                     $ticket['body'],
+                    $ticket['department'],
                     $ticket['hashtags'],
                     $ticket['priority'],
                     $ticket['status'],
@@ -92,12 +111,13 @@
             $stmt->execute(array($ticketId, $userId, $date, $text));
         }
 
-        static function createTicket(PDO $db, $title, $body, $hashtags, $priority, $client) {
-            $stmt = $db->prepare('INSERT INTO Ticket (title, body, hashtags, priority, status, date, client) VALUES (?, ?, ?, ?, ?, ?, ?)');
+        static function createTicket(PDO $db, $title, $body, $department, $hashtags, $priority, $client) {
+            $stmt = $db->prepare('INSERT INTO Ticket (title, body, department, hashtags, priority, status, date, client) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 
             $stmt->execute(array(
                 $title,
                 $body,
+                getDepartmentId($department),
                 $hashtags,
                 $priority,
                 'Open',
@@ -150,6 +170,30 @@
             $stmt->execute(array($hashtags, $ticketId));
 
             return $hashtags;
+        }
+
+        static function changeDepartment(PDO $db, int $ticketId, string $department) {
+            $departmentId = getDepartmentId($department);
+
+            $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
+            $stmt->execute(array($departmentId, $ticketId));
+        }
+
+        static function changeAgent(PDO $db, int $ticketId, string $agent) {
+            $stmt = $db->prepare('UPDATE Ticket SET agent=? WHERE ticketId=?');
+            $stmt->execute(array($agent, $ticketId));
+        }
+
+        static function getAgent(PDO $db, int $ticketId) {
+            $stmt = $db->prepare('SELECT agent FROM Ticket WHERE ticketId=?');
+            $stmt->execute(array($ticketId));
+
+            return $stmt->fetch();
+        }
+
+        static function changeStatus(PDO $db, int $ticketId, string $status) {
+            $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
+            $stmt->execute(array($status, $ticketId));
         }
     }
 ?>

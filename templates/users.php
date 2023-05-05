@@ -1,7 +1,7 @@
 <?php
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/client.class.php');
-    require_once(__DIR__ . '/../database/misc.php');
+    require_once(__DIR__ . '/../database/department.php');
 
     function output_users() { ?>
     

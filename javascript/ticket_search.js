@@ -32,29 +32,44 @@ function search_tags() {
                     if (li.textContent == selectedOption)
                         ul.removeChild(li)
                 })
-                filter_tags()
+                filter()
             }
         });
 
         addTags.addEventListener('click', (event) => {
             addTagSearch(event)
-            filter_tags()
+            filter()
         })
 
         selectTags.addEventListener('keydown', (event) => {
             if (event.key === 'Enter'){
                 event.preventDefault()
                 addTagSearch(event)
-                filter_tags()
+                filter()
             }
         })
     }
 }
 
-async function filter_tags(){
+function search_date(){
+    const startDate = document.querySelector('#tickets #date_filter #start_date')
+    const endDate = document.querySelector('#tickets #date_filter #end_date')
+
+    startDate.addEventListener('change', filter)
+    endDate.addEventListener('change', filter)
+}
+
+async function filter(){
     const input = document.querySelector('#tickets #searchticket').value
     const selectedTags = Array.from(document.querySelector('#tickets #tags > ul').childNodes).map((tag) => tag.textContent)
-    const response = await fetch('../api/search_tickets.php?search=' + input)
+
+    let startDate = document.querySelector('#tickets #date_filter #start_date').value
+    let endDate = document.querySelector('#tickets #date_filter #end_date').value
+
+    const status = document.querySelector('#tickets #status_filter select').value
+    const priority = document.querySelector('#tickets #priority_filter select').value
+
+    const response = await fetch('../api/search_tickets.php?search=' + input + '&status=' + status + '&priority=' + priority)
     const tickets = await response.json()
 
     const section = document.querySelector('#tickets')
@@ -74,7 +89,14 @@ async function filter_tags(){
         })
 
         if (!tags_match) continue
-        
+
+        if (!startDate) startDate = '1970-01-01'
+        if (!endDate) endDate = new Date().toISOString().slice(0,10)
+
+        const ticketDate = ticket['date']['date'].slice(0,10)
+
+        if (ticketDate < startDate || ticketDate > endDate) continue
+
         const link = document.createElement('a')
         link.classList.add('ticketpreview')
         link.href = '../pages/ticket.php?id=' + ticket.ticketId
@@ -92,6 +114,17 @@ async function filter_tags(){
         }
         else description.textContent = ticket.body
 
+        const div_tags = document.createElement('div')
+        div_tags.id = 'tags'
+        const list_tags = document.createElement('ul')
+        ticket_hashtags.forEach((tag) => {
+            const tag_item = document.createElement('li')
+            tag_item.classList.add('tag')
+            tag_item.textContent = tag
+            list_tags.appendChild(tag_item)
+        })
+        div_tags.appendChild(list_tags)
+
         const status = document.createElement('div')
         status.id = 'status'
         status.textContent = 'Status: ' + ticket.status
@@ -102,6 +135,7 @@ async function filter_tags(){
 
         link.appendChild(title)
         link.appendChild(description)
+        link.appendChild(div_tags)
         link.appendChild(status)
         link.appendChild(date)
 
@@ -112,10 +146,16 @@ async function filter_tags(){
 function search_tickets(){
     const searchBox = document.querySelector('#searchticket')
 
-    search_tags()
-
     if (searchBox) {
-        searchBox.addEventListener('input', filter_tags)
+        search_tags()
+        search_date()
+        searchBox.addEventListener('input', filter)
+
+        const status = document.querySelector('#tickets #status_filter select')
+        status.addEventListener('change', filter)
+
+        const priority = document.querySelector('#tickets #priority_filter select')
+        priority.addEventListener('change', filter)
     }
 }
 
