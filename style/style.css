@@ -202,6 +202,22 @@ div#tags ul > li {
     background-color: var(--box-color);
 }
 
+#status_filter {
+    grid-row: 4 / span 1;
+}
+
+#priority_filter {
+    grid-row: 5 / span 1;
+}
+
+#status_filter select, #priority_filter select {
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5em;
+    margin: 1em 0;
+    background-color: var(--box-color);
+}
+
 @media (max-width: 89em) {
     section#tickets {
         width: 95%;

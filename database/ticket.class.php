@@ -59,9 +59,21 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search) {
-            $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
-            $stmt->execute(array($search . '%'));
+        static function getTicketsFiltered(PDO $db, string $search, string $status, string $priority) {
+            if (empty($status) && strlen($priority) === 0){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
+                $stmt->execute(array('%' . $search . '%'));
+            }
+            else if (strlen($priority) === 0){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=?');
+                $stmt->execute(array('%' . $search . '%', $status));
+            } else if (empty($status)){
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND priority=?');
+                $stmt->execute(array('%' . $search . '%', intval($priority, 10)));
+            } else {
+                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=? AND priority=?');
+                $stmt->execute(array('%' . $search . '%', $status, intval($priority, 10)));
+            }
 
             $tickets = array();
 
@@ -175,6 +187,11 @@
             $stmt->execute(array($ticketId));
 
             return $stmt->fetch();
+        }
+
+        static function changeStatus(PDO $db, int $ticketId, string $status) {
+            $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
+            $stmt->execute(array($status, $ticketId));
         }
     }
 ?>

@@ -54,6 +54,22 @@
                     <input type="date" min="1970-01-01" id="end_date">
                 </label>
             </div>
+            <label id="status_filter"> Status: 
+                <select>
+                    <option></option>
+                    <option>Open</option>
+                    <option>Assigned</option>
+                    <option>Closed</option>
+                </select>
+            </label>
+            <label id="priority_filter"> Priority: 
+                <select>
+                    <option></option>
+                    <option value="0">Low</option>
+                    <option value="1">Medium</option>
+                    <option value="2">High</option>
+                </select>
+            </label>
             <?php 
             $tickets = Ticket::getAllTickets($db);
             foreach ($tickets as $ticket) {
