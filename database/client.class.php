@@ -86,6 +86,12 @@
             return $stmt2->fetch()['userId'];
         }
 
+        static function getUsername(PDO $db, int $userId) {
+            $stmt2 = $db->prepare('SELECT username FROM Client WHERE userId = ?');
+            $stmt2->execute(array($userId));
+            return $stmt2->fetch()['username'];
+        }
+
         static function updateUserDepartments(PDO $db, string $username, string $department, bool $add) {
             $stmt = $db->prepare('SELECT departmentId FROM Department WHERE name = ?');
             $stmt->execute(array($department));

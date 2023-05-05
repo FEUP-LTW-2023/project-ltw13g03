@@ -1,5 +1,6 @@
 <?php
     declare(strict_types = 1);
+    require_once(__DIR__ . '/../database/client.class.php');
 
     class Ticket {
         public int $ticketId;
@@ -9,11 +10,11 @@
         public int $priority;
         public string $status;
         public DateTime $date;
-        public string $client;
-        public ?string $agent;
+        public int $client;
+        public ?int $agent;
 
         public function __construct(int $ticketId, string $title, string $body, string $hashtags, int $priority,
-                                        string $status, string $date, string $client, ?string $agent) {
+                                        string $status, string $date, int $client, ?int $agent) {
 
             $this->ticketId = $ticketId;
             $this->title = $title;

@@ -125,10 +125,10 @@ INSERT INTO Hashtag (name) VALUES('server downtime');
 INSERT INTO Hashtag (name) VALUES('product integration issues');
 INSERT INTO Hashtag (name) VALUES('user interface feedback');
 
-INSERT INTO AgentDepartment (userId, departmentID) VALUES ('RAM', 1);
-INSERT INTO AgentDepartment (userId, departmentID) VALUES ('RAM', 2);
-INSERT INTO AgentDepartment (userId, departmentID) VALUES ('Gago', 3);
+INSERT INTO AgentDepartment (userId, departmentID) VALUES (1, 1);
+INSERT INTO AgentDepartment (userId, departmentID) VALUES (1, 2);
+INSERT INTO AgentDepartment (userId, departmentID) VALUES (3, 3);
 
-INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '["login issues","bug report"]', 1, 'Open', '2022-06-28', 'RAM', 'Gaspar');
+INSERT INTO Ticket (ticketID, title, body, hashtags, priority, status, date, client, agent) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', '["login issues","bug report"]', 1, 'Open', '2022-06-28', 1, 2);
 
-INSERT INTO Comment (id, ticketID, userId, date, text) VALUES (1, 1, 'Gaspar', '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');
+INSERT INTO Comment (id, ticketID, userId, date, text) VALUES (1, 1, 3, '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');
