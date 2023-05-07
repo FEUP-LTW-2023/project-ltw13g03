@@ -177,10 +177,12 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
             $stmt->execute(array($departmentId, $ticketId));
+
+            Ticket::changeStatus($db, $ticketId, 'Open');
         }
 
         static function changeAgent(PDO $db, int $ticketId, string $agent) {
-            $stmt = $db->prepare('UPDATE Ticket SET agent=? WHERE ticketId=?');
+            $stmt = $db->prepare('UPDATE Ticket SET agent=(SELECT userId FROM Client WHERE username=?) WHERE ticketId=?');
             $stmt->execute(array($agent, $ticketId));
         }
 

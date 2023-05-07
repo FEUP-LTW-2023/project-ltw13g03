@@ -97,6 +97,8 @@ function ticket_department() {
         agent.textContent = element['username']
         assignAgent.appendChild(agent)
       })
+
+      ticket_update_status(ticketId, 'Open');
     })
   }
 }
