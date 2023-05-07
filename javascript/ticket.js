@@ -33,6 +33,7 @@ async function ticket_remove_tag(event) {
     
     const response = await fetch('../api/remove_hashtag.php?ticketId=' + ticketId + '&hashtag=' + selectedOption)
     const hashtags = await response.json()
+    console.log(hashtags)
 
     if (hashtags !== null) {
       while (ul.firstChild) {
@@ -123,10 +124,28 @@ function ticket_agent(){
   }
 }
 
+function ticket_changes() {
+  const dropdownButton = document.querySelector('#toggle_show_changes');
+
+  if (dropdownButton) {
+    dropdownButton.addEventListener('click', function() {
+      const menuContent = this.nextElementSibling;
+      if (!menuContent.classList.contains("show")) {
+        menuContent.classList.add("show");
+        menuContent.classList.remove("hide");
+      } else {
+        menuContent.classList.add("hide");
+        menuContent.classList.remove("show");
+      }
+    });
+  }
+}
+
 function ticket() {
   ticket_tags()
   ticket_department()
   ticket_agent()
+  ticket_changes()
 
   const closeButton = document.querySelector('#ticket #close_ticket')
 

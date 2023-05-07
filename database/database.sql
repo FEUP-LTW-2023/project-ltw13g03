@@ -80,7 +80,9 @@ CREATE TABLE Modification (
     new NVARCHAR(60) NOT NULL,
     date DATE NOT NULL,
     ticketID INTEGER NOT NULL,
+    userId INTEGER NOT NULL,
     FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (userId) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 
@@ -134,3 +136,5 @@ INSERT INTO AgentDepartment (userId, departmentID) VALUES (3, 3);
 INSERT INTO Ticket (ticketID, title, body, department, hashtags, priority, status, date, client) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', 1, '["login issues","bug report"]', 1, 'Open', '2022-06-28', 1);
 
 INSERT INTO Comment (id, ticketID, userId, date, text) VALUES (1, 1, 3, '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');
+
+INSERT INTO Modification (modificationID, field, old, new, date, ticketID, userId) VALUES (1, 'Hashtag', '', 'bug report', '2023-01-01', 1, 3)

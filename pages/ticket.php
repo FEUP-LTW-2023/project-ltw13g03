@@ -86,6 +86,37 @@
             <?=$ticket->body?>
         </p>
     </article>
+    <?php $modifications = Ticket::getModifications($db, $_GET['id']); if (sizeof($modifications) > 0) { ?>
+    <div id="changes_menu">
+        <div id="toggle_show_changes">
+            <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3233612/time-history-icon-md.png" alt="changes">
+            Show all changes (<?=sizeof($modifications)?>)
+        </div>
+        <div id="ticket_changes">
+            <ol>
+                <?php foreach ($modifications as $modification) { ?>
+                    <li>
+                        <time datetime="<?=$modification['date']?>"><?=$modification['date']?></time>
+                        <strong><?=Client::getUsername($db, $modification['userId'])?></strong>
+                        <?php if ($modification['field'] === 'Hashtag') {
+                            if ($modification['old'] === ''){ ?>
+                                added the tag <strong><?=$modification['new']?></strong>
+                            <?php } else if ($modification['new'] === '') { ?>
+                                removed the tag <strong><?=$modification['old']?></strong>
+                            <?php }
+                        } else if ($modification['field'] === 'Close') {?>
+                            closed the ticket
+                        <?php } else if ($modification['field'] === 'Agent') { ?>
+                            
+                        <?php } else if ($modification['field'] === 'Department') { ?>
+
+                        <?php } ?>
+                    </li>
+                <?php } ?>
+            </ol>
+        </div>
+    </div>
+    <?php } ?>
     <?php output_comments($ticket->ticketId, $ticket->status); ?>
 </section>
 
