@@ -126,7 +126,7 @@
             ));
         }
 
-        static function removeHashtag(PDO $db, int $ticketId, string $hashtag) {
+        static function removeHashtag(PDO $db, int $ticketId, string $hashtag, int $userId) {
             $stmt = $db->prepare('SELECT hashtags FROM Ticket WHERE ticketId=?');
             $stmt->execute(array($ticketId));
             
@@ -136,13 +136,17 @@
 
             $hashtags = json_encode($hashtags);
 
+            $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES 
+                ("Hashtag", ?, "", ?, ?, ?)');
+            $stmt->execute(array($hashtag, date('Y-m-d'), $ticketId, $userId));
+
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
 
             return $hashtags;
         }
 
-        static function addHashtag(PDO $db, int $ticketId, string $hashtag) {
+        static function addHashtag(PDO $db, int $ticketId, string $hashtag, int $userId) {
             $stmt = $db->prepare('SELECT name FROM Hashtag');
             $stmt->execute();
             $global_hashtags = $stmt->fetchAll();
@@ -166,22 +170,34 @@
 
             $hashtags = json_encode($hashtags);
 
+            $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES 
+                ("Hashtag", "", ?, ?, ?, ?)');
+            $stmt->execute(array($hashtag, date('Y-m-d'), $ticketId, $userId));
+
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
 
             return $hashtags;
         }
 
-        static function changeDepartment(PDO $db, int $ticketId, string $department) {
+        static function changeDepartment(PDO $db, int $ticketId, string $department, int $userId) {
             $departmentId = getDepartmentId($department);
+
+            $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId)
+                        SELECT ?, ifnull(department, ""), ?, ?, ?, ? FROM Ticket WHERE ticketId=?');
+            $stmt->execute(array("Department", $departmentId, date('Y-m-d'), $ticketId, $userId, $ticketId));
 
             $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
             $stmt->execute(array($departmentId, $ticketId));
 
-            Ticket::changeStatus($db, $ticketId, 'Open');
+            Ticket::changeStatus($db, $ticketId, 'Open', $userId);
         }
 
-        static function changeAgent(PDO $db, int $ticketId, string $agent) {
+        static function changeAgent(PDO $db, int $ticketId, string $agent, int $userId) {
+            $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) 
+                        SELECT ?, ifnull(agent, ""), ?, ?, ?, ? FROM Ticket WHERE ticketId = ?');
+            $stmt->execute(array("Agent", Client::getUserId($db, $agent), date('Y-m-d'), $ticketId, $userId, $ticketId));
+
             $stmt = $db->prepare('UPDATE Ticket SET agent=(SELECT userId FROM Client WHERE username=?) WHERE ticketId=?');
             $stmt->execute(array($agent, $ticketId));
         }
@@ -193,9 +209,22 @@
             return $stmt->fetch();
         }
 
-        static function changeStatus(PDO $db, int $ticketId, string $status) {
+        static function changeStatus(PDO $db, int $ticketId, string $status, int $userId) {
+            if ($status === 'Closed') {
+                $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
+                            ("Status", "", "Closed", ?, ?, ?)');
+                $stmt->execute(array(date('Y-m-d'), $ticketId, $userId));
+            }
+
             $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
             $stmt->execute(array($status, $ticketId));
+        }
+
+        static function getModifications(PDO $db, int $ticketId) {
+            $stmt = $db->prepare('SELECT * FROM Modification WHERE ticketId=?');
+            $stmt->execute(array($ticketId));
+
+            return $stmt->fetchAll();
         }
     }
 ?>

@@ -16,7 +16,7 @@
 
     display: grid;
     grid-template-columns: [start] 80% [aside] 20% [end];
-    grid-template-rows: [start] min-content [title] min-content [desc] min-content [end];
+    grid-template-rows: [start] min-content [title] min-content [desc] min-content [changes] min-content [end];
 }
 
 #ticket h2 {
@@ -42,8 +42,13 @@
     grid-column: start / aside;
 }
 
+#ticket #changes_menu {
+    grid-row: desc / changes;
+    grid-column: start / aside;
+}
+
 #ticket #comments {
-    grid-row: desc / end;
+    grid-row: changes / end;
     grid-column: start / aside;
 }
 
@@ -140,6 +145,46 @@
 #ticket div#tags ul {
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
+}
+
+#toggle_show_changes {
+    background: var(--box-color);
+    padding: 0.6em;
+    margin-left: 1em;
+    margin-top: 1em;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+#toggle_show_changes > img {
+    height: 1em;
+    vertical-align: middle;
+}
+  
+#toggle_show_changes:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#ticket_changes {
+    overflow: hidden;
+    max-height: 0; 
+}
+
+#ticket_changes.show {
+    max-height: 300px;
+    transition: max-height 0.3s ease-in;
+    overflow: scroll;
+}
+
+#ticket_changes.hide {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+#ticket_changes ol {
+    list-style: none;
 }
 
 #ticket .comment img {
