@@ -190,13 +190,13 @@
             $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
             $stmt->execute(array($departmentId, $ticketId));
 
-            Ticket::changeStatus($db, $ticketId, 'Open');
+            Ticket::changeStatus($db, $ticketId, 'Open', $userId);
         }
 
         static function changeAgent(PDO $db, int $ticketId, string $agent, int $userId) {
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) 
                         SELECT ?, ifnull(agent, ""), ?, ?, ?, ? FROM Ticket WHERE ticketId = ?');
-            $stmt->execute(array("Agent", $agent, date('Y-m-d'), $ticketId, $userId, $ticketId));
+            $stmt->execute(array("Agent", Client::getUserId($db, $agent), date('Y-m-d'), $ticketId, $userId, $ticketId));
 
             $stmt = $db->prepare('UPDATE Ticket SET agent=(SELECT userId FROM Client WHERE username=?) WHERE ticketId=?');
             $stmt->execute(array($agent, $ticketId));
@@ -209,7 +209,13 @@
             return $stmt->fetch();
         }
 
-        static function changeStatus(PDO $db, int $ticketId, string $status) {
+        static function changeStatus(PDO $db, int $ticketId, string $status, int $userId) {
+            if ($status === 'Closed') {
+                $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
+                            ("Status", "", "Closed", ?, ?, ?)');
+                $stmt->execute(array(date('Y-m-d'), $ticketId, $userId));
+            }
+
             $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
             $stmt->execute(array($status, $ticketId));
         }

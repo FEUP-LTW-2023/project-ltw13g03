@@ -90,7 +90,7 @@
     <div id="changes_menu">
         <div id="toggle_show_changes">
             <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3233612/time-history-icon-md.png" alt="changes">
-            Show all changes (<?=sizeof($modifications)?>)
+            Show all changes (<span id="change_count"><?=sizeof($modifications)?></span>)
         </div>
         <div id="ticket_changes">
             <ol>
@@ -104,12 +104,22 @@
                             <?php } else if ($modification['new'] === '') { ?>
                                 removed the tag <strong><?=$modification['old']?></strong>
                             <?php }
-                        } else if ($modification['field'] === 'Close') {?>
-                            closed the ticket
-                        <?php } else if ($modification['field'] === 'Agent') { ?>
-                            
-                        <?php } else if ($modification['field'] === 'Department') { ?>
-
+                            } else if ($modification['field'] === 'Agent') { 
+                            if ($modification['old'] === '') {?>
+                                assigned the ticket to <strong><?=Client::getUsername($db, intval($modification['new'], 10))?></strong>
+                            <?php } else { ?>
+                                reassigned the ticket from <strong><?=Client::getUsername($db, intval($modification['old'], 10))?></strong>
+                                    to <strong><?=Client::getUsername($db, intval($modification['new'],10))?></strong>
+                            <?php } ?> 
+                        <?php } else if ($modification['field'] === 'Department') {
+                            if ($modification['old'] === '') {?>
+                                changed the department to <strong><?=getDepartment($modification['new'])?></strong>
+                            <?php } else { ?>
+                                changed the department from <strong><?=getDepartment($modification['old'])?></strong>
+                                    to <strong><?=getDepartment($modification['new'])?></strong>
+                            <?php } ?> 
+                        <?php } else if ($modification['field'] === 'Status') {?>
+                                closed the ticket &#128274;
                         <?php } ?>
                     </li>
                 <?php } ?>
