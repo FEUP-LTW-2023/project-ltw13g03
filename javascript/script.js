@@ -86,3 +86,17 @@ if (selects.length !== 0 && selectsDepartments.length !== 0) {
     });
   });
 }
+
+
+const addDepButton = document.querySelector("div#add-department img")
+
+addDepButton.addEventListener('click', async function (event) {
+  const newDepInput = document.querySelector("div#add-department input")
+
+  const response = await fetch('../api/new_department.php?department=' + newDepInput.value)
+  const client = await response.json()
+  console.log(client)
+  if (client !== null) location.reload()
+  
+  newDepInput.value=""
+});

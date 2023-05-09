@@ -7,10 +7,11 @@
         <aside>
             <h2>Current departments</h2>
             <ul>
-                <li>IT</li>
-                <li>Finance</li>
-                <li>etc</li>
-                <li>One a litte larger</li>
+                <?php
+                $departments = getDepartments();
+                foreach ($departments as $department) { ?>
+                    <li><?=$department['name']?></li>
+                <?php } ?>
             </ul>
 
             <div id="add-department">
@@ -19,11 +20,11 @@
             </div>
               
                 
-            <h2>Current roles</h2>
+            <h2>Current statuses</h2>
             <ul>
-                <li>Admin</li>
-                <li>Agent</li>
-                <li>User</li>
+                <li>Open</li>
+                <li>Assigned</li>
+                <li>Closed</li>
             </ul>
 
             <div id="add-role">
