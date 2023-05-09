@@ -62,11 +62,13 @@
         <div id="status">
             <select>
                 <option><?=$ticket->status?></option>
-                <?php $statuses = getStatuses();
-                foreach ($statuses as $status) { 
-                    if ($status['name'] !== $ticket->status) {?>
-                        <option><?=$status['name']?></option>
+                <?php if ($ticket->status != 'Closed') {
+                    $statuses = getStatuses();
+                    foreach ($statuses as $status) { 
+                        if ($status['name'] !== $ticket->status) {?>
+                            <option><?=$status['name']?></option>
                 <?php }
+                    }
                 } ?>
             </select>
         </div>
@@ -127,8 +129,9 @@
                                 changed the department from <strong><?=getDepartment($modification['old'])?></strong>
                                     to <strong><?=getDepartment($modification['new'])?></strong>
                             <?php } ?> 
-                        <?php } else if ($modification['field'] === 'Status') {?>
-                                closed the ticket &#128274;
+                        <?php } else if ($modification['field'] === 'Status') { ?>
+                                changed the ticket from <strong><?=$modification['old']?></strong> to
+                                    <strong><?=$modification['new']?></strong>
                         <?php } ?>
                     </li>
                 <?php } ?>

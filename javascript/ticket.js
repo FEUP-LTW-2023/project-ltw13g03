@@ -183,13 +183,13 @@ function ticket_status() {
       } else if (new_status === 'Assigned' && agent === 'assign an agent'){
         event.target.value = initialValue
       } else {
-        initialValue = new_status
         if (new_status === 'Closed') {
           ticket_close()
         } else {
           ticket_update_status(ticketId, new_status)
           ticket_update_changes()
         }
+        initialValue = new_status
       }
     })
   }
@@ -274,7 +274,8 @@ async function ticket_update_changes() {
                             to <strong>${change['new']}</strong>`
         }
       } else if (change['field'] === 'Status') {
-        li.innerHTML += ' closed the ticket &#128274;'
+        li.innerHTML += ` changed the ticket from <strong>${change['old']}</strong>
+                          to <strong>${change['new']}</strong>`
       }
 
       ol.appendChild(li)
