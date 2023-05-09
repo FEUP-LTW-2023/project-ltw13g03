@@ -45,7 +45,6 @@
         <div id="agent">
             <select>
                 <?php 
-                $db = getDatabaseConnection();
                 $selected_agent = Ticket::getAgent($db, $_GET['id']);
                 if (is_null($selected_agent['username'])) { ?>
                     <option disabled selected>assign an agent</option>
@@ -54,13 +53,23 @@
                 <?php }
                 $department_agents = getDepartmentAgents($ticket->department);
                 foreach ($department_agents as $agent) { 
-                    if ($ticket->status != 'Closed') {?>
+                    if ($ticket->status != 'Closed' && $selected_agent['username'] !== $agent['username']) {?>
                     <option><?=$agent['username']?></option>
                 <?php }
                     } ?>
             </select>
         </div>
-        <div id="status"><?=$ticket->status?></div>
+        <div id="status">
+            <select>
+                <option><?=$ticket->status?></option>
+                <?php $statuses = getStatuses();
+                foreach ($statuses as $status) { 
+                    if ($status['name'] !== $ticket->status) {?>
+                        <option><?=$status['name']?></option>
+                <?php }
+                } ?>
+            </select>
+        </div>
         <div id="tags">
             <ul>
                 <?php foreach ($ticket->hashtags as $hashtag) { ?>

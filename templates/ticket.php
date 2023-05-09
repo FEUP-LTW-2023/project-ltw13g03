@@ -57,9 +57,10 @@
             <label id="status_filter"> Status: 
                 <select>
                     <option></option>
-                    <option>Open</option>
-                    <option>Assigned</option>
-                    <option>Closed</option>
+                    <?php $statuses = getStatuses();
+                    foreach($statuses as $status) {?>
+                        <option><?=$status['name']?></option>
+                    <?php } ?>
                 </select>
             </label>
             <label id="priority_filter"> Priority: 

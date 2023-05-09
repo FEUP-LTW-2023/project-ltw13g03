@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS Comment;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Modification;
+DROP TABLE IF EXISTS Status;
 DROP TABLE IF EXISTS Hashtag;
 DROP TABLE IF EXISTS AgentDepartment;
 
@@ -48,6 +49,7 @@ CREATE TABLE Ticket (
     client INTEGER NOT NULL,
     agent INTEGER,
 
+    FOREIGN KEY (status) REFERENCES Status(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (department) REFERENCES Department(departmentID) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (client) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (agent) REFERENCES Agent(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -70,6 +72,10 @@ CREATE TABLE Department (
 );
 
 CREATE TABLE Hashtag (
+    name NVARCHAR(20) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE Status (
     name NVARCHAR(20) NOT NULL PRIMARY KEY
 );
 
@@ -106,6 +112,10 @@ INSERT INTO Department (departmentId, name) VALUES (1, 'Human Resources');
 INSERT INTO Department (departmentId, name) VALUES (2, 'Information Technology');
 INSERT INTO Department (departmentId, name) VALUES (3, 'Sales');
 INSERT INTO Department (departmentId, name) VALUES (4, 'Finance');
+
+INSERT INTO Status (name) VALUES ('Open');
+INSERT INTO Status (name) VALUES ('Assigned');
+INSERT INTO Status (name) VALUES ('Closed');
 
 INSERT INTO Hashtag (name) VALUES ('login issues');
 INSERT INTO Hashtag (name) VALUES('payment problems');

@@ -11,6 +11,6 @@
         header("Location: /pages/login.php");
     } else {
         $db = getDatabaseConnection();
-        Ticket::changeStatus($db, intval($_GET['ticketId'],10), $_GET['status'], Client::getUserId($db, $_SESSION['username']));
+        Ticket::changeStatus($db, intval($_GET['ticketId'],10), $_GET['oldStatus'], $_GET['newStatus'], Client::getUserId($db, $_SESSION['username']));
     }
 ?>

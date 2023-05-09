@@ -11,4 +11,13 @@
         return $stmt->fetchAll();
     }
 
+    function getStatuses() {
+        $db = getDatabaseConnection();
+
+        $stmt = $db->prepare('SELECT name FROM Status');
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
 ?>

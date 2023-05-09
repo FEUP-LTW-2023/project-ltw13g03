@@ -107,11 +107,92 @@ function ticket_department() {
   }
 }
 
-async function ticket_update_status(ticketId, new_status){
-  await fetch('../api/update_ticket_status.php?ticketId=' + ticketId + '&status=' + new_status)
+function ticket_close() {
+  document.querySelector('#ticket #close_ticket').innerHTML = ''
+  ticket_update_status(document.querySelector('#ticket').getAttribute('data-id'), 'Closed')
 
-  const status = document.querySelector('#ticket #status')
-  status.textContent = new_status
+  const selectDepartment = document.querySelector('#ticket #department > select')
+  if (selectDepartment) {
+    selectDepartment.querySelectorAll('option').forEach((option) => {
+      if (!option.selected)
+        selectDepartment.removeChild(option)
+    })
+  }
+
+  const selectAgent = document.querySelector('#ticket #agent > select')
+  if (selectAgent) {
+    selectAgent.querySelectorAll('option').forEach((option) => {
+      if (!option.selected)
+        selectAgent.removeChild(option)
+    })
+  }
+
+  const selectStatus = document.querySelector('#ticket #status > select')
+  if (selectStatus) {
+    selectStatus.querySelectorAll('option').forEach((option) => {
+      if (!option.selected)
+        selectStatus.removeChild(option)
+    })
+  }
+
+  const tags = document.querySelector('#ticket #tags')
+  const tag_input = tags.querySelector('input')
+  const tag_add = tags.querySelector('img')
+
+  tags.removeChild(tag_input)
+  tags.removeChild(tag_add)
+
+  document.body.removeEventListener('click', ticket_remove_tag)
+
+  const comment_form = document.querySelector('#ticket #comments form')
+  comment_form.outerHTML = ''
+
+  ticket_update_changes()
+}
+
+let initialValue = null
+
+async function ticket_update_status(ticketId, new_status){
+  await fetch('../api/update_ticket_status.php?ticketId=' + ticketId + '&oldStatus=' + initialValue + '&newStatus=' + new_status)
+  initialValue = new_status
+
+  const status = document.querySelector('#ticket #status select')
+  status.childNodes.forEach((option) => {
+    if (option.value === new_status)
+      option.selected = true
+    else option.selected = false
+  })
+}
+
+function ticket_status() {
+  const status = document.querySelector('#ticket #status select')
+
+  if (status !== null) {
+    initialValue = status.value
+
+    status.addEventListener('change', function(event){
+      const ticketId = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')
+      const new_status = event.target.value
+
+      if (new_status === initialValue) return
+
+      const agent = document.querySelector('#ticket #agent select').value
+
+      if (new_status === 'Open' && agent !== 'assign an agent') {
+        event.target.value = initialValue
+      } else if (new_status === 'Assigned' && agent === 'assign an agent'){
+        event.target.value = initialValue
+      } else {
+        initialValue = new_status
+        if (new_status === 'Closed') {
+          ticket_close()
+        } else {
+          ticket_update_status(ticketId, new_status)
+          ticket_update_changes()
+        }
+      }
+    })
+  }
 }
 
 function ticket_agent(){
@@ -210,44 +291,12 @@ function ticket() {
   ticket_department()
   ticket_agent()
   ticket_changes()
+  ticket_status()
 
   const closeButton = document.querySelector('#ticket #close_ticket')
 
   if (closeButton) {
-    closeButton.addEventListener('click', function (event) {
-      event.target.innerHTML = ''
-      ticket_update_status(event.target.parentElement.parentElement.getAttribute('data-id'), 'Closed')
-
-      const selectDepartment = document.querySelector('#ticket #department > select')
-      if (selectDepartment) {
-        selectDepartment.querySelectorAll('option').forEach((option) => {
-          if (!option.selected)
-            selectDepartment.removeChild(option)
-        })
-      }
-
-      const selectAgent = document.querySelector('#ticket #agent > select')
-      if (selectAgent) {
-        selectAgent.querySelectorAll('option').forEach((option) => {
-          if (!option.selected)
-            selectAgent.removeChild(option)
-        })
-      }
-
-      const tags = document.querySelector('#ticket #tags')
-      const tag_input = tags.querySelector('input')
-      const tag_add = tags.querySelector('img')
-
-      tags.removeChild(tag_input)
-      tags.removeChild(tag_add)
-
-      document.body.removeEventListener('click', ticket_remove_tag)
-
-      const comment_form = document.querySelector('#ticket #comments form')
-      comment_form.outerHTML = ''
-
-      ticket_update_changes()
-    })
+    closeButton.addEventListener('click', ticket_close)
   }
 }
 

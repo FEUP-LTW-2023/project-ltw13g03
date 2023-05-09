@@ -209,15 +209,13 @@
             return $stmt->fetch();
         }
 
-        static function changeStatus(PDO $db, int $ticketId, string $status, int $userId) {
-            if ($status === 'Closed') {
-                $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
-                            ("Status", "", "Closed", ?, ?, ?)');
-                $stmt->execute(array(date('Y-m-d'), $ticketId, $userId));
-            }
+        static function changeStatus(PDO $db, int $ticketId, string $oldStatus, string $newStatus, int $userId) {
+            $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
+                        ("Status", ?, ?, ?, ?, ?)');
+            $stmt->execute(array($oldStatus, $newStatus, date('Y-m-d'), $ticketId, $userId));
 
             $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
-            $stmt->execute(array($status, $ticketId));
+            $stmt->execute(array($newStatus, $ticketId));
         }
 
         static function getModifications(PDO $db, int $ticketId) {
