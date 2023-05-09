@@ -63,38 +63,33 @@ section.userprofile form #repeatpassword {
 
 section.userprofile form div#photo {
     grid-area: 4 / 1 / span 1 / span 2;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    width: 8em;
+    height: 8em;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
-section.userprofile form div#photo label#newphoto {
+section.userprofile form div#photo:hover label#newphoto {
+    position: relative;
+    bottom: 4em;
     background-color: var(--text-color);
-    height: fit-content;
-    width: 7em;
-    padding: .4em .6em;
+    
+    
+    height: 3em;
+    padding-top: .8em;
     text-align: center;
-    font-size: .8rem;
+    font-size: .6rem;
     color: white;
     cursor: pointer;
+    font-weight: normal;
 }
 
-section.userprofile form div#photo label#newphoto {
-    background-color: var(--text-color);
-    width: 7em;
-    margin-right: 1em;
-    padding: .4em .6em;
-    text-align: center;
-    font-size: .8rem;
-    font-weight: normal;
-    color: white;
-    border-radius: 3px;
-}
 
 section.userprofile form div#photo img {
     border-radius: 50%;
-    width: 5em;
+    width: 100%;
+    height: 100%;
 }
 
 section.userprofile form div#photo input {
@@ -112,6 +107,23 @@ section.userprofile form button {
     justify-self: right;
     cursor: pointer;
     border-radius: 3px;
+}
+
+@media (max-width: 30em) {
+    section.userprofile form div#photo label#newphoto {
+        position: relative;
+        bottom: 4em;
+        background-color: var(--text-color);
+        
+        
+        height: 3em;
+        padding-top: .8em;
+        text-align: center;
+        font-size: .6rem;
+        color: white;
+        cursor: pointer;
+        font-weight: normal;
+    }
 }
 
 @media (max-width: 55em) {
@@ -141,11 +153,6 @@ section.userprofile form button {
     
     section.userprofile form div#photo {
         grid-area: 7 / 1;
-        flex-direction: column;
-    }
-    
-    section.userprofile form div#photo label#newphoto {
-        margin: 0 0 1em 0;
     }
     
     section.userprofile form button {

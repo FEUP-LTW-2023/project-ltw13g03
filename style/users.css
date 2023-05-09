@@ -5,10 +5,68 @@
     --text-color-2: #2E1760;
 }
 
-section#form-manage-users {
+section#management {
     grid-area: 2/1/span 1/span 2;
+    width: 98vw;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: min-content auto;
+    column-gap: 1em;
+}
+
+section#management #add-role, #add-department {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+section#management > aside {
+    margin-top: .8em;
+    grid-area: 1/2/span 1/span 2;
+    max-width: 15em;
+}
+
+section#management > aside img {
+    cursor: pointer;
+    margin-left: .2em;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 50%;
+    filter: invert(15%) sepia(42%) saturate(3731%) hue-rotate(247deg) brightness(114%) contrast(128%);
+}
+
+section#management > aside h2 {
+    color: var(--text-color);
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+section#management > aside ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+section#management input {
+    min-width: 2em;
+    width: 65%;
+    background-color: var(--box-color);
+    height: 1.4em;
+    padding: .2em .5em;
+    margin: .2em;
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+    min-width: 0;
+}
+
+section#form-manage-users {
+    grid-area: 1/1;
     width: 80vw;
-    margin: 0 auto;
+    margin-left: 1em;
+    max-width: 50em;
 }
 
 table#manage-users {
@@ -124,7 +182,7 @@ table#manage-users {
     flex-wrap: wrap;
 }
 
-#manage-users td div.departments ul > li{
+#manage-users td div.departments ul > li, section#management > aside li {
     background-color: rgba(0, 0, 255, 0.862);
     color: white;
     font-size: .65rem;
@@ -135,11 +193,45 @@ table#manage-users {
     cursor: pointer;
 }
 
-@media (max-width: 28em) {
-    section#form-manage-users {
+section#management > aside li {
+    cursor: auto;
+}
+
+@media (max-width: 55em) {
+    section#management {
+        width: 100%;
+        grid-template-columns: 98%;
+        grid-template-rows: min-content auto;
+    }
+    
+    section#management > aside {
+        grid-area: 1 / 1;
+        margin: 0 auto;
+        max-width: none;
+        width: 80%;
+        max-width: 30em;
+    }
+
+    section#management input {
         width: 100%;
     }
+
+    section#form-manage-users {
+        grid-area: 2 / 1;
+        width: 100%;
+        margin: 0 auto;
+    }
+
     #manage-users th {
         width: auto;
+    }
+    
+    #manage-users td {
+        padding: .2em;
+    }
+
+    #manage-users td select {
+        width: 80%;
+        max-width: 12em;
     }
 }

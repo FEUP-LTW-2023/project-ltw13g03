@@ -14,6 +14,8 @@ if (selects.length !== 0 && selectsDepartments.length !== 0) {
   document.body.addEventListener('click', async function (event) {
     if (event.target.tagName === 'LI') {
       const id = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')
+
+      if (id == null) return;
       const selectedOption = event.target.innerHTML
       
       const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');

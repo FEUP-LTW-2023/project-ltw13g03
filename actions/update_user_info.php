@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . '/../database/connection.db.php');
+require_once(__DIR__ . '/../database/client.class.php');
 
 session_start();
 
@@ -9,9 +10,10 @@ $name = $_POST['name'];
 $username = $_SESSION['username'];
 $email = $_POST['email'];
 
+echo $_POST['name'];
 $id = Client::getUserId($db, $_SESSION['username']);
-$stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=? WHERE userId=?');
-$stmt->execute(array($name, $email, $username, $id));
+//$stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=? WHERE userId=?');
+//$stmt->execute(array($name, $email, $username, $id));
 
 
 $response = array('success' => true);

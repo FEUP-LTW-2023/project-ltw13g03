@@ -3,6 +3,36 @@
     require_once(__DIR__ . '/../database/client.class.php');
     require_once(__DIR__ . '/../database/department.php');
 
+    function output_control() { ?>
+        <aside>
+            <h2>Current departments</h2>
+            <ul>
+                <li>IT</li>
+                <li>Finance</li>
+                <li>etc</li>
+                <li>One a litte larger</li>
+            </ul>
+
+            <div id="add-department">
+                <input type="text" placeholder="New department" name="" id="">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+            </div>
+              
+                
+            <h2>Current roles</h2>
+            <ul>
+                <li>Admin</li>
+                <li>Agent</li>
+                <li>User</li>
+            </ul>
+
+            <div id="add-role">
+                <input type="text" placeholder="New role" name="" id="">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+            </div>
+        </aside>
+    <?php }
+
     function output_users() { ?>
     
         <section id="form-manage-users">

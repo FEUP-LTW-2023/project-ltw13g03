@@ -4,7 +4,7 @@
         $user = getUserInfo($_SESSION['username']) ?>
         <section class="userprofile">
             <h2>Profile</h2>
-            <form>
+            <form action="../actions/update_user_info.php" method="post" enctype="multipart/form-data">
                 <label id="name">
                     Name <input type="text" required name="name" value="<?php echo $user['name']; ?>">
                 </label>
@@ -18,13 +18,11 @@
                     Repeat password <input type="password" name="password">
                 </label>
                 <div id="photo">
-                    <label id="newphoto">
-                        <input type="file" name="photo" accept="image/*">
-                        Upload photo
-                    </label>
-                    <img src="<?php echo "https://picsum.photos/120/120";?>" alt="user_image">
+                    <img src="../images/default.jpg" alt="user_image">
+                    <input type="file" id="profile-input" accept="image/png,image/jpeg">
+                    <label for="profile-input" id="newphoto">Upload photo</label>
                 </div>
-                <button>Update info</button>
+                <button type="submit">Update info</button>
             </form>
         </section>
     <?php }

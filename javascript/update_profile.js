@@ -1,3 +1,19 @@
+const inpFile = document.getElementById("profile-input")
+const profPicPreview = document.querySelector("div#photo > img")
+
+inpFile.addEventListener("change", function() {
+    const file = this.files[0]
+    if (file) {
+        const reader = new FileReader()
+        reader.addEventListener("load", function() {
+            profPicPreview.setAttribute("src", this.result)
+        });
+
+        reader.readAsDataURL(file)
+    }
+})
+
+
 function activateButton() {
     const updateButton = document.querySelector('.userprofile button');
     const form = document.querySelector('.userprofile form');
@@ -14,7 +30,7 @@ function activateButton() {
 
         const formData = new FormData(form);
 
-        fetch('../database/update_user_info.php', {
+        fetch('../actions/update_user_info.php', {
             method: 'POST',
             body: formData,
         })
@@ -26,4 +42,4 @@ function activateButton() {
     });
 }
 
-activateButton()
+//activateButton()
