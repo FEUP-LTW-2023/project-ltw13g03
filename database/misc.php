@@ -11,4 +11,12 @@
         return $stmt->fetchAll();
     }
 
+    function getFAQs() {
+        $db = getDatabaseConnection();
+
+        $stmt = $db->prepare('SELECT question, answer FROM FAQ');
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 ?>

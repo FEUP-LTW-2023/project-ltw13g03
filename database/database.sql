@@ -81,11 +81,15 @@ CREATE TABLE Modification (
     date DATE NOT NULL,
     ticketID INTEGER NOT NULL,
     userId INTEGER NOT NULL,
-    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (userId) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-
+CREATE TABLE FAQ (
+    faqId INTEGER PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
 
 INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '3678b4619913882f81cb27e5a1a723291fa8da0d'); --passwordsecreta
 INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '20eabe5d64b0e216796e834f52d61fd0b70332fc'); --1234567
@@ -137,4 +141,8 @@ INSERT INTO Ticket (ticketID, title, body, department, hashtags, priority, statu
 
 INSERT INTO Comment (id, ticketID, userId, date, text) VALUES (1, 1, 3, '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');
 
-INSERT INTO Modification (modificationID, field, old, new, date, ticketID, userId) VALUES (1, 'Hashtag', '', 'bug report', '2023-01-01', 1, 3)
+INSERT INTO Modification (modificationID, field, old, new, date, ticketID, userId) VALUES (1, 'Hashtag', '', 'bug report', '2023-01-01', 1, 3);
+
+INSERT INTO FAQ (faqId, question, answer) VALUES (1, 'Como posso criar um ticket?', 'Criar um ticket é mesmo fácil, é só fazer isto e pronto lol');
+INSERT INTO FAQ (faqId, question, answer) VALUES (2, 'O que é que esta empresa vende?', 'Estás no site e não sabes? xd');
+INSERT INTO FAQ (faqId, question, answer) VALUES (3, 'Estou com problemas no login.', 'Como é que estás a ver isto então?');

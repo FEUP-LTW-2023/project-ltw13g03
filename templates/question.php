@@ -1,22 +1,25 @@
 <?php
-function output_question() { ?>
+
+require_once(__DIR__ . '/../database/misc.php');
+function output_FAQ($faq) { ?>
     <div class="question">
         <div class="faq-header">
-            <h3> O gaspar é fixe?</h3>
+            <h3><?php echo $faq['question']?></h3>
             <span class="open">+</span>
         </div>
         <div class="faq-answer">
-            <p>O Gaspar é mesmo fixe! Ele é uma pessoa muito divertida e sempre pronto para animar qualquer
-                situação. Além disso, ele é super inteligente e sempre tem ideias incríveis.</p>
+            <p><?php echo $faq['answer']?></p>
         </div>
     </div>
 <?php }
 ?>
 
-<?php function output_questions() { ?>
+<?php function output_FAQs() { ?>
     <section id="questions">
-        <?php for ($i = 1; $i <= 3; $i++) {
-            output_question();
+        <?php
+        $faqs = getFAQs();
+        foreach ($faqs as $faq) {
+            output_FAQ($faq);
         } ?>
     </section>
 <?php } ?>
