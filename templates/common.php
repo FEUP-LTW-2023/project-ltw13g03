@@ -29,7 +29,17 @@
                     $user = getUserInfo($_SESSION['username']); ?>
                     <a href="faq.php"><h2>FAQ</h2></a>
                     <div class="profile-dropdown">
-                        <img src="https://picsum.photos/80/80" alt="User profile picture">
+                        <?php 
+                        $results = glob(__DIR__ . "/../images/" . $user['username'] . ".*");
+                        if ($results){
+                            $path = "/../images/" . $user['username'] . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                            <img src=<?=$path?> alt="user_image">
+                        <?php }
+                        else{ ?>
+                            <img src="/../images/default.jpg" alt="user_image">
+                        <?php }?>
+
+                        
                         <div class="profile-dropdown-content">
                             <?php
                             if ($user['isAdmin']) { ?>

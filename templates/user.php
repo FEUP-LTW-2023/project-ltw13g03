@@ -18,8 +18,16 @@
                     Repeat password <input type="password" name="password">
                 </label>
                 <div id="photo">
-                    <img src="../images/default.jpg" alt="user_image">
-                    <input type="file" id="profile-input" accept="image/png,image/jpeg">
+                    <?php 
+                    $results = glob(__DIR__ . "/../images/" . $user['username'] . ".*");
+                    if ($results){
+                        $path = "/../images/" . $user['username'] . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                        <img src=<?=$path?> alt="user_image">
+                    <?php }
+                    else{ ?>
+                        <img src="/../images/default.jpg" alt="user_image">
+                    <?php }?>
+                    <input type="file" id="profile-input" name="profile-input" accept="image/png,image/jpeg">
                     <label for="profile-input" id="newphoto">Upload photo</label>
                 </div>
                 <button type="submit">Update info</button>

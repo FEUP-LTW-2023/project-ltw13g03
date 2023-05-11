@@ -12,9 +12,9 @@
 
 <section id="register">
     <h1>Register</h1>
-    <form action="../actions/action_register.php" method="post">
+    <form action="../actions/action_register.php" method="post" enctype="multipart/form-data">
     <label>
-        <input type="file" name="photo" accept="image/*">
+        <input type="file" name="profile-input" accept="image/png,image/jpeg">
         <img src="https://cdn2.iconfinder.com/data/icons/dottie-user-part-1/24/user_024-add-profile-account-people-plus-new-512.png" alt="user_image">
     </label>
     <div id="user_info">

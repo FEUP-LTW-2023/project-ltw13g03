@@ -1,3 +1,23 @@
+/* MOVE THIS SOMEWHERE ELSE!! */
+const inpFileReg = document.querySelector("section#register > form > label > input")
+
+inpFileReg.addEventListener("change", function() {
+  const profPicPreviewReg = document.querySelector("section#register img")
+  const file = this.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.addEventListener("load", function() {
+        profPicPreviewReg.setAttribute("src", this.result)
+        profPicPreviewReg.style.filter = 'none';
+        profPicPreviewReg.style.borderRadius = '50%';
+    });
+
+    reader.readAsDataURL(file)
+  }
+})
+
+
+/* Actual content of this file */
 const selects = document.querySelectorAll('section#form-manage-users td:nth-child(2) > select');
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
 
