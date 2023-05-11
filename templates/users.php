@@ -2,10 +2,11 @@
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/client.class.php');
     require_once(__DIR__ . '/../database/department.php');
+    require_once(__DIR__ . '/../database/misc.php');
 
     function output_control() { ?>
         <aside>
-            <h2>Current departments</h2>
+            <h2>Departments</h2>
             <ul>
                 <?php
                 $departments = getDepartments();
@@ -16,20 +17,37 @@
 
             <div id="add-department">
                 <input type="text" placeholder="New department" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new department">
             </div>
               
                 
-            <h2>Current statuses</h2>
+            <h2>Statuses</h2>
             <ul>
-                <li>Open</li>
-                <li>Assigned</li>
-                <li>Closed</li>
+                <?php
+                $statuses = getStatuses();
+                foreach ($statuses as $status) { ?>
+                    <li><?=$status['name']?></li>
+                <?php } ?>
             </ul>
 
-            <div id="add-role">
-                <input type="text" placeholder="New role" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+            <div id="add-status">
+                <input type="text" placeholder="New status" name="" id="">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new status">
+            </div>
+
+
+            <h2>Hashtags</h2>
+            <ul>
+                <?php
+                $tags = getHashtags();
+                foreach ($tags as $tag) { ?>
+                    <li><?=$tag['name']?></li>
+                <?php } ?>
+            </ul>
+
+            <div id="add-htag">
+                <input type="text" placeholder="New hashtag" name="" id="">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new hashtag">
             </div>
         </aside>
     <?php }

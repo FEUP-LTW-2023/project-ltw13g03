@@ -1,5 +1,7 @@
 <?php
     require_once(__DIR__ . '/../database/users.php');
+    require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/client.class.php');
     function output_user_profile() {
         $user = getUserInfo($_SESSION['username']) ?>
         <section class="userprofile">
@@ -18,8 +20,18 @@
                     Repeat password <input type="password" name="password">
                 </label>
                 <div id="photo">
-                    <img src="../images/default.jpg" alt="user_image">
-                    <input type="file" id="profile-input" accept="image/png,image/jpeg">
+                    <?php 
+                    $db = getDatabaseConnection();
+                    $filename = Client::getUserId($db, $user['username']);
+                    $results = glob(__DIR__ . "/../images/" . $filename . ".*");
+                    if ($results){
+                        $path = "/../images/" . $filename . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                        <img src=<?=$path?> alt="user_image">
+                    <?php }
+                    else{ ?>
+                        <img src="/../images/default.jpg" alt="user_image">
+                    <?php }?>
+                    <input type="file" id="profile-input" name="profile-input" accept="image/png,image/jpeg">
                     <label for="profile-input" id="newphoto">Upload photo</label>
                 </div>
                 <button type="submit">Update info</button>

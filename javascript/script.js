@@ -1,3 +1,23 @@
+/* MOVE THIS SOMEWHERE ELSE!! */
+const inpFileReg = document.querySelector("section#register > form > label > input")
+
+inpFileReg.addEventListener("change", function() {
+  const profPicPreviewReg = document.querySelector("section#register img")
+  const file = this.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.addEventListener("load", function() {
+        profPicPreviewReg.setAttribute("src", this.result)
+        profPicPreviewReg.style.filter = 'none';
+        profPicPreviewReg.style.borderRadius = '50%';
+    });
+
+    reader.readAsDataURL(file)
+  }
+})
+
+
+/* Actual content of this file */
 const selects = document.querySelectorAll('section#form-manage-users td:nth-child(2) > select');
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
 
@@ -95,8 +115,32 @@ addDepButton.addEventListener('click', async function (event) {
 
   const response = await fetch('../api/new_department.php?department=' + newDepInput.value)
   const client = await response.json()
-  console.log(client)
   if (client !== null) location.reload()
   
   newDepInput.value=""
+});
+
+const addStatusButton = document.querySelector("div#add-status img")
+
+addStatusButton.addEventListener('click', async function (event) {
+  const newDepInput = document.querySelector("div#add-status input")
+
+  const response = await fetch('../api/new_status.php?status=' + newDepInput.value)
+  const client = await response.json()
+  if (client !== null) location.reload()
+  
+  newDepInput.value=""
+});
+
+
+const addHashtagButton = document.querySelector("div#add-htag img")
+
+addHashtagButton.addEventListener('click', async function (event) {
+  const newHashtagInput = document.querySelector("div#add-htag input")
+
+  const response = await fetch('../api/new_hashtag.php?hashtag=' + newHashtagInput.value)
+  const client = await response.json()
+  if (client !== null) location.reload()
+  
+  newHashtagInput.value=""
 });
