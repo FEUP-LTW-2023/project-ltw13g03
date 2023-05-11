@@ -1,5 +1,7 @@
 <?php
     require_once(__DIR__ . '/../database/users.php');
+    require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/client.class.php');
     function output_user_profile() {
         $user = getUserInfo($_SESSION['username']) ?>
         <section class="userprofile">
@@ -19,9 +21,11 @@
                 </label>
                 <div id="photo">
                     <?php 
-                    $results = glob(__DIR__ . "/../images/" . $user['username'] . ".*");
+                    $db = getDatabaseConnection();
+                    $filename = Client::getUserId($db, $user['username']);
+                    $results = glob(__DIR__ . "/../images/" . $filename . ".*");
                     if ($results){
-                        $path = "/../images/" . $user['username'] . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                        $path = "/../images/" . $filename . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
                         <img src=<?=$path?> alt="user_image">
                     <?php }
                     else{ ?>

@@ -10,7 +10,8 @@ if ($file != "") {
     $path = pathinfo($file);
     $extension = $path['extension'];
     $dir = __DIR__ . "/../images/";
-    $filename = $_SESSION['username']; // change to userId
+    $db = getDatabaseConnection();
+    $filename = Client::getUserId($db, $_POST['username']); // change to userId
     $temp = $_FILES['profile-input']['tmp_name'];
     $name = $dir . $filename . '.' . $extension;
 

@@ -3,6 +3,7 @@
 
   require_once(__DIR__ . '/../database/users.php');
   require_once(__DIR__ . '/../database/client.class.php');
+  require_once(__DIR__ . '/../database/connection.db.php');
   
   if ($_POST['password1'] != $_POST['password2'])
     header('Location: /pages/register.php');
@@ -16,7 +17,8 @@
           $path = pathinfo($file);
           $extension = $path['extension'];
           $dir = __DIR__ . "/../images/";
-          $filename = $_POST['username']; // change to userId
+          $db = getDatabaseConnection();
+          $filename = Client::getUserId($db, $_POST['username']);
           $temp = $_FILES['profile-input']['tmp_name'];
           $name = $dir . $filename . '.' . $extension;
 
