@@ -2,6 +2,7 @@
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/client.class.php');
     require_once(__DIR__ . '/../database/department.php');
+    require_once(__DIR__ . '/../database/misc.php');
 
     function output_control() { ?>
         <aside>
@@ -16,20 +17,22 @@
 
             <div id="add-department">
                 <input type="text" placeholder="New department" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new department">
             </div>
               
                 
             <h2>Current statuses</h2>
             <ul>
-                <li>Open</li>
-                <li>Assigned</li>
-                <li>Closed</li>
+                <?php
+                $statuses = getStatuses();
+                foreach ($statuses as $status) { ?>
+                    <li><?=$status['name']?></li>
+                <?php } ?>
             </ul>
 
-            <div id="add-role">
+            <div id="add-status">
                 <input type="text" placeholder="New role" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new status">
             </div>
         </aside>
     <?php }
