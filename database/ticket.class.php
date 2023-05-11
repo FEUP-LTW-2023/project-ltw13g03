@@ -132,7 +132,10 @@
             
             $hashtags = json_decode($stmt->fetch()['hashtags'], true);
 
-            array_splice($hashtags, array_search($hashtag, $hashtags), 1);
+            $key = array_search($hashtag, $hashtags);
+            if ($key === false) return false;
+
+            array_splice($hashtags, $key, 1);
 
             $hashtags = json_encode($hashtags);
 
@@ -142,8 +145,6 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
-
-            return $hashtags;
         }
 
         static function addHashtag(PDO $db, int $ticketId, string $hashtag, int $userId) {
@@ -162,7 +163,7 @@
                     $found = true;
             }
             if (!$found)
-                return $hashtags;
+                return false;
 
             $hashtags = json_decode($hashtags, true);
 
@@ -176,8 +177,6 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
-
-            return $hashtags;
         }
 
         static function changeDepartment(PDO $db, int $ticketId, string $department, int $userId) {
@@ -189,8 +188,6 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
             $stmt->execute(array($departmentId, $ticketId));
-
-            Ticket::changeStatus($db, $ticketId, 'Open', $userId);
         }
 
         static function changeAgent(PDO $db, int $ticketId, string $agent, int $userId) {
@@ -210,6 +207,8 @@
         }
 
         static function changeStatus(PDO $db, int $ticketId, string $oldStatus, string $newStatus, int $userId) {
+            if ($oldStatus === $newStatus) return;
+            
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
                         ("Status", ?, ?, ?, ?, ?)');
             $stmt->execute(array($oldStatus, $newStatus, date('Y-m-d'), $ticketId, $userId));
