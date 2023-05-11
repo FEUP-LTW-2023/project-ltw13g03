@@ -14,7 +14,7 @@ section#management {
     column-gap: 1em;
 }
 
-section#management #add-status, #add-department {
+section#management #add-status, #add-department, #add-htag {
     display: flex;
     flex-direction: row;
     align-items: center;

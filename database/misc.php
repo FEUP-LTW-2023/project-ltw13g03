@@ -11,6 +11,23 @@
         return $stmt->fetchAll();
     }
 
+    function hashtagExists(string $name) {
+        $db = getDatabaseConnection();
+
+        $stmt = $stmt = $db->prepare('SELECT name FROM Hashtag WHERE name = ?');
+        $stmt->execute(array($name));
+        
+        $res = $stmt->fetch();
+        if (!$res) return false;
+        return true;
+    }
+
+    function insertHashtag(string $name) {
+        $db = getDatabaseConnection();
+        $stmt = $db->prepare('INSERT INTO Hashtag (name) VALUES (?)');
+        $stmt->execute(array($name));
+    }
+
     function getStatuses() {
         $db = getDatabaseConnection();
 

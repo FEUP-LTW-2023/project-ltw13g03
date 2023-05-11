@@ -6,7 +6,7 @@
 
     function output_control() { ?>
         <aside>
-            <h2>Current departments</h2>
+            <h2>Departments</h2>
             <ul>
                 <?php
                 $departments = getDepartments();
@@ -21,7 +21,7 @@
             </div>
               
                 
-            <h2>Current statuses</h2>
+            <h2>Statuses</h2>
             <ul>
                 <?php
                 $statuses = getStatuses();
@@ -31,8 +31,23 @@
             </ul>
 
             <div id="add-status">
-                <input type="text" placeholder="New role" name="" id="">
+                <input type="text" placeholder="New status" name="" id="">
                 <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new status">
+            </div>
+
+
+            <h2>Hashtags</h2>
+            <ul>
+                <?php
+                $tags = getHashtags();
+                foreach ($tags as $tag) { ?>
+                    <li><?=$tag['name']?></li>
+                <?php } ?>
+            </ul>
+
+            <div id="add-htag">
+                <input type="text" placeholder="New hashtag" name="" id="">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new hashtag">
             </div>
         </aside>
     <?php }

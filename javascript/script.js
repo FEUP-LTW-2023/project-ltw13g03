@@ -111,3 +111,16 @@ addStatusButton.addEventListener('click', async function (event) {
   
   newDepInput.value=""
 });
+
+
+const addHashtagButton = document.querySelector("div#add-htag img")
+
+addHashtagButton.addEventListener('click', async function (event) {
+  const newHashtagInput = document.querySelector("div#add-htag input")
+
+  const response = await fetch('../api/new_hashtag.php?hashtag=' + newHashtagInput.value)
+  const client = await response.json()
+  if (client !== null) location.reload()
+  
+  newHashtagInput.value=""
+});
