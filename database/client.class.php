@@ -82,7 +82,9 @@
         static function getUserId(PDO $db, string $username) {
             $stmt2 = $db->prepare('SELECT userId FROM Client WHERE username = ?');
             $stmt2->execute(array($username));
-            return $stmt2->fetch()['userId'];
+            $id = $stmt2->fetch();
+            if ($id === false) return false;
+            else return $id['userId'];
         }
 
         static function getUsername(PDO $db, int $userId) {

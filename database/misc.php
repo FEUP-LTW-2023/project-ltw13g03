@@ -53,4 +53,13 @@
         if (!$res) return false;
         return true;
     }
+
+    function getAgents() {
+        $db = getDatabaseConnection();
+
+        $stmt = $db->prepare('SELECT username FROM Client JOIN Agent ON Client.userId=Agent.userId WHERE isAgent=true');
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 ?>

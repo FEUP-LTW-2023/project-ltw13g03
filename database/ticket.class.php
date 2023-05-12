@@ -61,25 +61,21 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search, string $status, string $priority) {
-            if (empty($status) && strlen($priority) === 0){
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
-                $stmt->execute(array('%' . $search . '%'));
-            }
-            else if (strlen($priority) === 0){
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=?');
-                $stmt->execute(array('%' . $search . '%', $status));
-            } else if (empty($status)){
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND priority=?');
-                $stmt->execute(array('%' . $search . '%', intval($priority, 10)));
-            } else {
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=? AND priority=?');
-                $stmt->execute(array('%' . $search . '%', $status, intval($priority, 10)));
-            }
+        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $status, string $priority) {
+            $stmt = $db->prepare('SELECT * FROM (Ticket LEFT JOIN Client ON Ticket.Agent=Client.userId)
+                                            WHERE title LIKE ? AND ifnull(username, "") LIKE ?');
+            $stmt->execute(array('%' . $search . '%', '%' . $agent . '%'));
+
+            $agent = Client::getUserId($db, $agent);
+            if (strlen($priority) === 0) $priority = -1;
+            else $priority = intval($priority, 10);
 
             $tickets = array();
 
             while ($ticket = $stmt->fetch()) {
+                if (($priority !== -1 && $ticket['priority'] !== $priority) 
+                    || (!empty($status) && $ticket['status'] !== $status)) continue;
+
                 $tickets[] = new Ticket(
                     $ticket['ticketId'],
                     $ticket['title'],

@@ -59,6 +59,19 @@ function search_date(){
     endDate.addEventListener('change', filter)
 }
 
+function search_agent(){
+    const agent = document.querySelector('#tickets #agent_filter')
+    let timer
+
+    agent.addEventListener('input', function () {
+        clearTimeout(timer)
+
+        timer = setTimeout(() => {
+            filter()
+        }, 500)
+    })
+}
+
 async function filter(){
     const input = document.querySelector('#tickets #searchticket').value
     const selectedTags = Array.from(document.querySelector('#tickets #tags > ul').childNodes).map((tag) => tag.textContent)
@@ -66,10 +79,12 @@ async function filter(){
     let startDate = document.querySelector('#tickets #date_filter #start_date').value
     let endDate = document.querySelector('#tickets #date_filter #end_date').value
 
+    const agent = document.querySelector('#tickets #agent_filter input').value
+
     const status = document.querySelector('#tickets #status_filter select').value
     const priority = document.querySelector('#tickets #priority_filter select').value
 
-    const response = await fetch('../api/search_tickets.php?search=' + input + '&status=' + status + '&priority=' + priority)
+    const response = await fetch('../api/search_tickets.php?search=' + input + '&agent=' + agent + '&status=' + status + '&priority=' + priority)
     const tickets = await response.json()
 
     const section = document.querySelector('#tickets')
@@ -149,6 +164,7 @@ function search_tickets(){
     if (searchBox) {
         search_tags()
         search_date()
+        search_agent()
         searchBox.addEventListener('input', filter)
 
         const status = document.querySelector('#tickets #status_filter select')
