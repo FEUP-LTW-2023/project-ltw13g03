@@ -5,7 +5,7 @@
     function getDepartments() {
         $db = getDatabaseConnection();
 
-        $stmt = $db->prepare('SELECT name FROM Department');
+        $stmt = $db->prepare('SELECT name FROM Department ORDER BY name ASC');
         $stmt->execute();
     
         return $stmt->fetchAll();
@@ -27,7 +27,7 @@
         $stmt->execute(array($name));
         
         $res = $stmt->fetch();
-        if (!$res) return null;
+        if ($res === false) return null;
         return $res['departmentId'];
     }
 

@@ -63,6 +63,15 @@
                     <?php } ?>
                 </datalist>
             </label>
+            <label id="department_filter"> Department: 
+                <select>
+                    <option></option>
+                    <?php $departments = getDepartments();
+                    foreach($departments as $department) {?>
+                        <option><?=$department['name']?></option>
+                    <?php } ?>
+                </select>
+            </label>
             <label id="status_filter"> Status: 
                 <select>
                     <option></option>

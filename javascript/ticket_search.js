@@ -81,10 +81,13 @@ async function filter(){
 
     const agent = document.querySelector('#tickets #agent_filter input').value
 
+    const department = document.querySelector('#tickets #department_filter select').value
+
     const status = document.querySelector('#tickets #status_filter select').value
     const priority = document.querySelector('#tickets #priority_filter select').value
 
-    const response = await fetch('../api/search_tickets.php?search=' + input + '&agent=' + agent + '&status=' + status + '&priority=' + priority)
+    const response = await fetch('../api/search_tickets.php?search=' + input + '&agent=' + agent 
+                                    + '&department=' + department + '&status=' + status + '&priority=' + priority)
     const tickets = await response.json()
 
     const section = document.querySelector('#tickets')
@@ -166,6 +169,9 @@ function search_tickets(){
         search_date()
         search_agent()
         searchBox.addEventListener('input', filter)
+
+        const department = document.querySelector('#tickets #department_filter select')
+        department.addEventListener('change', filter)
 
         const status = document.querySelector('#tickets #status_filter select')
         status.addEventListener('change', filter)

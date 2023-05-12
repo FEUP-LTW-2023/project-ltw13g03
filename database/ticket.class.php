@@ -61,7 +61,7 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $status, string $priority) {
+        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $department, string $status, string $priority) {
             $stmt = $db->prepare('SELECT * FROM (Ticket LEFT JOIN Client ON Ticket.Agent=Client.userId)
                                             WHERE title LIKE ? AND ifnull(username, "") LIKE ?');
             $stmt->execute(array('%' . $search . '%', '%' . $agent . '%'));
@@ -73,7 +73,8 @@
             $tickets = array();
 
             while ($ticket = $stmt->fetch()) {
-                if (($priority !== -1 && $ticket['priority'] !== $priority) 
+                if ((!empty($department) && getDepartment($ticket['department']) !== $department)
+                    || ($priority !== -1 && $ticket['priority'] !== $priority) 
                     || (!empty($status) && $ticket['status'] !== $status)) continue;
 
                 $tickets[] = new Ticket(
