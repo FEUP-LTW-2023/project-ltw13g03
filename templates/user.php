@@ -20,7 +20,7 @@
                     Password <input type="password" name="password">
                 </label>
                 <label id="repeatpassword">
-                    Repeat password <input type="password" name="password">
+                    Repeat password <input type="password" name="newpassword">
                 </label>
                 <div id="photo">
                     <?php 
