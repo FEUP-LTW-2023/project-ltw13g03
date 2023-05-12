@@ -10,6 +10,9 @@
                 <label id="name">
                     Name <input type="text" required name="name" value="<?php echo $user['name']; ?>">
                 </label>
+                <label id="username">
+                    Username <input type="text" required name="username" value="<?php echo $user['username']; ?>">
+                </label>
                 <label id="email">
                     E-mail <input type="email" name="email" value="<?php echo $user['email']; ?>">
                 </label>
