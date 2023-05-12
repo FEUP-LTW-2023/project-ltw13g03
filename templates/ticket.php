@@ -54,6 +54,15 @@
                     <input type="date" min="1970-01-01" id="end_date">
                 </label>
             </div>
+            <label id="agent_filter"> Agent: 
+                <input list="agents" type="text">
+                <datalist id="agents">
+                    <?php $agents = getAgents();
+                    foreach($agents as $agent) {?>
+                        <option><?=$agent['username']?></option>
+                    <?php } ?>
+                </datalist>
+            </label>
             <label id="status_filter"> Status: 
                 <select>
                     <option></option>
