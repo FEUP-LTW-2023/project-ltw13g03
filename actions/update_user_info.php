@@ -11,12 +11,12 @@ if ($file != "") {
     $extension = $path['extension'];
     $dir = __DIR__ . "/../images/";
     $db = getDatabaseConnection();
-    $filename = Client::getUserId($db, $_POST['username']); // change to userId
+    $filename = Client::getUserId($db, $_SESSION['username']);
     $temp = $_FILES['profile-input']['tmp_name'];
     $name = $dir . $filename . '.' . $extension;
 
 
-    // delete file if exists
+    // delete file with same name
     $existing_files = glob($dir. $filename . ".*");
     foreach ($existing_files as $existing_file) unlink($existing_file);
       

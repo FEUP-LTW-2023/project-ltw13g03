@@ -10,7 +10,17 @@ function output_comments($id, $status){
     <section id="comments">
         <?php foreach ($comments as $comment) { ?>
             <article class="comment">
-                <img src="https://picsum.photos/80/80" alt="comment profile picture">
+                <?php 
+                $db = getDatabaseConnection();
+                $filename = $comment['userId'];
+                $results = glob(__DIR__ . "/../images/" . $filename . ".*");
+                if ($results){
+                    $path = "/../images/" . $filename . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                    <img src=<?=$path?> alt="user_image">
+                <?php }
+                else{ ?>
+                    <img src="/../images/default.jpg" alt="user_image">
+                <?php }?>
                 <span class="comment_username"><?=Client::getUsername($db, $comment['userId'])?></span>
                 <time datetime="<?=$comment['date']?>"><?=$comment['date']?></time>
                 <p>
