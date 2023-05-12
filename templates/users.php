@@ -80,7 +80,17 @@
         <tr data-id=<?=$user->username?>>
             <td>
                 <div class="user_info">
-                    <img src="https://picsum.photos/40/40" alt="">
+                    <?php 
+                    $db = getDatabaseConnection();
+                    $filename = Client::getUserId($db, $user->username);
+                    $results = glob(__DIR__ . "/../images/" . $filename . ".*");
+                    if ($results){
+                        $path = "/../images/" . $filename . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                        <img src=<?=$path?> alt="user_image">
+                    <?php }
+                    else{ ?>
+                        <img src="/../images/default.jpg" alt="user_image">
+                    <?php }?>
                     <div class="username">
                         <p><?=$user->name?></p>
                         <p>@<?=$user->username?></p>

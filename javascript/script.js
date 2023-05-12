@@ -1,6 +1,7 @@
 /* MOVE THIS SOMEWHERE ELSE!! */
 const inpFileReg = document.querySelector("section#register > form > label > input")
 
+if (inpFileReg !== null) {
 inpFileReg.addEventListener("change", function() {
   const profPicPreviewReg = document.querySelector("section#register img")
   const file = this.files[0]
@@ -14,7 +15,7 @@ inpFileReg.addEventListener("change", function() {
 
     reader.readAsDataURL(file)
   }
-})
+})}
 
 
 /* Actual content of this file */
@@ -110,37 +111,42 @@ if (selects.length !== 0 && selectsDepartments.length !== 0) {
 
 const addDepButton = document.querySelector("div#add-department img")
 
-addDepButton.addEventListener('click', async function (event) {
-  const newDepInput = document.querySelector("div#add-department input")
+if (addDepButton !== null) {
+  addDepButton.addEventListener('click', async function (event) {
+    const newDepInput = document.querySelector("div#add-department input")
 
-  const response = await fetch('../api/new_department.php?department=' + newDepInput.value)
-  const client = await response.json()
-  if (client !== null) location.reload()
-  
-  newDepInput.value=""
-});
+    const response = await fetch('../api/new_department.php?department=' + newDepInput.value)
+    const client = await response.json()
+    if (client !== null) location.reload()
+    
+    newDepInput.value=""
+});}
 
 const addStatusButton = document.querySelector("div#add-status img")
 
-addStatusButton.addEventListener('click', async function (event) {
-  const newDepInput = document.querySelector("div#add-status input")
+if (addStatusButton !== null) {
+  addStatusButton.addEventListener('click', async function (event) {
+    const newDepInput = document.querySelector("div#add-status input")
 
-  const response = await fetch('../api/new_status.php?status=' + newDepInput.value)
-  const client = await response.json()
-  if (client !== null) location.reload()
-  
-  newDepInput.value=""
-});
+    const response = await fetch('../api/new_status.php?status=' + newDepInput.value)
+    const client = await response.json()
+    if (client !== null) location.reload()
+    
+    newDepInput.value=""
+  });
+}
 
 
 const addHashtagButton = document.querySelector("div#add-htag img")
 
-addHashtagButton.addEventListener('click', async function (event) {
-  const newHashtagInput = document.querySelector("div#add-htag input")
+if (addHashtagButton !== null) {
+  addHashtagButton.addEventListener('click', async function (event) {
+    const newHashtagInput = document.querySelector("div#add-htag input")
 
-  const response = await fetch('../api/new_hashtag.php?hashtag=' + newHashtagInput.value)
-  const client = await response.json()
-  if (client !== null) location.reload()
-  
-  newHashtagInput.value=""
-});
+    const response = await fetch('../api/new_hashtag.php?hashtag=' + newHashtagInput.value)
+    const client = await response.json()
+    if (client !== null) location.reload()
+    
+    newHashtagInput.value=""
+  });
+}

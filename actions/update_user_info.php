@@ -4,39 +4,52 @@ require_once(__DIR__ . '/../database/client.class.php');
 
 session_start();
 
+$error = false;
+$db = getDatabaseConnection();
+$id = Client::getUserId($db, $_SESSION['username']);
+
+$new_name = $_POST['name'];
+$error = $new_name == "";
+
+$new_email = $_POST['email'];
+$error = $new_email === "" || !filter_var($new_email, FILTER_VALIDATE_EMAIL);
+
+$new_username = $_POST['username'];
+if (Client::getUserId($db, $new_username) !== false) $error = Client::getUserId($db, $new_username) !== $id;
+
+$new_pass = $_POST['password'];
+$new_pass_repeat = $_POST['newpassword'];
+if ($new_pass === "" && $new_pass_repeat === "") {
+    if (!$error) {
+        $_SESSION['username'] = $new_username;
+        $stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=? WHERE userId=?');
+        $stmt->execute(array($new_name, $new_email, $new_username, $id));
+    }
+} else {
+    if (!$error) {
+        $_SESSION['username'] = $new_username;
+        $stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=?, password=? WHERE userId=?');
+        $stmt->execute(array($new_name, $new_email, $new_username, sha1($new_pass), $id));
+    }
+}
+
+// profile picture
+
 $file = $_FILES['profile-input']['name'];
+
 
 if ($file != "") {
     $path = pathinfo($file);
     $extension = $path['extension'];
     $dir = __DIR__ . "/../images/";
-    $db = getDatabaseConnection();
-    $filename = Client::getUserId($db, $_POST['username']); // change to userId
+    $filename = Client::getUserId($db, $_SESSION['username']);
     $temp = $_FILES['profile-input']['tmp_name'];
     $name = $dir . $filename . '.' . $extension;
 
-
-    // delete file if exists
     $existing_files = glob($dir. $filename . ".*");
     foreach ($existing_files as $existing_file) unlink($existing_file);
       
     move_uploaded_file($temp, $name);
-
-    header("Location: /pages/edit_profile.php");
 }
 
-//$db = getDatabaseConnection();
-
-/*$name = $_POST['name'];
-$username = $_SESSION['username'];
-$email = $_POST['email'];
-
-echo $_POST['name'];*/
-//$id = Client::getUserId($db, $_SESSION['username']);
-//$stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=? WHERE userId=?');
-//$stmt->execute(array($name, $email, $username, $id));
-
-
-//$response = array('success' => true);
-//header('Content-Type: application/json');
-//echo json_encode($response);
+header("Location: /pages/edit_profile.php");
