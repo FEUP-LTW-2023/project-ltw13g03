@@ -10,7 +10,7 @@ require_once(__DIR__ . '/../templates/question.php');
 
 output_header(isset($_SESSION['username']));
 
-output_questions();
+output_FAQs();
 
 output_footer();
 ?>

@@ -1,8 +1,8 @@
 <?php
     declare(strict_types = 1);
     require_once(__DIR__ . '/../database/client.class.php');
-
     require_once(__DIR__ . '/../database/department.php');
+    require_once(__DIR__ . '/../database/misc.php');
 
     class Ticket {
         public int $ticketId;
@@ -101,11 +101,11 @@
             return $stmt->fetchAll();
         }
 
-        static function addComment(PDO $db, int $ticketId, string $username, string $text) {
+        static function addComment(PDO $db, int $ticketId, string $username, string $text, string $faq) {
             $date = date('Y-m-d');
             $userId = Client::getUserId($db, $username);
-            $stmt = $db->prepare('INSERT INTO Comment (ticketID, userId, date, text) VALUES (?, ?, ?, ?)');
-            $stmt->execute(array($ticketId, $userId, $date, $text));
+            $stmt = $db->prepare('INSERT INTO Comment (ticketID, userId, date, text, faqId) VALUES (?, ?, ?, ?, ?)');
+            $stmt->execute(array($ticketId, $userId, $date, $text, getFaqId($faq)));
         }
 
         static function createTicket(PDO $db, $title, $body, $department, $hashtags, $priority, $client) {
