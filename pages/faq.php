@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['username'])){
-    header("Location: /pages/login.php");
+    die(header("Location: /pages/login.php"));
 }
 
 require_once(__DIR__ . '/../templates/common.php');

@@ -188,7 +188,7 @@ function ticket_status() {
     initialValue = status.value
 
     status.addEventListener('change', function(event){
-      const ticketId = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')
+      const ticketId = event.target.parentElement.parentElement.parentElement.getAttribute('data-id')
       const new_status = event.target.value
 
       if (new_status === initialValue) return

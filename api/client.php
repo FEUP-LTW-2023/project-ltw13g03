@@ -15,15 +15,13 @@
 
                 break;
             case 'POST':
-                $params;
-                parse_str(file_get_contents("php://input"),$params);
-                if ($params['field'] === 'department') {
+                if ($_POST['field'] === 'department') {
                     $client = Client::getUser($db, $_SESSION['username']);
                     if ($client->isAdmin) {
-                        if (Client::updateUserDepartments($db, $params['username'], $params['value'], true) === false)
+                        if (Client::updateUserDepartments($db, $_POST['username'], $_POST['value'], true) === false)
                             http_response_code(404);
                     }
-                    $response = Client::getUser($db, $params['username']);
+                    $response = Client::getUser($db, $_POST['username']);
                     echo json_encode($response);
                     http_response_code(200);
                 } else http_response_code(400);

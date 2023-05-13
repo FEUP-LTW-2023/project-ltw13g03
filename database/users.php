@@ -35,7 +35,7 @@ function createAccount($name, $username, $email, $password): bool {
     return true;
 }
 
-function getUserInfo($username): array{
+function getUserInfo($username) {
     $db = getDatabaseConnection();
 
     $stmt = $db->prepare('SELECT username, name, email, isAgent, isAdmin FROM Client LEFT JOIN Agent using(userId) LEFT JOIN Admin using(userId) WHERE username=?');

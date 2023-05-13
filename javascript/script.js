@@ -139,9 +139,15 @@ if (addDepButton !== null) {
   addDepButton.addEventListener('click', async function (event) {
     const newDepInput = document.querySelector("div#add-department input")
 
-    const response = await fetch('../api/new_department.php?department=' + newDepInput.value)
-    const client = await response.json()
-    if (client !== null) location.reload()
+    const response = await fetch('../api/new_entity.php/', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: encodeForAjax({type: 'department', value: newDepInput.value})
+    })
+
+    if (response.status === 200) location.reload()
     
     newDepInput.value=""
 });}
@@ -150,13 +156,19 @@ const addStatusButton = document.querySelector("div#add-status img")
 
 if (addStatusButton !== null) {
   addStatusButton.addEventListener('click', async function (event) {
-    const newDepInput = document.querySelector("div#add-status input")
+    const newStatusInput = document.querySelector("div#add-status input")
 
-    const response = await fetch('../api/new_status.php?status=' + newDepInput.value)
-    const client = await response.json()
-    if (client !== null) location.reload()
+    const response = await fetch('../api/new_entity.php/', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: encodeForAjax({type: 'status', value: newStatusInput.value})
+    })
     
-    newDepInput.value=""
+    if (response.status === 200) location.reload()
+    
+    newStatusInput.value=""
   });
 }
 
@@ -167,9 +179,15 @@ if (addHashtagButton !== null) {
   addHashtagButton.addEventListener('click', async function (event) {
     const newHashtagInput = document.querySelector("div#add-htag input")
 
-    const response = await fetch('../api/new_hashtag.php?hashtag=' + newHashtagInput.value)
-    const client = await response.json()
-    if (client !== null) location.reload()
+    const response = await fetch('../api/new_entity.php/', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: encodeForAjax({type: 'hashtag', value: newHashtagInput.value})
+    })
+    
+    if (response.status === 200) location.reload()
     
     newHashtagInput.value=""
   });
