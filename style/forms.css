@@ -22,6 +22,11 @@ section#login h1, section#register h1 {
     color: var(--text-color);
 }
 
+section#login span.error, section#register span.error {
+    font-size: 1rem;
+    color: red;
+}
+
 section#login form {
     display: flex;
     flex-direction: column;

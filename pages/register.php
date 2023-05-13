@@ -20,18 +20,23 @@
     <div id="user_info">
         <label>
             Name <input type="text" name="name">
+            <span class="error"></span>
         </label>
         <label>
             Username <input type="text" name="username">
+            <span class="error"></span>
         </label>
         <label>
             E-mail <input type="email" name="email">
+            <span class="error"></span>
         </label>
         <label>
             Password <input type="password" name="password1">
+            <span class="error"></span>
         </label>
         <label>
             Password <input type="password" name="password2">
+            <span class="error"></span>
         </label>
     </div>
     <button type="submit">Register</button>
