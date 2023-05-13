@@ -31,69 +31,74 @@
         $db = getDatabaseConnection();
         ?>
         <section id="tickets">
+            <a href="new_ticket.php">Create a new Ticket</a>
             <input id="searchticket" type="text" placeholder="SEARCH">
-            <a href="new_ticket.php"><img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="create a new ticket"></a>
-            <div id="tags">
-                <ul></ul>
+            <img src="../images/icons/filter.png" alt="filter search option">
+            <section id="search_filters">
+                <div id="tags">
+                    <ul></ul>
 
-                <input list="hashtags" placeholder="Add more tags">
-                <datalist id="hashtags">
-                    <?php 
-                        $tags = getHashtags();
-                        foreach ($tags as $tag) { ?>
-                            <option><?=$tag['name']?></option>
-                    <?php } ?>
-                </datalist>
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
-            </div>
-            <div id="date_filter">
-                <label> Start: 
-                    <input type="date" min="1970-01-01" id="start_date">
+                    <input list="hashtags" placeholder="Add more tags">
+                    <datalist id="hashtags">
+                        <?php 
+                            $tags = getHashtags();
+                            foreach ($tags as $tag) { ?>
+                                <option><?=$tag['name']?></option>
+                        <?php } ?>
+                    </datalist>
+                    <img src="../images/icons/add.png" alt="add a new tag">
+                </div>
+                <div id="date_filter">
+                    <label> Start: 
+                        <input type="date" min="1970-01-01" id="start_date">
+                    </label>
+                    <label> End: 
+                        <input type="date" min="1970-01-01" id="end_date">
+                    </label>
+                </div>
+                <label id="agent_filter"> Agent: 
+                    <input list="agents" type="text">
+                    <datalist id="agents">
+                        <?php $agents = getAgents();
+                        foreach($agents as $agent) {?>
+                            <option><?=$agent['username']?></option>
+                        <?php } ?>
+                    </datalist>
                 </label>
-                <label> End: 
-                    <input type="date" min="1970-01-01" id="end_date">
+                <label id="department_filter"> Department: 
+                    <select>
+                        <option></option>
+                        <?php $departments = getDepartments();
+                        foreach($departments as $department) {?>
+                            <option><?=$department['name']?></option>
+                        <?php } ?>
+                    </select>
                 </label>
-            </div>
-            <label id="agent_filter"> Agent: 
-                <input list="agents" type="text">
-                <datalist id="agents">
-                    <?php $agents = getAgents();
-                    foreach($agents as $agent) {?>
-                        <option><?=$agent['username']?></option>
-                    <?php } ?>
-                </datalist>
-            </label>
-            <label id="department_filter"> Department: 
-                <select>
-                    <option></option>
-                    <?php $departments = getDepartments();
-                    foreach($departments as $department) {?>
-                        <option><?=$department['name']?></option>
-                    <?php } ?>
-                </select>
-            </label>
-            <label id="status_filter"> Status: 
-                <select>
-                    <option></option>
-                    <?php $statuses = getStatuses();
-                    foreach($statuses as $status) {?>
-                        <option><?=$status['name']?></option>
-                    <?php } ?>
-                </select>
-            </label>
-            <label id="priority_filter"> Priority: 
-                <select>
-                    <option></option>
-                    <option value="0">Low</option>
-                    <option value="1">Medium</option>
-                    <option value="2">High</option>
-                </select>
-            </label>
-            <?php 
-            $tickets = Ticket::getAllTickets($db);
-            foreach ($tickets as $ticket) {
-                output_ticket_preview($ticket['ticketId']);
-            } ?>
+                <label id="status_filter"> Status: 
+                    <select>
+                        <option></option>
+                        <?php $statuses = getStatuses();
+                        foreach($statuses as $status) {?>
+                            <option><?=$status['name']?></option>
+                        <?php } ?>
+                    </select>
+                </label>
+                <label id="priority_filter"> Priority: 
+                    <select>
+                        <option></option>
+                        <option value="0">Low</option>
+                        <option value="1">Medium</option>
+                        <option value="2">High</option>
+                    </select>
+                </label>
+            </section>
+            <section id="previews">
+                <?php 
+                $tickets = Ticket::getAllTickets($db);
+                foreach ($tickets as $ticket) {
+                    output_ticket_preview($ticket['ticketId']);
+                } ?>
+            </section>
         </section>
     <?php }
 
@@ -137,7 +142,7 @@
                                 <option><?=$tag['name']?></option>
                         <?php } ?>
                     </datalist>
-                    <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                    <img src="../images/icons/add.png" alt="add a new tag">
                 </div>
                 <label id="ticket_description">
                     Description

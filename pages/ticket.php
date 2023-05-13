@@ -88,7 +88,7 @@
                             <option><?=$tag['name']?></option>
                     <?php } ?>
                 </datalist>
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                <img src="../images/icons/add.png" alt="add a new tag">
             <?php } ?>
         </div>
     </aside>
@@ -97,10 +97,10 @@
             <?=$ticket->body?>
         </p>
     </article>
-    <?php $modifications = Ticket::getModifications($db, $_GET['id']); if (sizeof($modifications) > 0) { ?>
     <div id="changes_menu">
+    <?php $modifications = Ticket::getModifications($db, $_GET['id']); if (sizeof($modifications) > 0) { ?>
         <div id="toggle_show_changes">
-            <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3233612/time-history-icon-md.png" alt="changes">
+            <img src="../images/icons/history.png" alt="changes">
             Show all changes (<span id="change_count"><?=sizeof($modifications)?></span>)
         </div>
         <div id="ticket_changes">
@@ -137,8 +137,8 @@
                 <?php } ?>
             </ol>
         </div>
-    </div>
     <?php } ?>
+    </div>
     <?php output_comments($ticket->ticketId, $ticket->status); ?>
 </section>
 

@@ -17,7 +17,7 @@
 
             <div id="add-department">
                 <input type="text" placeholder="New department" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new department">
+                <img src="../images/icons/add.png" alt="add a new department">
             </div>
               
                 
@@ -32,7 +32,7 @@
 
             <div id="add-status">
                 <input type="text" placeholder="New status" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new status">
+                <img src="../images/icons/add.png" alt="add a new status">
             </div>
 
 
@@ -47,7 +47,7 @@
 
             <div id="add-htag">
                 <input type="text" placeholder="New hashtag" name="" id="">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new hashtag">
+                <img src="../images/icons/add.png" alt="add a new hashtag">
             </div>
         </aside>
     <?php }

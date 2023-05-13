@@ -15,6 +15,8 @@
             <script src="../javascript/ticket_search.js" defer></script>
             <script src="../javascript/priority_slider.js" defer></script>
             <script src="../javascript/form_validation.js" defer></script>
+            <script src="../javascript/dropdown.js" defer></script>
+            <script src="../javascript/update_profile.js" defer></script>
             <link href="../style/style.css" rel="stylesheet">
             <link href="../style/profile.css" rel="stylesheet">
             <link href="../style/faq.css" rel="stylesheet">
@@ -22,8 +24,7 @@
             <link href="../style/new-ticket.css" rel="stylesheet">
             <link href="../style/users.css" rel="stylesheet">
             <link href="../style/ticket.css" rel="stylesheet">
-            <script src="../javascript/dropdown.js" defer></script>
-            <script src="../javascript/update_profile.js" defer></script>
+            <link rel="icon" href="../images/icons/favicon.ico">
         </head>
         <body>
             <header>

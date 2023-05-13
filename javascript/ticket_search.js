@@ -90,7 +90,7 @@ async function filter(){
                                     + '&department=' + department + '&status=' + status + '&priority=' + priority)
     const tickets = await response.json()
 
-    const section = document.querySelector('#tickets')
+    const section = document.querySelector('#previews')
     const previews = document.querySelectorAll('.ticketpreview')
     
     for (const preview of previews)
@@ -161,10 +161,28 @@ async function filter(){
     }
 }
 
+function search_filters(){
+    const toggle = document.querySelector('#tickets img')
+
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            const menuContent = document.querySelector('#search_filters')
+            if (!menuContent.classList.contains("show")) {
+              menuContent.classList.add("show");
+              menuContent.classList.remove("hide");
+            } else {
+              menuContent.classList.add("hide");
+              menuContent.classList.remove("show");
+            }
+          });
+    }
+}
+
 function search_tickets(){
     const searchBox = document.querySelector('#searchticket')
 
     if (searchBox) {
+        search_filters()
         search_tags()
         search_date()
         search_agent()
