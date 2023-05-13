@@ -13,9 +13,12 @@
         header("Location: /pages/index.php");
     }
 
-    output_header(true);
+    output_header(true);?>
 
-    output_users();
+    <section id="management"><?php
+        output_control();
+        output_users();
+    ?></section><?php
 
     output_footer();
 ?>

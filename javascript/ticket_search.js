@@ -59,6 +59,19 @@ function search_date(){
     endDate.addEventListener('change', filter)
 }
 
+function search_agent(){
+    const agent = document.querySelector('#tickets #agent_filter')
+    let timer
+
+    agent.addEventListener('input', function () {
+        clearTimeout(timer)
+
+        timer = setTimeout(() => {
+            filter()
+        }, 500)
+    })
+}
+
 async function filter(){
     const input = document.querySelector('#tickets #searchticket').value
     const selectedTags = Array.from(document.querySelector('#tickets #tags > ul').childNodes).map((tag) => tag.textContent)
@@ -66,13 +79,18 @@ async function filter(){
     let startDate = document.querySelector('#tickets #date_filter #start_date').value
     let endDate = document.querySelector('#tickets #date_filter #end_date').value
 
+    const agent = document.querySelector('#tickets #agent_filter input').value
+
+    const department = document.querySelector('#tickets #department_filter select').value
+
     const status = document.querySelector('#tickets #status_filter select').value
     const priority = document.querySelector('#tickets #priority_filter select').value
 
-    const response = await fetch('../api/search_tickets.php?search=' + input + '&status=' + status + '&priority=' + priority)
+    const response = await fetch('../api/search_tickets.php?search=' + input + '&agent=' + agent 
+                                    + '&department=' + department + '&status=' + status + '&priority=' + priority)
     const tickets = await response.json()
 
-    const section = document.querySelector('#tickets')
+    const section = document.querySelector('#previews')
     const previews = document.querySelectorAll('.ticketpreview')
     
     for (const preview of previews)
@@ -143,13 +161,35 @@ async function filter(){
     }
 }
 
+function search_filters(){
+    const toggle = document.querySelector('#tickets img')
+
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            const menuContent = document.querySelector('#search_filters')
+            if (!menuContent.classList.contains("show")) {
+              menuContent.classList.add("show");
+              menuContent.classList.remove("hide");
+            } else {
+              menuContent.classList.add("hide");
+              menuContent.classList.remove("show");
+            }
+          });
+    }
+}
+
 function search_tickets(){
     const searchBox = document.querySelector('#searchticket')
 
     if (searchBox) {
+        search_filters()
         search_tags()
         search_date()
+        search_agent()
         searchBox.addEventListener('input', filter)
+
+        const department = document.querySelector('#tickets #department_filter select')
+        department.addEventListener('change', filter)
 
         const status = document.querySelector('#tickets #status_filter select')
         status.addEventListener('change', filter)

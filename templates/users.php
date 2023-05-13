@@ -2,6 +2,55 @@
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/client.class.php');
     require_once(__DIR__ . '/../database/department.php');
+    require_once(__DIR__ . '/../database/misc.php');
+
+    function output_control() { ?>
+        <aside>
+            <h2>Departments</h2>
+            <ul>
+                <?php
+                $departments = getDepartments();
+                foreach ($departments as $department) { ?>
+                    <li><?=$department['name']?></li>
+                <?php } ?>
+            </ul>
+
+            <div id="add-department">
+                <input type="text" placeholder="New department" name="" id="">
+                <img src="../images/icons/add.png" alt="add a new department">
+            </div>
+              
+                
+            <h2>Statuses</h2>
+            <ul>
+                <?php
+                $statuses = getStatuses();
+                foreach ($statuses as $status) { ?>
+                    <li><?=$status['name']?></li>
+                <?php } ?>
+            </ul>
+
+            <div id="add-status">
+                <input type="text" placeholder="New status" name="" id="">
+                <img src="../images/icons/add.png" alt="add a new status">
+            </div>
+
+
+            <h2>Hashtags</h2>
+            <ul>
+                <?php
+                $tags = getHashtags();
+                foreach ($tags as $tag) { ?>
+                    <li><?=$tag['name']?></li>
+                <?php } ?>
+            </ul>
+
+            <div id="add-htag">
+                <input type="text" placeholder="New hashtag" name="" id="">
+                <img src="../images/icons/add.png" alt="add a new hashtag">
+            </div>
+        </aside>
+    <?php }
 
     function output_users() { ?>
     
@@ -31,7 +80,17 @@
         <tr data-id=<?=$user->username?>>
             <td>
                 <div class="user_info">
-                    <img src="https://picsum.photos/40/40" alt="">
+                    <?php 
+                    $db = getDatabaseConnection();
+                    $filename = Client::getUserId($db, $user->username);
+                    $results = glob(__DIR__ . "/../images/" . $filename . ".*");
+                    if ($results){
+                        $path = "/../images/" . $filename . "." . pathinfo($results[0], PATHINFO_EXTENSION); ?>
+                        <img src=<?=$path?> alt="user_image">
+                    <?php }
+                    else{ ?>
+                        <img src="/../images/default.jpg" alt="user_image">
+                    <?php }?>
                     <div class="username">
                         <p><?=$user->name?></p>
                         <p>@<?=$user->username?></p>

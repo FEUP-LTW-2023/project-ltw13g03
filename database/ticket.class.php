@@ -61,25 +61,22 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search, string $status, string $priority) {
-            if (empty($status) && strlen($priority) === 0){
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
-                $stmt->execute(array('%' . $search . '%'));
-            }
-            else if (strlen($priority) === 0){
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=?');
-                $stmt->execute(array('%' . $search . '%', $status));
-            } else if (empty($status)){
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND priority=?');
-                $stmt->execute(array('%' . $search . '%', intval($priority, 10)));
-            } else {
-                $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? AND status=? AND priority=?');
-                $stmt->execute(array('%' . $search . '%', $status, intval($priority, 10)));
-            }
+        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $department, string $status, string $priority) {
+            $stmt = $db->prepare('SELECT * FROM (Ticket LEFT JOIN Client ON Ticket.Agent=Client.userId)
+                                            WHERE title LIKE ? AND ifnull(username, "") LIKE ?');
+            $stmt->execute(array('%' . $search . '%', '%' . $agent . '%'));
+
+            $agent = Client::getUserId($db, $agent);
+            if (strlen($priority) === 0) $priority = -1;
+            else $priority = intval($priority, 10);
 
             $tickets = array();
 
             while ($ticket = $stmt->fetch()) {
+                if ((!empty($department) && getDepartment($ticket['department']) !== $department)
+                    || ($priority !== -1 && $ticket['priority'] !== $priority) 
+                    || (!empty($status) && $ticket['status'] !== $status)) continue;
+
                 $tickets[] = new Ticket(
                     $ticket['ticketId'],
                     $ticket['title'],
@@ -132,7 +129,10 @@
             
             $hashtags = json_decode($stmt->fetch()['hashtags'], true);
 
-            array_splice($hashtags, array_search($hashtag, $hashtags), 1);
+            $key = array_search($hashtag, $hashtags);
+            if ($key === false) return false;
+
+            array_splice($hashtags, $key, 1);
 
             $hashtags = json_encode($hashtags);
 
@@ -142,8 +142,6 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
-
-            return $hashtags;
         }
 
         static function addHashtag(PDO $db, int $ticketId, string $hashtag, int $userId) {
@@ -162,7 +160,7 @@
                     $found = true;
             }
             if (!$found)
-                return $hashtags;
+                return false;
 
             $hashtags = json_decode($hashtags, true);
 
@@ -176,8 +174,6 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
-
-            return $hashtags;
         }
 
         static function changeDepartment(PDO $db, int $ticketId, string $department, int $userId) {
@@ -189,8 +185,6 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET department=?, agent=NULL WHERE ticketId=?');
             $stmt->execute(array($departmentId, $ticketId));
-
-            Ticket::changeStatus($db, $ticketId, 'Open', $userId);
         }
 
         static function changeAgent(PDO $db, int $ticketId, string $agent, int $userId) {
@@ -209,15 +203,15 @@
             return $stmt->fetch();
         }
 
-        static function changeStatus(PDO $db, int $ticketId, string $status, int $userId) {
-            if ($status === 'Closed') {
-                $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
-                            ("Status", "", "Closed", ?, ?, ?)');
-                $stmt->execute(array(date('Y-m-d'), $ticketId, $userId));
-            }
+        static function changeStatus(PDO $db, int $ticketId, string $oldStatus, string $newStatus, int $userId) {
+            if ($oldStatus === $newStatus) return;
+            
+            $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
+                        ("Status", ?, ?, ?, ?, ?)');
+            $stmt->execute(array($oldStatus, $newStatus, date('Y-m-d'), $ticketId, $userId));
 
             $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
-            $stmt->execute(array($status, $ticketId));
+            $stmt->execute(array($newStatus, $ticketId));
         }
 
         static function getModifications(PDO $db, int $ticketId) {

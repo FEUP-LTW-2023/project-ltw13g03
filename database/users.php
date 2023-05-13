@@ -26,7 +26,7 @@ function createAccount($name, $username, $email, $password): bool {
     $stmt->execute(array($name, $username, $email, sha1($password)));
 
     $id = Client::getUserId($db, $username);
-    $stmt = $db->prepare('INSERT INTO Agent (isAgent, userId, departmentId) VALUES (false, ?, null)');
+    $stmt = $db->prepare('INSERT INTO Agent (isAgent, userId) VALUES (false, ?)');
     $stmt->execute(array($id));
 
     $stmt = $db->prepare('INSERT INTO Admin (isAdmin, userId) VALUES (false, ?)');

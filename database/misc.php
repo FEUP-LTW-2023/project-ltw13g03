@@ -11,6 +11,29 @@
         return $stmt->fetchAll();
     }
 
+    function hashtagExists(string $name) {
+        $db = getDatabaseConnection();
+
+        $stmt = $stmt = $db->prepare('SELECT name FROM Hashtag WHERE name = ?');
+        $stmt->execute(array($name));
+        
+        $res = $stmt->fetch();
+        if (!$res) return false;
+        return true;
+    }
+
+    function insertHashtag(string $name) {
+        $db = getDatabaseConnection();
+        $stmt = $db->prepare('INSERT INTO Hashtag (name) VALUES (?)');
+        $stmt->execute(array($name));
+    }
+
+    function getStatuses() {
+        $db = getDatabaseConnection();
+
+        $stmt = $db->prepare('SELECT name FROM Status');
+    }
+    
     function getFAQs() {
         $db = getDatabaseConnection();
 
@@ -20,6 +43,32 @@
         return $stmt->fetchAll();
     }
 
+    function insertStatus(string $status) {
+        $db = getDatabaseConnection();
+        $stmt = $db->prepare('INSERT INTO Status (name) VALUES (?)');
+        $stmt->execute(array($status));
+    }
+
+    function statusExists(string $name) {
+        $db = getDatabaseConnection();
+
+        $stmt = $stmt = $db->prepare('SELECT name FROM Status WHERE name = ?');
+        $stmt->execute(array($name));
+        
+        $res = $stmt->fetch();
+        if (!$res) return false;
+        return true;
+    }
+
+    function getAgents() {
+        $db = getDatabaseConnection();
+
+        $stmt = $db->prepare('SELECT username FROM Client JOIN Agent ON Client.userId=Agent.userId WHERE isAgent=true');
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+    
     function getFaqId($question) {
         $db = getDatabaseConnection();
 

@@ -5,7 +5,7 @@
     function getDepartments() {
         $db = getDatabaseConnection();
 
-        $stmt = $db->prepare('SELECT name FROM Department');
+        $stmt = $db->prepare('SELECT name FROM Department ORDER BY name ASC');
         $stmt->execute();
     
         return $stmt->fetchAll();
@@ -25,8 +25,10 @@
 
         $stmt = $db->prepare('SELECT departmentId FROM Department WHERE name=?');
         $stmt->execute(array($name));
-    
-        return $stmt->fetch()['departmentId'];
+        
+        $res = $stmt->fetch();
+        if ($res === false) return null;
+        return $res['departmentId'];
     }
 
     function getDepartmentAgents(?string $department) {
@@ -42,4 +44,9 @@
         return $stmt->fetchAll();
     }
 
+    function insertDepartment(string $department) {
+        $db = getDatabaseConnection();
+        $stmt = $db->prepare('INSERT INTO Department (name) VALUES (?)');
+        $stmt->execute(array($department));
+    }
 ?>

@@ -292,7 +292,7 @@
 
 @media (max-width: 56em){
     #ticket {
-        grid-template-rows: [start] min-content [title] auto [aside] min-content [desc] min-content [end];
+        grid-template-rows: [start] min-content [title] auto [aside] min-content [desc] min-content [changes] min-content [end];
     }
 
     #ticket aside {
@@ -316,5 +316,9 @@
 
     #ticket #comments {
         grid-column: start / end;
+    }
+
+    #ticket aside div#close_ticket {
+        margin: 0 0 1em;
     }
 }

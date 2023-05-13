@@ -45,7 +45,6 @@
         <div id="agent">
             <select>
                 <?php 
-                $db = getDatabaseConnection();
                 $selected_agent = Ticket::getAgent($db, $_GET['id']);
                 if (is_null($selected_agent['username'])) { ?>
                     <option disabled selected>assign an agent</option>
@@ -54,13 +53,25 @@
                 <?php }
                 $department_agents = getDepartmentAgents($ticket->department);
                 foreach ($department_agents as $agent) { 
-                    if ($ticket->status != 'Closed') {?>
+                    if ($ticket->status != 'Closed' && $selected_agent['username'] !== $agent['username']) {?>
                     <option><?=$agent['username']?></option>
                 <?php }
                     } ?>
             </select>
         </div>
-        <div id="status"><?=$ticket->status?></div>
+        <div id="status">
+            <select>
+                <option><?=$ticket->status?></option>
+                <?php if ($ticket->status != 'Closed') {
+                    $statuses = getStatuses();
+                    foreach ($statuses as $status) { 
+                        if ($status['name'] !== $ticket->status) {?>
+                            <option><?=$status['name']?></option>
+                <?php }
+                    }
+                } ?>
+            </select>
+        </div>
         <div id="tags">
             <ul>
                 <?php foreach ($ticket->hashtags as $hashtag) { ?>
@@ -77,7 +88,7 @@
                             <option><?=$tag['name']?></option>
                     <?php } ?>
                 </datalist>
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61050.png" alt="add a new tag">
+                <img src="../images/icons/add.png" alt="add a new tag">
             <?php } ?>
         </div>
     </aside>
@@ -86,10 +97,10 @@
             <?=$ticket->body?>
         </p>
     </article>
-    <?php $modifications = Ticket::getModifications($db, $_GET['id']); if (sizeof($modifications) > 0) { ?>
     <div id="changes_menu">
+    <?php $modifications = Ticket::getModifications($db, $_GET['id']); if (sizeof($modifications) > 0) { ?>
         <div id="toggle_show_changes">
-            <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3233612/time-history-icon-md.png" alt="changes">
+            <img src="../images/icons/history.png" alt="changes">
             Show all changes (<span id="change_count"><?=sizeof($modifications)?></span>)
         </div>
         <div id="ticket_changes">
@@ -118,15 +129,16 @@
                                 changed the department from <strong><?=getDepartment($modification['old'])?></strong>
                                     to <strong><?=getDepartment($modification['new'])?></strong>
                             <?php } ?> 
-                        <?php } else if ($modification['field'] === 'Status') {?>
-                                closed the ticket &#128274;
+                        <?php } else if ($modification['field'] === 'Status') { ?>
+                                changed the ticket from <strong><?=$modification['old']?></strong> to
+                                    <strong><?=$modification['new']?></strong>
                         <?php } ?>
                     </li>
                 <?php } ?>
             </ol>
         </div>
-    </div>
     <?php } ?>
+    </div>
     <?php output_comments($ticket->ticketId, $ticket->status); ?>
 </section>
 

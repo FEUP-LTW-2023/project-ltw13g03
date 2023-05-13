@@ -15,9 +15,11 @@
     <form action="../actions/action_login.php" method="post">
     <label>
         Username <input type="text" name="username">
+        <span class="error"></span>
     </label>
     <label>
         Password <input type="password" name="password">
+        <span class="error"></span>
     </label>
     <button type="submit">Login</button>
     </form>
