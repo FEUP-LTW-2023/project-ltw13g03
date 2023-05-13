@@ -14,7 +14,7 @@ function userExists($username, $password){
     return false;
 }
 
-function createAccount($name, $username, $email, $password){
+function createAccount($name, $username, $email, $password): bool {
     $db = getDatabaseConnection();
 
     $stmt = $db->prepare('SELECT * FROM Client WHERE username=?');
@@ -38,7 +38,7 @@ function createAccount($name, $username, $email, $password){
 function getUserInfo($username): array{
     $db = getDatabaseConnection();
 
-    $stmt = $db->prepare('SELECT username, name, email, isAdmin FROM Client LEFT JOIN Admin using(userId) WHERE username=?');
+    $stmt = $db->prepare('SELECT username, name, email, isAgent, isAdmin FROM Client LEFT JOIN Agent using(userId) LEFT JOIN Admin using(userId) WHERE username=?');
     $stmt->execute(array($username));
     return $stmt->fetch();
 }
