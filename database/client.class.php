@@ -100,20 +100,20 @@
 
             if ($departmentId !== false) {
                 $departmentId = $departmentId['departmentId'];
-            } else return;
+            } else return false;
             if ($add) {
                 $stmt = $db->prepare('SELECT isAgent FROM Agent JOIN Client using(userId) WHERE username = ?');
                 $stmt->execute(array($username));
                 $isAgent = $stmt->fetch()['isAgent'];
                 
                 if (!$isAgent) {
-                    return;
+                    return false;
                 }
                 $userId = Client::getUserId($db, $username);
                 $stmt2 = $db->prepare('SELECT * FROM AgentDepartment WHERE userId = ? and departmentID = ?');
                 $stmt2->execute(array($userId, $departmentId));
                 $exists = $stmt2->fetch();
-                if ($exists !== false) return;
+                if ($exists !== false) return false;
 
                 $stmt = $db->prepare('INSERT INTO AgentDepartment (userId, departmentID) VALUES (?, ?)');
                 $stmt->execute(array(Client::getUserId($db, $username), $departmentId));

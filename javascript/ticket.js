@@ -24,9 +24,10 @@ async function addTagTicket(event){
     newLi.classList.add('tag')
     ul.appendChild(newLi);
 
-    selectedOption.value = ""
     ticket_update_changes()
   }
+
+  selectedOption.value = ""
 }
 
 async function ticket_remove_tag(event) {

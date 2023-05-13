@@ -1,3 +1,9 @@
+function encodeForAjax(data) {
+  return Object.keys(data).map(function(k){
+    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+  }).join('&')
+}
+
 /* MOVE THIS SOMEWHERE ELSE!! */
 const inpFileReg = document.querySelector("section#register > form > label > input")
 
@@ -41,7 +47,13 @@ if (selects.length !== 0 && selectsDepartments.length !== 0) {
       
       const ul = document.querySelector('section#form-manage-users tr[data-id="' + id + '"] td:nth-child(3) > .departments > ul');
       
-      const response = await fetch('../api/remove_department.php?username=' + id + '&department=' + selectedOption)
+      const response = await fetch('../api/client.php/', {
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodeForAjax({field: 'department', username: id, value: selectedOption})
+      })
       const client = await response.json()
 
       if (client !== null) {
@@ -65,7 +77,13 @@ if (selects.length !== 0 && selectsDepartments.length !== 0) {
       const id = event.target.parentElement.parentElement.getAttribute('data-id')
       const isAdmin = selectedOption == "admin" ? 1 : 0
       const isAgent = isAdmin || selectedOption == "agent" ? 1 : 0
-      const response = await fetch('../api/update_role.php?username=' + id + '&isAgent=' + isAgent + '&isAdmin=' + isAdmin)
+      const response = await fetch('../api/client.php/', {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodeForAjax({field: 'role', username: id, isAgent: isAgent, isAdmin: isAdmin})
+      })
 
       const client = await response.json()
       if (client !== null) {
@@ -87,7 +105,13 @@ if (selects.length !== 0 && selectsDepartments.length !== 0) {
       const selectedOption = event.target.value
       select.value = "unspecified"
           
-      const response = await fetch('../api/add_department.php?username=' + id + '&department=' + selectedOption)
+      const response = await fetch('../api/client.php/', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodeForAjax({field: 'department', username: id, value: selectedOption})
+      })
       const client = await response.json()
 
       if (client !== null) {

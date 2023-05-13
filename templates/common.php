@@ -49,7 +49,7 @@
                         <div class="profile-dropdown-content">
                             <?php
                             if ($user['isAdmin']) { ?>
-                                <a href="manage_users.php">Users
+                                <a href="control_panel.php">Control Panel
                             <?php } ?>
                             <a href="edit_profile.php">Edit profile</a>
                             <a href="../actions/action_logout.php">Sign out</a>

@@ -166,6 +166,10 @@
 
             array_push($hashtags, $hashtag);
 
+            foreach ($hashtags as $tag){
+                if ($tag === $hashtag) return false;
+            }
+
             $hashtags = json_encode($hashtags);
 
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES 
