@@ -53,15 +53,23 @@ CREATE TABLE Ticket (
     FOREIGN KEY (agent) REFERENCES Agent(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+CREATE TABLE FAQ (
+    faqId INTEGER PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
 CREATE TABLE Comment (
   id INTEGER PRIMARY KEY,
   ticketId INTEGER,
   userId INTEGER NOT NULL,
   date DATE NOT NULL,
   text TEXT,
+  faqId INTEGER,
 
   FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID),
-  FOREIGN KEY (userId) REFERENCES Client(userId)
+  FOREIGN KEY (userId) REFERENCES Client(userId),
+  FOREIGN KEY (faqId) REFERENCES FAQ(faqId)
 );
 
 CREATE TABLE Department (
@@ -83,12 +91,6 @@ CREATE TABLE Modification (
     userId INTEGER NOT NULL,
     FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (userId) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
-
-CREATE TABLE FAQ (
-    faqId INTEGER PRIMARY KEY,
-    question TEXT NOT NULL,
-    answer TEXT NOT NULL
 );
 
 INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '3678b4619913882f81cb27e5a1a723291fa8da0d'); --passwordsecreta
