@@ -42,7 +42,12 @@
                 <?php } ?>
             </select>
         </div>
-        <div id="agent">
+        <?php 
+        $user = getUserInfo($_SESSION['username']);
+        if ($user['isAdmin'] || $user['isAgent']) { 
+            $department_agents = getDepartmentAgents($ticket->department);
+            if (!empty($department_agents)) { ?>
+            <div id="agent">
             <select>
                 <?php 
                 $selected_agent = Ticket::getAgent($db, $_GET['id']);
@@ -51,7 +56,6 @@
                 <?php } else { ?>
                     <option selected><?=$selected_agent['username']?></option>
                 <?php }
-                $department_agents = getDepartmentAgents($ticket->department);
                 foreach ($department_agents as $agent) { 
                     if ($ticket->status != 'Closed' && $selected_agent['username'] !== $agent['username']) {?>
                     <option><?=$agent['username']?></option>
@@ -59,6 +63,7 @@
                     } ?>
             </select>
         </div>
+        <?php } } ?>
         <div id="status">
             <select>
                 <option><?=$ticket->status?></option>

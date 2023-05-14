@@ -27,7 +27,7 @@
         </a>
     <?php }
 
-    function output_main_content(){ 
+    function output_main_content($username){ 
         $db = getDatabaseConnection();
         ?>
         <section id="tickets">
@@ -94,7 +94,7 @@
             </section>
             <section id="previews">
                 <?php 
-                $tickets = Ticket::getAllTickets($db);
+                $tickets = Ticket::getAllTickets($db, $username);
                 foreach ($tickets as $ticket) {
                     output_ticket_preview($ticket['ticketId']);
                 } ?>

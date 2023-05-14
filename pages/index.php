@@ -10,7 +10,7 @@
 
     output_header(true);
 
-    output_main_content();
+    output_main_content($_SESSION['username']);
 
     output_footer();
 ?>
