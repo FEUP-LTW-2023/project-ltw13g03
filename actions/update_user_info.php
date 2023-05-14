@@ -29,7 +29,7 @@ if ($new_pass === "" && $new_pass_repeat === "") {
     if (!$error) {
         $_SESSION['username'] = $new_username;
         $stmt = $db->prepare('UPDATE Client SET name=?, email=?, username=?, password=? WHERE userId=?');
-        $stmt->execute(array($new_name, $new_email, $new_username, sha1($new_pass), $id));
+        $stmt->execute(array($new_name, $new_email, $new_username, password_hash($new_pass, PASSWORD_BCRYPT), $id));
     }
 }
 

@@ -100,9 +100,9 @@ CREATE TABLE Modification (
     FOREIGN KEY (userId) REFERENCES Client(userId) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '3678b4619913882f81cb27e5a1a723291fa8da0d'); --passwordsecreta
-INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '20eabe5d64b0e216796e834f52d61fd0b70332fc'); --1234567
-INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '02aea1da66459976cc45823b47bc219a9799f166'); --daniel_faro123
+INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '$2y$10$s.G6lPMGoZcvm3G7LApaf.9LORZhyIXc0dZWPjj4kS9dEkRQRwcGW'); --passwordsecreta
+INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '$2y$10$Uv/ibRHkpx1s4oo1Z3266O092xnAtGclVXFnNghcqo7J2COHUOfm2'); --1234567
+INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '$2y$10$gH3zCEroF5d9xvxI3CBLjOATRvGOHr16gyPVz8t0x8FJgo/UZjMgC '); --daniel_faro123
 
 
 INSERT INTO Agent (isAgent, userId) VALUES (true, 1);

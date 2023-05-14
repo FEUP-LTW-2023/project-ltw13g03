@@ -5,13 +5,14 @@ require_once(__DIR__ . '/../database/connection.db.php');
 function userExists($username, $password){
     $db = getDatabaseConnection();
 
-    $stmt = $db->prepare('SELECT * FROM Client WHERE username=? AND password=?');
-    $stmt->execute(array($username, sha1($password)));
+    $stmt = $db->prepare('SELECT * FROM Client WHERE username=?');
+    $stmt->execute(array($username));
+    $client = $stmt->fetch();
 
-    if ($stmt->fetch()){
-        return true;
-    }
-    return false;
+    if ($client === false)
+        return false;
+
+    return (password_verify($password, $client['password']));
 }
 
 function createAccount($name, $username, $email, $password): bool {
@@ -23,7 +24,7 @@ function createAccount($name, $username, $email, $password): bool {
     if ($stmt->fetch()) return false;
     
     $stmt = $db->prepare('INSERT INTO Client (name, username, email, password) VALUES (?, ?, ?, ?)');
-    $stmt->execute(array($name, $username, $email, sha1($password)));
+    $stmt->execute(array($name, $username, $email, password_hash($password, PASSWORD_BCRYPT)));
 
     $id = Client::getUserId($db, $username);
     $stmt = $db->prepare('INSERT INTO Agent (isAgent, userId) VALUES (false, ?)');
