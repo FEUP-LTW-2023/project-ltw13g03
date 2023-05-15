@@ -29,4 +29,6 @@
 
 <?php
     output_footer();
+    unset($_SESSION['errors']);
+    unset($_SESSION['login_values']);
 ?>
