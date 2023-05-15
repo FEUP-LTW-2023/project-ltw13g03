@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 
     if(isset($_SESSION['username'])){
         die(header("Location: /"));
@@ -19,31 +19,34 @@
     </label>
     <div id="user_info">
         <label>
-            Name <input type="text" name="name">
-            <span class="error"></span>
+            Name <input type="text" name="name" value=<?=$_SESSION['register_values']['name'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['name'] ?? ''?></span>
         </label>
         <label>
-            Username <input type="text" name="username">
-            <span class="error"></span>
+            Username <input type="text" name="username" value=<?=$_SESSION['register_values']['username'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['username'] ?? ''?></span>
         </label>
         <label>
-            E-mail <input type="email" name="email">
-            <span class="error"></span>
+            E-mail <input type="email" name="email" value=<?=$_SESSION['register_values']['email'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['email'] ?? ''?></span>
         </label>
         <label>
-            Password <input type="password" name="password1">
-            <span class="error"></span>
+            Password <input type="password" name="password1" value=<?=$_SESSION['register_values']['password1'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['password1'] ?? ''?></span>
         </label>
         <label>
-            Password <input type="password" name="password2">
-            <span class="error"></span>
+            Password <input type="password" name="password2" value=<?=$_SESSION['register_values']['password2'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['password2'] ?? ''?></span>
+            <span class="error"><?=$_SESSION['errors']['undefined'] ?? ''?></span>
         </label>
     </div>
     <button type="submit">Register</button>
     </form>
+    <span id="already_registered">Already have an account? Click <a href="login.php">here</a> to sign in!</span>
 </section>
 
 <?php
     output_footer();
-
+    unset($_SESSION['errors']);
+    unset($_SESSION['register_values']);
 ?>

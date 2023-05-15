@@ -90,7 +90,7 @@ function validateRegister(event) {
         event.preventDefault();
     }
 }
-
+/*
 const loginForm = document.querySelector('section#login form');
 const registerForm = document.querySelector('section#register form');
 
@@ -100,3 +100,4 @@ if(loginForm != null) {
 if(registerForm != null) {
     registerForm.addEventListener('submit', validateRegister);
 }
+*/

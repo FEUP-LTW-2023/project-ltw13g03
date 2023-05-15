@@ -12,9 +12,9 @@ DROP TABLE IF EXISTS AgentDepartment;
 
 CREATE TABLE Client (
     userId INTEGER PRIMARY KEY AUTOINCREMENT,
-    username NVAR(25) UNIQUE,
+    username NVAR(25) UNIQUE NOT NULL,
     name NVARCHAR(120) NOT NULL,
-    email NVARCHAR(60) NOT NULL,
+    email NVARCHAR(60) UNIQUE NOT NULL,
     password NVARCHAR(40) NOT NULL
 );
 
@@ -102,7 +102,7 @@ CREATE TABLE Modification (
 
 INSERT INTO Client (name, username, email, password) VALUES ('Pedro Madureira', 'RAM', 'pedro@gmail.com', '$2y$10$s.G6lPMGoZcvm3G7LApaf.9LORZhyIXc0dZWPjj4kS9dEkRQRwcGW'); --passwordsecreta
 INSERT INTO Client (name, username, email, password) VALUES ('Tomas Gaspar', 'Gaspar', 'tomasgaspar@gmail.com', '$2y$10$Uv/ibRHkpx1s4oo1Z3266O092xnAtGclVXFnNghcqo7J2COHUOfm2'); --1234567
-INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '$2y$10$gH3zCEroF5d9xvxI3CBLjOATRvGOHr16gyPVz8t0x8FJgo/UZjMgC '); --daniel_faro123
+INSERT INTO Client (name, username, email, password) VALUES ('Daniel Gago', 'Gago', 'danielgago@gmail.com', '$2y$10$QTMpiMyuRWG.FGT0j33hIu5CBBv8E72N718xWEhAwrZBn/pbwQr1K'); --daniel_faro123
 
 
 INSERT INTO Agent (isAgent, userId) VALUES (true, 1);
