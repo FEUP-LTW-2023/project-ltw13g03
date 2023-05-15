@@ -101,8 +101,6 @@ function retrieveRegisterFormFields(): array {
     $form_fields['name'] = $_POST['name'];
     $form_fields['username'] = $_POST['username'];
     $form_fields['email'] = $_POST['email'];
-    $form_fields['password1'] = $_POST['password1'];
-    $form_fields['password2'] = $_POST['password2'];
     return $form_fields;
 }
 
@@ -110,7 +108,6 @@ function  retrieveLoginFormFields(): array {
     $form_fields = array();
 
     $form_fields['username'] = $_POST['username'];
-    $form_fields['password'] = $_POST['password'];
     return $form_fields;
 }
 
