@@ -81,6 +81,20 @@ function validateRegister(): array {
     return $errors;
 }
 
+function validateLogin(): array {
+    $errors = array();
+
+    if (empty($_POST['username'])) {
+        $errors['username'] = "Please enter a username.";
+    }
+
+    if (empty($_POST['password'])) {
+        $errors['password'] = "Please enter a password.";
+    }
+
+    return $errors;
+}
+
 function retrieveRegisterFormFields(): array {
     $form_fields = array();
 
@@ -89,6 +103,14 @@ function retrieveRegisterFormFields(): array {
     $form_fields['email'] = $_POST['email'];
     $form_fields['password1'] = $_POST['password1'];
     $form_fields['password2'] = $_POST['password2'];
+    return $form_fields;
+}
+
+function  retrieveLoginFormFields(): array {
+    $form_fields = array();
+
+    $form_fields['username'] = $_POST['username'];
+    $form_fields['password'] = $_POST['password'];
     return $form_fields;
 }
 

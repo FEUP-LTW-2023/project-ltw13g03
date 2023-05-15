@@ -19,26 +19,26 @@ session_start();
     </label>
     <div id="user_info">
         <label>
-            Name <input type="text" name="name" value=<?=$_SESSION['register_values']['name']?>>
-            <span class="error"><?=$_SESSION['errors']['name']?></span>
+            Name <input type="text" name="name" value=<?=$_SESSION['register_values']['name'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['name'] ?? ''?></span>
         </label>
         <label>
-            Username <input type="text" name="username" value=<?=$_SESSION['register_values']['username']?>>
-            <span class="error"><?=$_SESSION['errors']['username']?></span>
+            Username <input type="text" name="username" value=<?=$_SESSION['register_values']['username'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['username'] ?? ''?></span>
         </label>
         <label>
-            E-mail <input type="email" name="email" value=<?=$_SESSION['register_values']['email']?>>
-            <span class="error"><?=$_SESSION['errors']['email']?></span>
+            E-mail <input type="email" name="email" value=<?=$_SESSION['register_values']['email'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['email'] ?? ''?></span>
         </label>
         <label>
-            Password <input type="password" name="password1" value=<?=$_SESSION['register_values']['password1']?>>
-            <span class="error"><?=$_SESSION['errors']['password1']?></span>
+            Password <input type="password" name="password1" value=<?=$_SESSION['register_values']['password1'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['password1'] ?? ''?></span>
         </label>
         <label>
-            Password <input type="password" name="password2" value=<?=$_SESSION['register_values']['password2']?>>
-            <span class="error"><?=$_SESSION['errors']['password2']?></span>
+            Password <input type="password" name="password2" value=<?=$_SESSION['register_values']['password2'] ?? ''?>>
+            <span class="error"><?=$_SESSION['errors']['password2'] ?? ''?></span>
+            <span class="error"><?=$_SESSION['errors']['undefined'] ?? ''?></span>
         </label>
-        <span class="error"><?=$_SESSION['errors']['undefined']?></span>
     </div>
     <button type="submit">Register</button>
     </form>
