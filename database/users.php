@@ -2,11 +2,12 @@
 
 require_once(__DIR__ . '/../database/connection.db.php');
 
-function userExists($username, $password){
+function userExists($username, $password): bool
+{
     $db = getDatabaseConnection();
 
     $stmt = $db->prepare('SELECT * FROM Client WHERE username=?');
-    $stmt->execute(array($username));
+    $stmt->execute(array(strtolower($username)));
     $client = $stmt->fetch();
 
     if ($client === false)
@@ -24,7 +25,7 @@ function createAccount($name, $username, $email, $password): bool {
     if ($stmt->fetch()) return false;
     
     $stmt = $db->prepare('INSERT INTO Client (name, username, email, password) VALUES (?, ?, ?, ?)');
-    $stmt->execute(array($name, $username, $email, password_hash($password, PASSWORD_BCRYPT)));
+    $stmt->execute(array($name, strtolower($username), strtolower($email), password_hash($password, PASSWORD_BCRYPT)));
 
     $id = Client::getUserId($db, $username);
     $stmt = $db->prepare('INSERT INTO Agent (isAgent, userId) VALUES (false, ?)');
@@ -40,7 +41,7 @@ function getUserInfo($username) {
     $db = getDatabaseConnection();
 
     $stmt = $db->prepare('SELECT username, name, email, isAgent, isAdmin FROM Client LEFT JOIN Agent using(userId) LEFT JOIN Admin using(userId) WHERE username=?');
-    $stmt->execute(array($username));
+    $stmt->execute(array(strtolower($username)));
     return $stmt->fetch();
 }
 
@@ -49,7 +50,7 @@ function validateRegister(): array {
 
     $db = getDatabaseConnection();
     $stmt = $db->prepare('SELECT * FROM Client WHERE username=? OR email=?');
-    $stmt->execute(array($_POST['username'], $_POST['email']));
+    $stmt->execute(array(strtolower($_POST['username']), strtolower($_POST['email'])));
     $client = $stmt->fetch();
 
     if (empty($_POST['name'])) {
@@ -58,13 +59,13 @@ function validateRegister(): array {
 
     if (empty($_POST['username'])) {
         $errors['username'] = "Please enter a username.";
-    } else if($client && $_POST['username'] == $client['username']) {
+    } else if($client && strtolower($_POST['username']) == $client['username']) {
         $errors['username'] = "This username is already taken.";
     }
 
     if (empty($_POST['email'])) {
         $errors['email'] = "Please enter an email.";
-    } else if ($client && $_POST['email'] == $client['email']) {
+    } else if ($client && strtolower($_POST['email']) == $client['email']) {
         $errors['email'] = "This email is already in use.";
     }
 

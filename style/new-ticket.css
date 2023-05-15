@@ -162,7 +162,6 @@ section.create_ticket form #ticket_description {
 section.create_ticket form button {
     grid-area: 6 / 1 / span 1 / span 1;
     width: 10em;
-    justify-self: center;
     color: white;
     background-color: var(--header-root-color);
     border: none;

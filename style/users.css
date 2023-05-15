@@ -50,7 +50,6 @@ section#management > aside ul {
 }
 
 section#management input {
-    min-width: 2em;
     width: 65%;
     background-color: var(--box-color);
     height: 1.4em;
@@ -72,7 +71,6 @@ section#form-manage-users {
 table#manage-users {
     width: 100%;
     height: fit-content;
-    border-spacing: separate;
     border-spacing: 0 1em;
 }
 
@@ -207,7 +205,6 @@ section#management > aside li {
     section#management > aside {
         grid-area: 1 / 1;
         margin: 0 auto;
-        max-width: none;
         width: 80%;
         max-width: 30em;
     }

@@ -11,10 +11,11 @@
         return $stmt->fetchAll();
     }
 
-    function hashtagExists(string $name) {
+    function hashtagExists(string $name): bool
+    {
         $db = getDatabaseConnection();
 
-        $stmt = $stmt = $db->prepare('SELECT name FROM Hashtag WHERE name = ?');
+        $stmt = $db->prepare('SELECT name FROM Hashtag WHERE name = ?');
         $stmt->execute(array($name));
         
         $res = $stmt->fetch();
@@ -52,10 +53,11 @@
         $stmt->execute(array($status));
     }
 
-    function statusExists(string $name) {
+    function statusExists(string $name): bool
+    {
         $db = getDatabaseConnection();
 
-        $stmt = $stmt = $db->prepare('SELECT name FROM Status WHERE name = ?');
+        $stmt = $db->prepare('SELECT name FROM Status WHERE name = ?');
         $stmt->execute(array($name));
         
         $res = $stmt->fetch();
