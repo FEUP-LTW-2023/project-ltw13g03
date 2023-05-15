@@ -9,6 +9,7 @@ $errors = validateRegister();
 
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
+    $_SESSION['register_values'] = retrieveRegisterFormFields();
     header('Location: /pages/register.php');
     exit;
 }
@@ -35,6 +36,7 @@ if (createAccount($_POST['name'], $_POST['username'], $_POST['email'], $_POST['p
 } else {
     $errors['undefined'] = 'Something went wrong.';
     $_SESSION['errors'] = $errors;
+    $_SESSION['register_values'] = retrieveRegisterFormFields();
     header('Location: /pages/register.php');
 }
 

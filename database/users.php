@@ -50,6 +50,7 @@ function validateRegister(): array {
     $db = getDatabaseConnection();
     $stmt = $db->prepare('SELECT * FROM Client WHERE username=? OR email=?');
     $stmt->execute(array($_POST['username'], $_POST['email']));
+    $client = $stmt->fetch();
 
     if (empty($_POST['name'])) {
         $errors['name'] = "Please enter a name.";
@@ -57,20 +58,20 @@ function validateRegister(): array {
 
     if (empty($_POST['username'])) {
         $errors['username'] = "Please enter a username.";
-    } else if($stmt->fetch() && $_POST['username'] == $stmt['username']) {
-        $errors['username'] = "Username already exists";
+    } else if($client && $_POST['username'] == $client['username']) {
+        $errors['username'] = "This username is already taken.";
     }
 
     if (empty($_POST['email'])) {
         $errors['email'] = "Please enter an email.";
-    } else if ($stmt->fetch() && $_POST['email'] == $stmt['email']) {
-        $errors['email'] = "Email already exists";
+    } else if ($client && $_POST['email'] == $client['email']) {
+        $errors['email'] = "This email is already in use.";
     }
 
     if (empty($_POST['password1'])) {
         $errors['password1'] = "Please enter a password.";
     } else if (strlen($_POST['password1']) < 7) {
-        $errors['password1'] = "Password should be at least 7 characters long";
+        $errors['password1'] = "Password should be at least 7 characters long.";
     }
 
     if ($_POST['password1'] != $_POST['password2']) {
@@ -78,6 +79,17 @@ function validateRegister(): array {
     }
 
     return $errors;
+}
+
+function retrieveRegisterFormFields(): array {
+    $form_fields = array();
+
+    $form_fields['name'] = $_POST['name'];
+    $form_fields['username'] = $_POST['username'];
+    $form_fields['email'] = $_POST['email'];
+    $form_fields['password1'] = $_POST['password1'];
+    $form_fields['password2'] = $_POST['password2'];
+    return $form_fields;
 }
 
 ?>
