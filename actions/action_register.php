@@ -1,33 +1,41 @@
 <?php
-  session_start();
+session_start();
 
-  require_once(__DIR__ . '/../database/users.php');
-  require_once(__DIR__ . '/../database/client.class.php');
-  require_once(__DIR__ . '/../database/connection.db.php');
-  
-  if ($_POST['password1'] != $_POST['password2'])
+require_once(__DIR__ . '/../database/users.php');
+require_once(__DIR__ . '/../database/client.class.php');
+require_once(__DIR__ . '/../database/connection.db.php');
+
+$errors = validateRegister();
+
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
     header('Location: /pages/register.php');
-  else {
-    if (createAccount($_POST['name'], $_POST['username'], $_POST['email'], $_POST['password1'])){
-        $_SESSION['username'] = $_POST['username'];
+    exit;
+}
 
-        $file = $_FILES['profile-input']['name'];
+if (createAccount($_POST['name'], $_POST['username'], $_POST['email'], $_POST['password1'])){
+    $_SESSION['username'] = $_POST['username'];
 
-        if ($file != "") {
-          $path = pathinfo($file);
-          $extension = $path['extension'];
-          $dir = __DIR__ . "/../images/";
-          $db = getDatabaseConnection();
-          $filename = Client::getUserId($db, $_POST['username']);
-          $temp = $_FILES['profile-input']['tmp_name'];
-          $name = $dir . $filename . '.' . $extension;
+    $file = $_FILES['profile-input']['name'];
+
+    if ($file != "") {
+        $path = pathinfo($file);
+        $extension = $path['extension'];
+        $dir = __DIR__ . "/../images/";
+        $db = getDatabaseConnection();
+        $filename = Client::getUserId($db, $_POST['username']);
+        $temp = $_FILES['profile-input']['tmp_name'];
+        $name = $dir . $filename . '.' . $extension;
 
 
-          move_uploaded_file($temp, $name);
-        }
+        move_uploaded_file($temp, $name);
+    }
 
-        header('Location: /');
-      } else header('Location: /pages/register.php');
-  }
+    header('Location: /');
+} else {
+    $errors['undefined'] = 'Something went wrong.';
+    $_SESSION['errors'] = $errors;
+    header('Location: /pages/register.php');
+}
 
 ?>

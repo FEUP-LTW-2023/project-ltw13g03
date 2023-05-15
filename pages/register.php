@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 
     if(isset($_SESSION['username'])){
         die(header("Location: /"));
@@ -20,27 +20,29 @@
     <div id="user_info">
         <label>
             Name <input type="text" name="name">
-            <span class="error"></span>
+            <span class="error"><?=$_SESSION['errors']['name']?></span>
         </label>
         <label>
             Username <input type="text" name="username">
-            <span class="error"></span>
+            <span class="error"><?=$_SESSION['errors']['name']?></span>
         </label>
         <label>
             E-mail <input type="email" name="email">
-            <span class="error"></span>
+            <span class="error"><?=$_SESSION['errors']['email']?></span>
         </label>
         <label>
             Password <input type="password" name="password1">
-            <span class="error"></span>
+            <span class="error"><?=$_SESSION['errors']['password1']?></span>
         </label>
         <label>
             Password <input type="password" name="password2">
-            <span class="error"></span>
+            <span class="error"><?=$_SESSION['errors']['password2']?></span>
         </label>
     </div>
     <button type="submit">Register</button>
     </form>
+    <span class="error"><?=$_SESSION['errors']['undefined']?></span>
+    <span id="already_registered">Already have an account? Click <a href="login.php">here</a> to sign in!</span>
 </section>
 
 <?php

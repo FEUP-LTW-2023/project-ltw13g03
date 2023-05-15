@@ -57,9 +57,10 @@ section#login button, section#register button {
     cursor: pointer;
 }
 
-section#login #not_registered {
-    font-size: 0.7rem;
-    margin-left: 1em;
+section#login #not_registered, section#register #already_registered {
+    font-size: 1rem;
+    display: table;
+    margin: 2em auto;
 }
 
 section#login #not_registered a {
