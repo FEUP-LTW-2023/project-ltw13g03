@@ -31,11 +31,11 @@ session_start();
             <span class="error"><?=$_SESSION['errors']['email'] ?? ''?></span>
         </label>
         <label>
-            Password <input type="password" name="password1" value=<?=$_SESSION['register_values']['password1'] ?? ''?>>
+            Password <input type="password" name="password1">
             <span class="error"><?=$_SESSION['errors']['password1'] ?? ''?></span>
         </label>
         <label>
-            Password <input type="password" name="password2" value=<?=$_SESSION['register_values']['password2'] ?? ''?>>
+            Password <input type="password" name="password2">
             <span class="error"><?=$_SESSION['errors']['password2'] ?? ''?></span>
             <span class="error"><?=$_SESSION['errors']['undefined'] ?? ''?></span>
         </label>
