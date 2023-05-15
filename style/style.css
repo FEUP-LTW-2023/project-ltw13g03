@@ -128,8 +128,7 @@ section#tickets #searchticket {
     grid-row: 2 / span 1;
     height: 1.5em;
     margin-right: 0.5em;
-    padding: 0.5em;
-    padding-left: 1em;
+    padding: 0.5em 0.5em 0.5em 1em;
     border: none;
     border-bottom: solid 3px var(--header-root-color);
     border-radius: 6px;

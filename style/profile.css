@@ -103,7 +103,6 @@ section.userprofile form div#photo input {
 section.userprofile form button {
     grid-area: 5 / 1 / span 1 / span 2;
     width: 10em;
-    justify-self: center;
     color: white;
     background-color: var(--header-root-color);
     border: none;

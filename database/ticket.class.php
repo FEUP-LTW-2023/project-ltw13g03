@@ -61,7 +61,7 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $department, string $status, string $priority) {
+        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $department, string $status, string $priority): array {
             $stmt = $db->prepare('SELECT * FROM (Ticket LEFT JOIN Client ON Ticket.Agent=Client.userId)
                                             WHERE title LIKE ? AND ifnull(username, "") LIKE ?');
             $stmt->execute(array('%' . $search . '%', '%' . $agent . '%'));
@@ -164,7 +164,7 @@
 
             $hashtags = json_decode($hashtags, true);
 
-            array_push($hashtags, $hashtag);
+            $hashtags[] = $hashtag;
 
             foreach ($hashtags as $tag){
                 if ($tag === $hashtag) return false;
