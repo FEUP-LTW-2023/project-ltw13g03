@@ -75,7 +75,7 @@ function validateRegister(): array {
     }
 
     if ($_POST['password1'] != $_POST['password2']) {
-        $errors['password2'] = "Passwords do not match.";
+        $errors['password2'] = "Passwords did not match.";
     }
 
     return $errors;
@@ -95,19 +95,12 @@ function validateLogin(): array {
     return $errors;
 }
 
-function retrieveRegisterFormFields(): array {
+function retrieveFormFields(): array {
     $form_fields = array();
 
-    $form_fields['name'] = $_POST['name'];
-    $form_fields['username'] = $_POST['username'];
-    $form_fields['email'] = $_POST['email'];
-    return $form_fields;
-}
-
-function  retrieveLoginFormFields(): array {
-    $form_fields = array();
-
-    $form_fields['username'] = $_POST['username'];
+    $form_fields['name'] = $_POST['name'] ?? '';
+    $form_fields['username'] = $_POST['username'] ?? '';
+    $form_fields['email'] = $_POST['email'] ?? '';
     return $form_fields;
 }
 

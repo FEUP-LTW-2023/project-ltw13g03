@@ -7,7 +7,7 @@ $errors = validateLogin();
 
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
-    $_SESSION['login_values'] = retrieveLoginFormFields();
+    $_SESSION['login_values'] = retrieveFormFields();
     header('Location: /pages/login.php');
     exit;
 }
@@ -18,7 +18,7 @@ if (userExists($_POST['username'], $_POST['password'])){
 } else {
     $errors['undefined'] = 'Invalid username/password.';
     $_SESSION['errors'] = $errors;
-    $_SESSION['login_values'] = retrieveLoginFormFields();
+    $_SESSION['login_values'] = retrieveFormFields();
     header('Location: /pages/login.php');
 }
 
