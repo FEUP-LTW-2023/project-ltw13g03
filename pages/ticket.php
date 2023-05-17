@@ -17,6 +17,8 @@
 
     $db = getDatabaseConnection();
     $ticket = Ticket::getTicket($db, $_GET['id']);
+
+    if ($ticket === null) die(header('Location: /'));
 ?>
 
 <section id="ticket" data-id="<?=$_GET['id']?>">
