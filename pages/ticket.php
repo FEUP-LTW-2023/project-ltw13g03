@@ -28,10 +28,17 @@
         <div id="author">
             <?=Client::getUsername($db, $ticket->client)?>
         </div>
+        <?php 
+        $user = getUserInfo($_SESSION['username']);
+        ?>
         <time datetime="<?=$ticket->date->format('Y-m-d')?>"><?=$ticket->date->format('Y-m-d')?></time>
         <div id="department">
             <select>
-                <?php $departments = getDepartments();
+                <?php
+                $departments = [];
+                if ($user['isAdmin'] || $user['isAgent']) 
+                $departments = getDepartments();
+                else if ($ticket->department != "") $departments[] = ['name' => $ticket->department];
                 if (empty($departments)) ?> <option disabled selected>choose a department</option>
                 <?php foreach ($departments as $department) {
                     if ($department['name'] === $ticket->department) { ?>
@@ -42,11 +49,9 @@
                 <?php } ?>
             </select>
         </div>
-        <?php 
-        $user = getUserInfo($_SESSION['username']);
-        if ($user['isAdmin'] || $user['isAgent']) { 
-            $department_agents = getDepartmentAgents($ticket->department);
-            if (!empty($department_agents)) { ?>
+        <?php
+            $department_agents = [];
+            ?>
             <div id="agent">
             <select>
                 <?php 
@@ -56,19 +61,24 @@
                 <?php } else { ?>
                     <option selected><?=$selected_agent['username']?></option>
                 <?php }
+                if ($user['isAdmin'] || $user['isAgent']) {
+                    $department_agents = getDepartmentAgents
+                    ($ticket->department);
+                }
                 foreach ($department_agents as $agent) { 
                     if ($ticket->status != 'Closed' && $selected_agent['username'] !== $agent['username']) {?>
                     <option><?=$agent['username']?></option>
-                <?php }
-                    } ?>
+                <?php } } ?>
             </select>
         </div>
-        <?php } } ?>
         <div id="status">
             <select>
                 <option><?=$ticket->status?></option>
                 <?php if ($ticket->status != 'Closed') {
-                    $statuses = getStatuses();
+                    $statuses = [];
+                    if ($user['isAdmin'] || $user['isAgent']) {
+                        $statuses = getStatuses();
+                    }
                     foreach ($statuses as $status) { 
                         if ($status['name'] !== $ticket->status) {?>
                             <option><?=$status['name']?></option>
