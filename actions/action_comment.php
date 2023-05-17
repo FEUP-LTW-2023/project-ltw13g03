@@ -5,8 +5,11 @@
   require_once(__DIR__ . '/../database/ticket.class.php');
 
   $db = getDatabaseConnection();
-  Ticket::addComment($db, $_POST['ticketId'], $_SESSION['username'], $_POST['text'], $_POST['faq']);
+  try {
+      Ticket::addComment($db, $_POST['ticketId'], $_SESSION['username'], $_POST['text'], $_POST['faq']);
+  } catch (PDOException $err) {
+
+  }
 
   header('Location: /pages/ticket.php?id=' . $_POST['ticketId']);
-
 ?>

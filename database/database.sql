@@ -67,7 +67,7 @@ CREATE TABLE Comment (
   ticketId INTEGER,
   userId INTEGER NOT NULL,
   date DATE NOT NULL,
-  text TEXT,
+  text TEXT NOT NULL CHECK(LENGTH(text) >= 1),
   faqId INTEGER,
 
   FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID),

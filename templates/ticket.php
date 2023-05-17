@@ -148,7 +148,7 @@
                 <label id="ticket_description">
                     Description
                     <textarea name="ticket_description" id="" cols="30" rows="10" placeholder="Write a description of your ticket here..." autocomplete="off"></textarea>
-                    <span class="error"><?=$_SESSION['errors']['password1'] ?? ''?></span>
+                    <span class="error"></span>
                 </label>
                 <button>Submit</button>
                 <span class="error"><?=$_SESSION['new_ticket_error']?? ''?></span>
