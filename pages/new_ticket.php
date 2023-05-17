@@ -13,4 +13,6 @@
     new_ticket_form();
 
     output_footer();
+
+unset($_SESSION['new_ticket_error']);
 ?>
