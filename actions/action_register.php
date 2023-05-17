@@ -5,6 +5,9 @@ require_once(__DIR__ . '/../database/users.php');
 require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../database/connection.db.php');
 
+$_POST['username'] = strtolower($_POST['username']);
+$_POST['email'] = strtolower($_POST['email']);
+
 $errors = validateRegister();
 
 if (!empty($errors)) {

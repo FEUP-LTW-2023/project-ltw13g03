@@ -164,12 +164,13 @@
 
             $hashtags = json_decode($hashtags, true);
 
-            $hashtags[] = $hashtag;
-
+            
             foreach ($hashtags as $tag){
                 if ($tag === $hashtag) return false;
             }
-
+            
+            array_push($hashtags, $hashtag);
+            
             $hashtags = json_encode($hashtags);
 
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES 
