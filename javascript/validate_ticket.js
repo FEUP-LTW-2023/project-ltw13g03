@@ -28,7 +28,21 @@ function validateNewTicket(event) {
     }
 }
 
+function validateNewComment(event) {
+    const textInput = document.querySelector('textarea[name="text"]');
+
+    if (textInput.value.trim() === '') {
+        event.preventDefault();
+    }
+}
+
 const newTicketForm = document.querySelector('section.create_ticket form');
+const newCommentForm = document.querySelector('section#comments form');
+
 if(newTicketForm != null) {
     newTicketForm.addEventListener('submit', validateNewTicket);
+}
+
+if(newCommentForm != null) {
+    newCommentForm.addEventListener('submit', validateNewComment);
 }

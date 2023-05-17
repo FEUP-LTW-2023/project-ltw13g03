@@ -37,6 +37,7 @@ function output_comments($id, $status){
         <h3>Leave a comment</h3>
         <input type="hidden" name="ticketId" value="<?=$id?>"/>
         <textarea name="text" placeholder="Your thoughts here..."></textarea>
+        <span class="error"></span>
         <?php
         $user = getUserInfo($_SESSION['username']);
         if ($user['isAgent']) { ?>
