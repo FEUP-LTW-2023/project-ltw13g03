@@ -3,6 +3,8 @@ session_start();
 
 require_once(__DIR__ . '/../database/users.php');
 
+$_POST['username'] = strtolower($_POST['username']);
+
 $errors = validateLogin();
 
 if (!empty($errors)) {
