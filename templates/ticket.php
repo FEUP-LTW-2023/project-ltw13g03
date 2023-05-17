@@ -106,20 +106,21 @@
         <section class="create_ticket">
             <h2>Create a New Ticket</h2>
             <form method="post" action="../actions/action_create_ticket.php">
+                <label id="ticket_title">
+                    Title
+                    <input type="text" name="ticket_title" autocomplete="off">
+                    <span class="error"></span>
+                </label>
                 <label id="department">
                     Department (optional)
                     <select name="department" autocomplete="off">
                         <option value="unspecified" selected> - </option>
-                        <?php 
+                        <?php
                         $departments = getDepartments();
                         foreach ($departments as $department) { ?>
                             <option><?=$department['name']?></option>
                         <?php } ?>
                     </select>
-                </label>
-                <label id="ticket_title">
-                    Title
-                    <input type="text" name="ticket_title" autocomplete="off">
                 </label>
                 <label id="ticket_priority">
                     Priority
@@ -136,7 +137,7 @@
                     <input list="hashtags" placeholder="Add more tags">
                     <input type="hidden" value="[]" name="tags">
                     <datalist id="hashtags">
-                        <?php 
+                        <?php
                             $tags = getHashtags();
                             foreach ($tags as $tag) { ?>
                                 <option><?=$tag['name']?></option>
@@ -147,8 +148,10 @@
                 <label id="ticket_description">
                     Description
                     <textarea name="ticket_description" id="" cols="30" rows="10" placeholder="Write a description of your ticket here..." autocomplete="off"></textarea>
+                    <span class="error"><?=$_SESSION['errors']['password1'] ?? ''?></span>
                 </label>
                 <button>Submit</button>
+                <span class="error"><?=$_SESSION['new_ticket_error']?? ''?></span>
             </form>
         </section>
     <?php }

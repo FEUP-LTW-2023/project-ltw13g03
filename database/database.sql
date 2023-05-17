@@ -40,8 +40,8 @@ CREATE TABLE Admin (
 
 CREATE TABLE Ticket (
     ticketId INTEGER PRIMARY KEY,
-    title TEXT NOT NULL,
-    body TEXT NOT NULL,
+    title TEXT NOT NULL CHECK(LENGTH(title) >= 10),
+    body TEXT NOT NULL NULL CHECK(LENGTH(body) >= 10),
     department INTEGER,
     hashtags TEXT NOT NULL, /* Aqui vamos guardar um JSON com uma lista */
     priority INTEGER NOT NULL,
