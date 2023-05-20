@@ -27,6 +27,22 @@ section#management > aside {
     max-width: 15em;
 }
 
+section#management > aside button {
+    border: none;
+    min-height: 2em;
+    border-radius: 0.5em;
+    background-color: var(--box-color);
+    color: var(--text-color);
+    margin: .2em;
+    cursor: pointer;
+}
+
+#chartContainer {
+    margin-top: .5em;
+    height: fit-content;
+    max-width: 14em;
+}
+
 section#management > aside img {
     cursor: pointer;
     margin-left: .2em;
@@ -195,11 +211,16 @@ section#management > aside li {
     cursor: auto;
 }
 
-@media (max-width: 55em) {
+@media (max-width: 68em) {
     section#management {
         width: 100%;
         grid-template-columns: 98%;
         grid-template-rows: min-content auto;
+    }
+
+    #chartContainer {
+        max-width: 18em;
+        margin: 0 auto;
     }
     
     section#management > aside {
