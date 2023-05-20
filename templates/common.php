@@ -14,9 +14,9 @@
             <script src="../javascript/new_ticket_tags.js" defer></script>
             <script src="../javascript/ticket_search.js" defer></script>
             <script src="../javascript/priority_slider.js" defer></script>
-            <script src="../javascript/form_validation.js" defer></script>
             <script src="../javascript/dropdown.js" defer></script>
             <script src="../javascript/update_profile.js" defer></script>
+            <script src="../javascript/validate_ticket.js" defer></script>
             <link href="../style/style.css" rel="stylesheet">
             <link href="../style/profile.css" rel="stylesheet">
             <link href="../style/faq.css" rel="stylesheet">

@@ -234,20 +234,22 @@ function ticket_agent(){
   }
 }
 
+function manage_dropdown(e){
+  const menuContent = e.target.nextElementSibling;
+  if (!menuContent.classList.contains("show")) {
+    menuContent.classList.add("show");
+    menuContent.classList.remove("hide");
+  } else {
+    menuContent.classList.add("hide");
+    menuContent.classList.remove("show");
+  }
+}
+
 function ticket_changes() {
   const dropdownButton = document.querySelector('#toggle_show_changes');
 
   if (dropdownButton) {
-    dropdownButton.addEventListener('click', function() {
-      const menuContent = this.nextElementSibling;
-      if (!menuContent.classList.contains("show")) {
-        menuContent.classList.add("show");
-        menuContent.classList.remove("hide");
-      } else {
-        menuContent.classList.add("hide");
-        menuContent.classList.remove("show");
-      }
-    });
+    dropdownButton.addEventListener('click', manage_dropdown);
   }
 }
 
@@ -260,10 +262,28 @@ async function ticket_update_changes() {
     const response = await fetch('../api/get_ticket_changes.php?ticketId=' + ticketId)
     const changes = await response.json()
 
-    const ol = changes_menu.querySelector('#ticket_changes ol')
+    let ol = changes_menu.querySelector('#ticket_changes ol')
 
-    while (ol.firstChild){
-      ol.removeChild(ol.firstChild)
+    if (ol) {
+      while (ol.firstChild){
+        ol.removeChild(ol.firstChild)
+      }
+    } else {
+      const changes_menu = document.querySelector('#changes_menu')
+
+      const toggle_show_changes = document.createElement('div')
+      toggle_show_changes.id = 'toggle_show_changes'
+      toggle_show_changes.innerHTML = '<img src="../images/icons/history.png" alt="changes"> Show all changes (<span id="change_count"></span>)'
+
+      const ticket_changes = document.createElement('div')
+      ticket_changes.id = 'ticket_changes'
+      ol = document.createElement('ol')
+      ticket_changes.appendChild(ol)
+
+      changes_menu.appendChild(toggle_show_changes)
+      changes_menu.appendChild(ticket_changes)
+
+      toggle_show_changes.addEventListener('click', manage_dropdown)
     }
 
     let change_count = 0

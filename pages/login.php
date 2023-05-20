@@ -14,12 +14,13 @@
     <h1>Login</h1>
     <form action="../actions/action_login.php" method="post">
     <label>
-        Username <input type="text" name="username">
-        <span class="error"></span>
+        Username <input type="text" name="username" value=<?=$_SESSION['login_values']['username']?? ''?>>
+        <span class="error"><?=$_SESSION['errors']['username']?? ''?></span>
     </label>
     <label>
         Password <input type="password" name="password">
-        <span class="error"></span>
+        <span class="error"><?=$_SESSION['errors']['password']?? ''?></span>
+        <span class="error"><?=$_SESSION['errors']['undefined']?? ''?></span>
     </label>
     <button type="submit">Login</button>
     </form>
@@ -28,4 +29,6 @@
 
 <?php
     output_footer();
+    unset($_SESSION['errors']);
+    unset($_SESSION['login_values']);
 ?>

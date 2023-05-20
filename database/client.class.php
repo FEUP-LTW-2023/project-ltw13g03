@@ -43,7 +43,7 @@
             return $users;
         }
 
-        static function getUser(PDO $db, string $username) {
+        static function getUser(PDO $db, string $username): Client {
             $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.userId = a.userId LEFT JOIN Admin ad ON a.userId = ad.userId WHERE c.username = ?');
             $stmt->execute(array($username));
             $user = $stmt->fetch();
@@ -116,11 +116,10 @@
                 if ($exists !== false) return false;
 
                 $stmt = $db->prepare('INSERT INTO AgentDepartment (userId, departmentID) VALUES (?, ?)');
-                $stmt->execute(array(Client::getUserId($db, $username), $departmentId));
             } else {
                 $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE userId=? AND departmentID=?');
-                $stmt->execute(array(Client::getUserId($db, $username), $departmentId));
             }
+            $stmt->execute(array(Client::getUserId($db, $username), $departmentId));
         }
     }
 ?>
