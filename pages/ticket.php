@@ -19,11 +19,11 @@
     $ticket = Ticket::getTicket($db, $_GET['id']);
 
     $show = false;
-    $user = getUserInfo($_SESSION['username']);
-    if ($ticket->client == Client::getUserId($db, $user['username'])) {
+    $user = Client::getUser($db, $_SESSION['username']);
+    if ($user->isAdmin) {
         $show = true;
     }
-    if ($user->isAdmin) {
+    if ($ticket->client == Client::getUserId($db, $user->username)) {
         $show = true;
     }
     if ($user->isAgent) {
