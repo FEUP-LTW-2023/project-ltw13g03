@@ -18,7 +18,23 @@
     $db = getDatabaseConnection();
     $ticket = Ticket::getTicket($db, $_GET['id']);
 
-    if ($ticket === null) die(header('Location: /'));
+    $show = false;
+    $user = getUserInfo($_SESSION['username']);
+    if ($ticket->client == Client::getUserId($db, $user['username'])) {
+        $show = true;
+    }
+    if ($user->isAdmin) {
+        $show = true;
+    }
+    if ($user->isAgent) {
+        foreach ($user->departments as $dep) {
+            if (getDepartmentId($dep['name']) === $ticket->department) {
+                $show = true;
+            }
+        }
+    }
+
+    if ($ticket === null || !$show) die(header('Location: /'));
 ?>
 
 <section id="ticket" data-id="<?=$_GET['id']?>">
