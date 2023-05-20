@@ -14,17 +14,14 @@
     background-color: var(--box-color);
 }
 
-.faq-header {
-    cursor: pointer;
-}
-
-.faq-header > h3 {
+.question .dropdown-button > h3 {
     padding: 1em 10em 1em .8em;
     font-size: 1.2rem;
     margin: 0;
 }
 
-.faq-header {
+.question .dropdown-button {
+    cursor: pointer;
     display: flex;
     background-color: var(--text-color);
     color: white;
@@ -32,7 +29,7 @@
     position: relative;
 }
 
-.faq-header .open, .faq-header .close {
+.question .dropdown-button .open, .question .dropdown-button .close {
     position: absolute;
     right: 0;
     padding: 0 1.4em;
@@ -40,16 +37,11 @@
     font-size: 1.2rem;
 }
 
-.faq-answer {
-    display: none;
+.question .dropdown-content {
     padding: 0 1em;
 }
 
-.faq-answer > p {
+.question .dropdown-content > p {
     margin: 0;
     padding: 1em 0;
-}
-
-.show {
-    display: block;
 }

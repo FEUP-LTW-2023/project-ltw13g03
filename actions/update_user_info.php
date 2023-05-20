@@ -11,10 +11,10 @@ $id = Client::getUserId($db, $_SESSION['username']);
 $new_name = $_POST['name'];
 $error = $new_name == "";
 
-$new_email = $_POST['email'];
+$new_email = strtolower($_POST['email']);
 $error = $new_email === "" || !filter_var($new_email, FILTER_VALIDATE_EMAIL);
 
-$new_username = $_POST['username'];
+$new_username = strtolower($_POST['username']);
 if (Client::getUserId($db, $new_username) !== false) $error = Client::getUserId($db, $new_username) !== $id;
 
 $new_pass = $_POST['password'];

@@ -3,11 +3,11 @@
 require_once(__DIR__ . '/../database/misc.php');
 function output_FAQ($faq) { ?>
     <div class="question" data-faq-id=<?=$faq['faqId']?>>
-        <div class="faq-header">
+        <div class="dropdown-button">
             <h3><?=$faq['question']?></h3>
             <span class="open">+</span>
         </div>
-        <div class="faq-answer">
+        <div class="dropdown-content">
             <p><?= $faq['answer']?></p>
         </div>
     </div>

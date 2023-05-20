@@ -1,11 +1,13 @@
 function activateDropdowns() {
-    /* FAQ DROPDOWN */
-    const questionHeaders = document.querySelectorAll(".faq-header");
-    if(questionHeaders != null) {
-        for (const questionHeader of questionHeaders) {
-            questionHeader.addEventListener("click", function() {
-                const answer = this.nextElementSibling
-                answer.classList.toggle("show")
+    /* GENERAL DROPDOWN */
+    const dropdownButtons = document.querySelectorAll(".dropdown-button");
+    if(dropdownButtons != null) {
+        for (const dropdownButton of dropdownButtons) {
+            console.log(dropdownButton)
+            dropdownButton.addEventListener("click", function() {
+                const content = this.nextElementSibling;
+                console.log(content)
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
             })
         }
     }
