@@ -27,7 +27,7 @@
         </a>
     <?php }
 
-    function output_main_content(){ 
+    function output_main_content($username){ 
         $db = getDatabaseConnection();
         ?>
         <section id="tickets">
@@ -56,6 +56,9 @@
                         <input type="date" min="1970-01-01" id="end_date">
                     </label>
                 </div>
+                <?php
+                $user = getUserInfo($_SESSION['username']);
+                if ($user['isAdmin'] || $user['isAgent']) { ?>
                 <label id="agent_filter"> Agent: 
                     <input list="agents" type="text">
                     <datalist id="agents">
@@ -65,6 +68,8 @@
                         <?php } ?>
                     </datalist>
                 </label>
+                <?php } ?>
+                
                 <label id="department_filter"> Department: 
                     <select>
                         <option></option>
@@ -94,7 +99,7 @@
             </section>
             <section id="previews">
                 <?php 
-                $tickets = Ticket::getAllTickets($db);
+                $tickets = Ticket::getAllTickets($db, $username);
                 foreach ($tickets as $ticket) {
                     output_ticket_preview($ticket['ticketId']);
                 } ?>

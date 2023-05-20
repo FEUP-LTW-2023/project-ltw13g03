@@ -32,11 +32,29 @@
             $this->agent = $agent;
         }
 
-        static function getAllTickets(PDO $db) {
-            $stmt = $db->prepare('SELECT ticketId FROM Ticket');
+        static function getAllTickets(PDO $db, string $username) {
+            $stmt = $db->prepare('SELECT * FROM Ticket');
             $stmt->execute();
-
-            return $stmt->fetchAll();
+            $filtered_tickets = array();
+            while ($ticket = $stmt->fetch()) {
+                if ($ticket['client'] == Client::getUserId($db, $username)) {
+                    array_push($filtered_tickets,$ticket);
+                    continue;
+                }
+                $user = Client::getUser($db, $username);
+                if ($user->isAdmin) {
+                    array_push($filtered_tickets,$ticket);
+                    continue;
+                }
+                if ($user->isAgent) {
+                    foreach ($user->departments as $dep) {
+                        if (getDepartmentId($dep['name']) === $ticket['department']) {
+                            array_push($filtered_tickets,$ticket);
+                        }
+                    }
+                }
+            }
+            return $filtered_tickets;
         }
 
         static function getTicket(PDO $db, int $ticketId) {
@@ -61,7 +79,7 @@
             }
         }
 
-        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $department, string $status, string $priority): array {
+        static function getTicketsFiltered(PDO $db, string $search, string $agent, string $department, string $status, string $priority, Client $user) {
             $stmt = $db->prepare('SELECT * FROM (Ticket LEFT JOIN Client ON Ticket.Agent=Client.userId)
                                             WHERE title LIKE ? AND ifnull(username, "") LIKE ?');
             $stmt->execute(array('%' . $search . '%', '%' . $agent . '%'));
@@ -77,18 +95,39 @@
                     || ($priority !== -1 && $ticket['priority'] !== $priority) 
                     || (!empty($status) && $ticket['status'] !== $status)) continue;
 
-                $tickets[] = new Ticket(
-                    $ticket['ticketId'],
-                    $ticket['title'],
-                    $ticket['body'],
-                    $ticket['department'],
-                    $ticket['hashtags'],
-                    $ticket['priority'],
-                    $ticket['status'],
-                    $ticket['date'],
-                    $ticket['client'],
-                    $ticket['agent']
-                );
+                    if ($ticket['client'] == Client::getUserId($db, $user->username) || $user->isAdmin) {
+                        $tickets[] = new Ticket(
+                            $ticket['ticketId'],
+                            $ticket['title'],
+                            $ticket['body'],
+                            $ticket['department'],
+                            $ticket['hashtags'],
+                            $ticket['priority'],
+                            $ticket['status'],
+                            $ticket['date'],
+                            $ticket['client'],
+                            $ticket['agent']
+                        );
+                        continue;
+                    }
+                    if ($user->isAgent) {
+                        foreach ($user->departments as $dep) {
+                            if (getDepartmentId($dep['name']) === $ticket['department']) {
+                                $tickets[] = new Ticket(
+                                    $ticket['ticketId'],
+                                    $ticket['title'],
+                                    $ticket['body'],
+                                    $ticket['department'],
+                                    $ticket['hashtags'],
+                                    $ticket['priority'],
+                                    $ticket['status'],
+                                    $ticket['date'],
+                                    $ticket['client'],
+                                    $ticket['agent']
+                                );
+                            }
+                        }
+                    }
             }
 
             return $tickets;
