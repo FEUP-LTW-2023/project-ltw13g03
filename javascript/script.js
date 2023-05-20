@@ -4,7 +4,7 @@ function encodeForAjax(data) {
   }).join('&')
 }
 
-/* MOVE THIS SOMEWHERE ELSE!! */
+
 const inpFileReg = document.querySelector("section#register > form > label > input")
 
 if (inpFileReg !== null) {
@@ -24,7 +24,7 @@ inpFileReg.addEventListener("change", function() {
 })}
 
 
-/* Actual content of this file */
+
 const selects = document.querySelectorAll('section#form-manage-users td:nth-child(2) > select');
 const selectsDepartments = document.querySelectorAll('section#form-manage-users td:nth-child(3) > .departments > select');
 

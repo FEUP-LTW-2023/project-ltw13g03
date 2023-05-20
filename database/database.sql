@@ -152,6 +152,21 @@ INSERT INTO AgentDepartment (userId, departmentID) VALUES (3, 3);
 
 INSERT INTO Ticket (ticketID, title, body, department, hashtags, priority, status, date, client) VALUES (1, 'Não sei fazer isto', 'Não sei fazer aquilo. Afinal até sei, só que mais ou menos, na verdade isto é ganda palha, porque estou a testar se o código de php está a funcionar. CAso não esteja ficarei bastante desapontado e obviamente a culpa não será minha, mas sim da linguagem!!!!!!!!!!!!!!!', 1, '["login issues","bug report"]', 1, 'Open', '2022-06-28', 1);
 
+INSERT INTO Ticket (ticketId, title, body, department, hashtags, priority, status, date, client, agent)
+VALUES (2, 'Website Navigation Issues', 'I am having trouble navigating through the website. Can someone assist me?', 2, '["website navigation issues"]', 2, 'Open', '2023-05-20', 1, NULL);
+
+INSERT INTO Ticket (ticketId, title, body, department, hashtags, priority, status, date, client, agent)
+VALUES (3, 'Payment Problems', 'I am unable to make a payment for my subscription. Please help!', 4, '["payment problems"]', 1, 'Open', '2023-05-20', 2, NULL);
+
+INSERT INTO Ticket (ticketId, title, body, department, hashtags, priority, status, date, client, agent)
+VALUES (4, 'Product Feedback', 'I have some valuable feedback regarding the product. Who can I talk to?', 3, '["product feedback"]', 3, 'Open', '2023-05-20', 3, NULL);
+
+INSERT INTO Ticket (ticketId, title, body, department, hashtags, priority, status, date, client, agent)
+VALUES (5, 'Technical Support Needed', 'I require technical assistance for a software issue. Please assist!', 2, '["technical support","bug report"]', 2, 'Open', '2023-05-20', 1, NULL);
+
+INSERT INTO Ticket (ticketId, title, body, department, hashtags, priority, status, date, client, agent)
+VALUES (6, 'Installation Issues', 'I am experiencing difficulties while installing the software. Can someone provide guidance?', 2, '["installation issues"]', 2, 'Closed', '2023-05-20', 2, NULL);
+
 INSERT INTO Comment (id, ticketID, userId, date, text) VALUES (1, 1, 3, '2023-01-01', 'Olha é verdade, também me tinha esquecido que coisa e tal');
 
 INSERT INTO Modification (modificationID, field, old, new, date, ticketID, userId) VALUES (1, 'Hashtag', '', 'bug report', '2023-01-01', 1, 3);

@@ -61,15 +61,17 @@ function search_date(){
 
 function search_agent(){
     const agent = document.querySelector('#tickets #agent_filter')
-    let timer
+    if (agent != null) {
+        let timer
 
-    agent.addEventListener('input', function () {
-        clearTimeout(timer)
+        agent.addEventListener('input', function () {
+            clearTimeout(timer)
 
-        timer = setTimeout(() => {
-            filter()
-        }, 500)
-    })
+            timer = setTimeout(() => {
+                filter()
+            }, 500)
+        })
+    }
 }
 
 async function filter(){
@@ -79,7 +81,8 @@ async function filter(){
     let startDate = document.querySelector('#tickets #date_filter #start_date').value
     let endDate = document.querySelector('#tickets #date_filter #end_date').value
 
-    const agent = document.querySelector('#tickets #agent_filter input').value
+    const agentS = document.querySelector('#tickets #agent_filter input')
+    const agent = agentS == null ? "" : agentS.value
 
     const department = document.querySelector('#tickets #department_filter select').value
 
