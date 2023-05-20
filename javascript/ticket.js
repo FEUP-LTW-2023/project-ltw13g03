@@ -152,6 +152,9 @@ function ticket_close() {
 
   document.body.removeEventListener('click', ticket_remove_tag)
 
+  const separator = document.querySelector('#ticket #comments div')
+  separator.outerHTML = ''
+
   const comment_form = document.querySelector('#ticket #comments form')
   comment_form.outerHTML = ''
 
