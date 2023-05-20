@@ -13,6 +13,8 @@
             <script src="../javascript/ticket.js" defer></script>
             <script src="../javascript/new_ticket_tags.js" defer></script>
             <script src="../javascript/ticket_search.js" defer></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="../javascript/dashboard.js" defer></script>
             <script src="../javascript/priority_slider.js" defer></script>
             <script src="../javascript/dropdown.js" defer></script>
             <script src="../javascript/update_profile.js" defer></script>

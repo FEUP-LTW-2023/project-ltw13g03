@@ -6,6 +6,12 @@
 
     function output_control() { ?>
         <aside>
+            <h2>Dashbord</h2>
+            <button id="activeTicketsBtn">Active Tickets per Day</button>
+            <button id="ticketStatusBtn">Ticket Status Distribution</button>
+            <button id="userStatsBtn">User Statistics</button>
+            <div id="chartContainer"></div>
+
             <h2>Departments</h2>
             <ul>
                 <?php

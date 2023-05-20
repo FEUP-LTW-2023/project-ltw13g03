@@ -12,7 +12,25 @@
         $db = getDatabaseConnection();
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
+                $users = Client::getAllUsers($db);
+                $userStatistics = [
+                    'Admin' => 0,
+                    'Agent' => 0,
+                    'Client' => 0
+                ];
 
+                foreach ($users as $user) {
+                    if ($user->isAdmin) {
+                        $userStatistics['Admin']++;
+                    } else if ($user->isAgent) {
+                        $userStatistics['Agent']++;
+                    } else {
+                        $userStatistics['Client']++;
+                    }
+                }
+
+                header('Content-Type: application/json');
+                echo json_encode($userStatistics);
                 break;
             case 'POST':
                 if ($_POST['field'] === 'department') {

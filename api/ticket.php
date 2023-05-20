@@ -13,7 +13,36 @@
         $db = getDatabaseConnection();
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
+                $tickets = Ticket::getAllTickets($db, $_SESSION['username']);
+                $ticketStatusData = array();
+                foreach ($tickets as $ticket) {
+                    $status = $ticket['status'];
+                    if (!isset($ticketStatusData[$status])) {
+                        $ticketStatusData[$status] = 0;
+                    }
+                    $ticketStatusData[$status]++;
+                }
 
+                $activeTicketsData = array();
+                
+                foreach ($tickets as $ticket) {
+                    $date = $ticket['date'];
+                    $monthNr = date('m', strtotime($date));
+                    $month = date('F', mktime(0, 0, 0, (int)$monthNr, 1));
+                    if (date('Y', strtotime($date)) < date('Y')) continue;
+                    if (!isset($activeTicketsData[$month])) {
+                        $activeTicketsData[$month] = 0;
+                    }
+                    $activeTicketsData[$month]++;
+                }
+
+                $data = array(
+                    'activeTicketsData' => $activeTicketsData,
+                    'ticketStatusData' => $ticketStatusData
+                );
+
+                header('Content-Type: application/json');
+                echo json_encode($data);
                 break;
             case 'PUT':
                 $params;
