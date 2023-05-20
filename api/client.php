@@ -18,7 +18,7 @@
                 if ($_POST['field'] === 'department') {
                     $client = Client::getUser($db, $_SESSION['username']);
                     if ($client->isAdmin) {
-                        if (Client::updateUserDepartments($db, $_POST['username'], $_POST['value'], true) === false)
+                        if (Client::updateUserDepartments($db, $_POST['username'], $_POST['value'], true, $_SESSION['username']) === false)
                             http_response_code(404);
                     }
                     $response = Client::getUser($db, $_POST['username']);
@@ -32,7 +32,7 @@
                 if ($params['field'] === 'role') {
                     $client = Client::getUser($db, $_SESSION['username']);
                     if ($client->isAdmin) {
-                        Client::updateUserRole($db, $params['username'], (bool) $params['isAgent'], (bool) $params['isAdmin']);
+                        Client::updateUserRole($db, $params['username'], (bool) $params['isAgent'], (bool) $params['isAdmin'], $_SESSION['username']);
                     }
                     $response = Client::getUser($db, $params['username']);
                     echo json_encode($response);
@@ -45,7 +45,7 @@
                 if ($params['field'] === 'department') {
                     $client = Client::getUser($db, $_SESSION['username']);
                     if ($client->isAdmin) {
-                        if (Client::updateUserDepartments($db, $params['username'], $params['value'], false) === false)
+                        if (Client::updateUserDepartments($db, $params['username'], $params['value'], false, $_SESSION['username']) === false)
                             http_response_code(404);
                     }
                     $response = Client::getUser($db, $params['username']);

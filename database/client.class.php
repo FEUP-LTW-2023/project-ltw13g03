@@ -1,4 +1,5 @@
 <?php
+    require_once(__DIR__ . '/../database/ticket.class.php');
     class Client {
         public string $username;
         public string $name;
@@ -59,7 +60,7 @@
             return $client;
         }
 
-        static function updateUserRole(PDO $db, string $username, bool $isAgent, bool $isAdmin) {
+        static function updateUserRole(PDO $db, string $username, bool $isAgent, bool $isAdmin, string $author) {
             $stmt = $db->prepare('
                 UPDATE Admin SET isAdmin = ?
                 WHERE userId = (SELECT userId FROM Client WHERE username = ?)
@@ -74,6 +75,12 @@
             $stmt->execute(array(($isAdmin || (!$isAdmin && $isAgent)) ? 1 : 0, $username));
 
             if (!$isAdmin && !$isAgent) {
+                $stmt = $db->prepare('SELECT departmentId FROM AgentDepartment WHERE userId=(SELECT userId FROM Client WHERE username = ?)');
+                $stmt->execute(array($username));
+                while ($dep = $stmt->fetch()) {
+                    Ticket::updateTicketStatus($db, Client::getUserId($db, $username), $dep['departmentId'], Client::getUserId($db,$author));
+                }
+
                 $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE userId=(SELECT userId FROM Client WHERE username = ?)');
                 $stmt->execute(array($username));
             }
@@ -93,7 +100,7 @@
             return $stmt2->fetch()['username'];
         }
 
-        static function updateUserDepartments(PDO $db, string $username, string $department, bool $add) {
+        static function updateUserDepartments(PDO $db, string $username, string $department, bool $add, $author) {
             $stmt = $db->prepare('SELECT departmentId FROM Department WHERE name = ?');
             $stmt->execute(array($department));
             $departmentId = $stmt->fetch();
@@ -118,7 +125,9 @@
                 $stmt = $db->prepare('INSERT INTO AgentDepartment (userId, departmentID) VALUES (?, ?)');
             } else {
                 $stmt = $db->prepare('DELETE FROM AgentDepartment WHERE userId=? AND departmentID=?');
+                Ticket::updateTicketStatus($db, Client::getUserId($db, $username), $departmentId, Client::getUserId($db,$author));
             }
+
             $stmt->execute(array(Client::getUserId($db, $username), $departmentId));
         }
     }

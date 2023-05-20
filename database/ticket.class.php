@@ -247,6 +247,16 @@
             return $stmt->fetch();
         }
 
+        static function updateTicketStatus(PDO $db, int $userId, int $departmentId, $author) {
+            $stmt = $db->prepare("SELECT * FROM Ticket WHERE agent = ? AND department = ?");
+            $stmt->execute(array($userId, $departmentId));
+            while ($ticket = $stmt->fetch()) {
+                if ($ticket['status'] != 'Closed') {
+                    Ticket::changeStatus($db, $ticket['ticketId'], $ticket['status'], 'Open', $author);
+                }
+            }
+        }
+
         static function changeStatus(PDO $db, int $ticketId, string $oldStatus, string $newStatus, int $userId) {
             if ($oldStatus === $newStatus) return;
             
@@ -256,6 +266,11 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET status=? WHERE ticketId=?');
             $stmt->execute(array($newStatus, $ticketId));
+
+            if ($newStatus == 'Open') {
+                $stmt = $db->prepare(" UPDATE Ticket SET agent=NULL, department=NULL WHERE ticketId = ?");
+                $stmt->execute(array($ticketId));
+            }
         }
 
         static function getModifications(PDO $db, int $ticketId) {
