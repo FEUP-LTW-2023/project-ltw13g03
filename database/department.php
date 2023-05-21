@@ -40,7 +40,7 @@
         
         $departmentId = getDepartmentId($department);
 
-        $stmt = $db->prepare('SELECT username FROM Client WHERE userId = (SELECT userId FROM AgentDepartment WHERE departmentId=?)');
+        $stmt = $db->prepare('SELECT username FROM Client WHERE userId IN (SELECT userId FROM AgentDepartment WHERE departmentId=?)');
         $stmt->execute(array($departmentId));
 
         return $stmt->fetchAll();

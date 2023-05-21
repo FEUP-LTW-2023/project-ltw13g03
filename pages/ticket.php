@@ -80,8 +80,7 @@
                     <option selected><?=$selected_agent['username']?></option>
                 <?php }
                 if ($user['isAdmin'] || $user['isAgent']) {
-                    $department_agents = getDepartmentAgents
-                    ($ticket->department);
+                    $department_agents = getDepartmentAgents($ticket->department);
                 }
                 foreach ($department_agents as $agent) { 
                     if ($ticket->status != 'Closed' && $selected_agent['username'] !== $agent['username']) {?>
