@@ -297,6 +297,10 @@ div#tags ul > li {
     color: #2E1760
 }
 
+.dropdown-content {
+    display: none;
+}
+
 /* footer */
 
 body > footer {

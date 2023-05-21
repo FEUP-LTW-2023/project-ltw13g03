@@ -9,17 +9,39 @@ function validateNewTicket(event) {
     if (titleInput.value.trim() === '') {
         titleError.textContent = 'Please enter a title.';
         isValid = false;
-    }  else if (titleInput.value.trim().length < 10) {
+    } else if (titleInput.value.trim().length < 10) {
         titleError.textContent = 'The title must be atleast 10 characters long.';
         isValid = false;
     }
-    if(descriptionInput == null) {
 
-    } else if (descriptionInput.value.trim() === '') {
+    if (descriptionInput.value.trim() === '') {
         descriptionError.textContent = 'Please enter a description.';
         isValid = false;
-    }  else if (descriptionInput.value.trim().length < 10) {
+    } else if (descriptionInput.value.trim().length < 10) {
         descriptionError.textContent = 'The description must be atleast 10 characters long.';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+}
+
+function validateNewFAQ(event) {
+    const questionInput = document.querySelector('input[name="faq_question"]');
+    const answerInput = document.querySelector('textarea[name="faq_answer"]');
+    const questionError = document.querySelector('input[name="faq_question"] + .error');
+    const answerError = document.querySelector('textarea[name="faq_answer"] + .error');
+
+    let isValid = true;
+
+    if (questionInput.value.trim() === '') {
+        questionError.textContent = 'Please enter a question.';
+        isValid = false;
+    }
+
+    if (answerInput.value.trim() === '') {
+        answerError.textContent = 'Please enter an answer.';
         isValid = false;
     }
 
@@ -37,10 +59,15 @@ function validateNewComment(event) {
 }
 
 const newTicketForm = document.querySelector('section.create_ticket form');
+const newFaqForm = document.querySelector('section.create_faq form');
 const newCommentForm = document.querySelector('section#comments form');
 
 if(newTicketForm != null) {
     newTicketForm.addEventListener('submit', validateNewTicket);
+}
+
+if(newFaqForm != null) {
+    newFaqForm.addEventListener('submit', validateNewFAQ);
 }
 
 if(newCommentForm != null) {

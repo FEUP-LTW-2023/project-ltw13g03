@@ -24,7 +24,7 @@ section#management #add-status, #add-department, #add-htag {
 section#management > aside {
     margin-top: .8em;
     grid-area: 1/2/span 1/span 2;
-    max-width: 15em;
+    width: 15em;
 }
 
 section#management > aside button {
@@ -53,9 +53,22 @@ section#management > aside img {
 }
 
 section#management > aside h2 {
+    cursor: pointer;
+    background-color: var(--ticket-box-color);
     color: var(--text-color);
     font-size: .8rem;
     font-weight: bold;
+    border-radius: 6px;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+section#management .dropdown-button .open {
+    position: absolute;
+    right: 0;
+    padding: 0 1.4em;
+    margin-left: auto;
+    font-size: 1.2rem;
 }
 
 section#management > aside ul {
@@ -165,9 +178,9 @@ table#manage-users {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: rgba(0, 0, 255, 0.862);
+    background-color: var(--box-color);
+    color: var(--text-color);
     cursor: pointer;
-    color: white;
     font-size: .65rem;
     border-radius: 6px;
     width: 12em;
@@ -197,8 +210,8 @@ table#manage-users {
 }
 
 #manage-users td div.departments ul > li, section#management > aside li {
-    background-color: rgba(0, 0, 255, 0.862);
-    color: white;
+    background-color: var(--box-color);
+    color: var(--text-color);
     font-size: .65rem;
     padding: .3em .5em;
     border-radius: 4px;
