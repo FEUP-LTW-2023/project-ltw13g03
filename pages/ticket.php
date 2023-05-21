@@ -38,7 +38,7 @@
 ?>
 
 <section id="ticket" data-id="<?=$_GET['id']?>">
-    <h2><?=$ticket->title?></h2>
+    <h2><?=htmlentities($ticket->title)?></h2>
     <aside>
         <?php if ($ticket->status != 'Closed') {?>
             <div id="close_ticket">Close Ticket</div>
@@ -127,7 +127,7 @@
     </aside>
     <article id="ticket_description">
         <p>
-            <?=$ticket->body?>
+            <?=htmlentities($ticket->body)?>
         </p>
     </article>
     <div id="changes_menu">

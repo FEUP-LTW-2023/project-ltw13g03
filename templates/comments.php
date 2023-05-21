@@ -25,7 +25,7 @@ function output_comments($id, $status){
                 <span class="comment_username"><?=Client::getUsername($db, $comment['userId'])?></span>
                 <time datetime="<?=$comment['date']?>"><?=$comment['date']?></time>
                 <p>
-                    <?=$comment['text']?>
+                    <?=htmlentities($comment['text'])?>
                 </p>
                 <?php if ($comment['faqId'] != null) { ?>
                     <a href="faq.php#<?=$comment['faqId']?>""> FAQ - <?=getFaqQuestion($comment['faqId'])?></a>

@@ -61,12 +61,16 @@ function validateRegister(): array {
         $errors['username'] = "Please enter a username.";
     } else if($client && $_POST['username'] == $client['username']) {
         $errors['username'] = "This username is already taken.";
+    } else if (!preg_match ("/^[a-zA-Z0-9]+$/", $_POST['name'])) {
+        $errors['username'] = "Username must only contain letters or numbers.";
     }
 
     if (empty($_POST['email'])) {
         $errors['email'] = "Please enter an email.";
     } else if ($client && $_POST['email'] == $client['email']) {
         $errors['email'] = "This email is already in use.";
+    } else if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false) {
+        $errors['email'] = "Invalid email format.";
     }
 
     if (empty($_POST['password1'])) {

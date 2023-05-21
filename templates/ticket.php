@@ -8,12 +8,12 @@
         $db = getDatabaseConnection();
         $ticket = Ticket::getTicket($db, $ticket_id); ?>
         <a class="ticketpreview" href="../pages/ticket.php?id=<?=$ticket->ticketId?>">
-            <h3><?=$ticket->title?></h3>
+            <h3><?=htmlentities($ticket->title)?></h3>
             <p><?php 
             if (strlen($ticket->body) > 200)
                 $body = substr($ticket->body, 0, 200) . '...';
             else $body = $ticket->body;
-            echo $body;?></p>
+            echo htmlentities($body);?></p>
             <div id="tags">
                 <ul>
                     <?php $tags = $ticket->hashtags;

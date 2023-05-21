@@ -17,7 +17,9 @@
         $stmt = $db->prepare('SELECT name FROM Department WHERE departmentId=?');
         $stmt->execute(array($id));
     
-        return $stmt->fetch()['name'];
+        $res = $stmt->fetch();
+        if ($res === false) return null;
+        return $res['name'];
     }
 
     function getDepartmentId($name) {

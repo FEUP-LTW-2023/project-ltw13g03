@@ -8,7 +8,7 @@
             <h2>Profile</h2>
             <form action="../actions/update_user_info.php" method="post" enctype="multipart/form-data">
                 <label id="name">
-                    Name <input type="text" required name="name" value="<?php echo $user['name']; ?>">
+                    Name <input type="text" required name="name" value="<?php echo htmlentities($user['name']); ?>">
                 </label>
                 <label id="username">
                     Username <input type="text" required name="username" value="<?php echo $user['username']; ?>">
