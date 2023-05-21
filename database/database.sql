@@ -199,24 +199,40 @@ VALUES
 (2, 'Website Navigation Issues', 'I am having trouble navigating through the website. Can someone assist me?', NULL, '["website navigation issues"]', 2, 'Open', '2023-02-11', 11, NULL),
 (3, 'Payment Problems', 'I am unable to make a payment for my subscription. Please help!', NULL, '["payment problems"]', 1, 'Open', '2023-02-13', 4, NULL),
 (4, 'Product Feedback', 'I have some valuable feedback regarding the product. Who can I talk to?', NULL, '["product feedback"]', 3, 'Open', '2023-03-02', 7, NULL),
-(5, 'Technical Support Needed', 'I require technical assistance for a software issue. Please assist!', 2, '["technical support","bug report"]', 2, 'Open', '2023-03-15', 5, 1),
-(6, 'Performance Problems', 'The software is running very slow and laggy. It is impacting my work productivity.', 4, '["performance problems"]', 2, 'Open', '2023-03-19', 6, 4),
-(7, 'Login Problems', 'I am unable to log in to my account. Every time I try, it gives me an error message.', 1, '["login issues","technical support"]', 1, 'Open', '2023-04-04', 7, 4),
-(8, 'Account Help Needed', 'I need assistance with managing my account settings. How can I update my email address?', 5, '["account help"]', 2, 'Open', '2023-04-10', 8, 7),
+(5, 'Technical Support Needed', 'I require technical assistance for a software issue. Please assist!', 2, '["technical support","bug report"]', 2, 'Assigned', '2023-03-15', 5, 1),
+(6, 'Performance Problems', 'The software is running very slow and laggy. It is impacting my work productivity.', 4, '["performance problems"]', 2, 'Assigned', '2023-03-19', 6, 4),
+(7, 'Login Problems', 'I am unable to log in to my account. Every time I try, it gives me an error message.', 1, '["login issues","technical support"]', 1, 'Assigned', '2023-04-04', 7, 4),
+(8, 'Account Help Needed', 'I need assistance with managing my account settings. How can I update my email address?', 5, '["account help"]', 2, 'Assigned', '2023-04-10', 8, 7),
 (9, 'Bug Report', 'I found a bug in the latest software release. Certain features are not working as expected.', 8, '["bug report"]', 3, 'Open', '2023-04-20', 11, NULL),
-(10, 'Feature Request', 'I have a suggestion for a new feature that would greatly enhance the user experience.', 6, '["feature request"]', 2, 'Open', '2023-04-21', 9, 7),
+(10, 'Feature Request', 'I have a suggestion for a new feature that would greatly enhance the user experience.', 6, '["feature request"]', 2, 'Assigned', '2023-04-21', 9, 7),
 (11, 'General Inquiry', 'I have a general question about the product. Can someone provide more information?', 7, '["general inquiry"]', 1, 'Open', '2023-04-22', 10, NULL),
-(12, 'Login Problems', 'I am unable to log in to my account. Every time I try, it gives me an error message.', 1, '["login issues","technical support"]', 1, 'Open', '2023-04-29', 11, 4),
-(13, 'Payment Problems', 'I am having issues with making a payment for my subscription. Can you assist me?', 4, '["payment problems","billing inquiry"]', 2, 'Open', '2023-05-01', 12, 4),
-(14, 'Bug Report', 'I found a bug in the latest software update. Certain features are not functioning properly.', 3, '["bug report","technical support"]', 3, 'Open', '2023-05-02', 9, 3),
-(15, 'Feature Request', 'I have a suggestion for a new feature that would greatly improve the product.', 6, '["feature request","product feedback"]', 2, 'Open', '2023-05-20', 11, 7),
-(16, 'Account Help Needed', 'I need assistance with managing my account settings. How can I change my password?', 5, '["account help","account security"]', 2, 'Open', '2023-05-14', 9, 7),
-(17, 'Website Navigation Issues', 'I am encountering difficulties while navigating through the website. Can someone guide me?', 2, '["website navigation issues","user interface feedback"]', 2, 'Open', '2023-05-15', 11, 1),
-(18, 'Mobile App Issues', 'The mobile app keeps crashing whenever I try to use it. Please help!', 2, '["mobile app issues","technical support"]', 2, 'Open', '2023-05-18', 1, 1),
+(12, 'Login Problems', 'I am unable to log in to my account. Every time I try, it gives me an error message.', 1, '["login issues","technical support"]', 1, 'Assigned', '2023-04-29', 11, 4),
+(13, 'Payment Problems', 'I am having issues with making a payment for my subscription. Can you assist me?', 4, '["payment problems","billing inquiry"]', 2, 'Assigned', '2023-05-01', 12, 4),
+(14, 'Bug Report', 'I found a bug in the latest software update. Certain features are not functioning properly.', 3, '["bug report","technical support"]', 3, 'Assigned', '2023-05-02', 9, 3),
+(15, 'Feature Request', 'I have a suggestion for a new feature that would greatly improve the product.', 6, '["feature request","product feedback"]', 2, 'Assigned', '2023-05-20', 11, 7),
+(16, 'Account Help Needed', 'I need assistance with managing my account settings. How can I change my password?', 5, '["account help","account security"]', 2, 'Assigned', '2023-05-14', 9, 7),
+(17, 'Website Navigation Issues', 'I am encountering difficulties while navigating through the website. Can someone guide me?', 2, '["website navigation issues","user interface feedback"]', 2, 'Assigned', '2023-05-15', 11, 1),
+(18, 'Mobile App Issues', 'The mobile app keeps crashing whenever I try to use it. Please help!', 2, '["mobile app issues","technical support"]', 2, 'Assigned', '2023-05-18', 1, 1),
 (19, 'Product Usage Questions', 'I have some questions about how to use certain features of the product. Can you provide assistance?', 7, '["product usage questions","general inquiry"]', 1, 'Open', '2023-05-19', 10, NULL),
-(20, 'Performance Problems', 'The software performance has been very slow lately. It is affecting my work. Please resolve this issue.', 4, '["performance problems","server downtime"]', 2, 'Open', '2023-05-18', 6, 4),
-(21, 'Product Feedback', 'I have some feedback regarding the product. How can I share it with the development team?', 3, '["product feedback","user interface feedback"]', 3, 'Open', '2023-05-20', 8, 3);
+(20, 'Performance Problems', 'The software performance has been very slow lately. It is affecting my work. Please resolve this issue.', 4, '["performance problems","server downtime"]', 2, 'Assigned', '2023-05-18', 6, 4),
+(21, 'Product Feedback', 'I have some feedback regarding the product. How can I share it with the development team?', 3, '["product feedback","user interface feedback"]', 3, 'Assigned', '2023-05-20', 8, 3);
 
+
+INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES 
+('Agent', '', '7', '2023-05-20', 15, 7),
+('Agent', '', '3', '2023-05-20', 21, 3),
+('Agent', '', '1', '2023-05-18', 18, 1),
+('Agent', '', '4', '2023-05-18', 20, 4),
+('Agent', '', '1', '2023-05-15', 17, 1),
+('Agent', '', '7', '2023-05-14', 16, 7),
+('Agent', '', '3', '2023-05-02', 14, 3),
+('Agent', '', '4', '2023-05-01', 13, 4),
+('Agent', '', '4', '2023-04-29', 12, 4),
+('Agent', '', '7', '2023-04-21', 10, 7),
+('Agent', '', '7', '2023-04-10', 8, 7),
+('Agent', '', '4', '2023-04-10', 7, 4),
+('Agent', '', '4', '2023-03-19', 6, 4),
+('Agent', '', '1', '2023-03-15', 5, 1);
 
 INSERT INTO Comment (id, ticketID, userId, date, text)
 VALUES (1, 1, 9, '2023-01-20', 'I had forgotten to download the recent version. It does not work with the older one');
@@ -235,10 +251,10 @@ INSERT INTO FAQ (faqId, question, answer)
 VALUES (4, 'How can I view my ticket history?', 'To view your ticket history, navigate to the your ticket. There, you will find a log will all the changes.');
 
 INSERT INTO FAQ (faqId, question, answer)
-VALUES (4, 'Can I reopen a closed ticket?', 'No, you cannot reopen a closed ticket. If you need further assistance or if the issue reoccurs, create a new ticket.');
+VALUES (5, 'Can I reopen a closed ticket?', 'No, you cannot reopen a closed ticket. If you need further assistance or if the issue reoccurs, create a new ticket.');
 
 INSERT INTO FAQ (faqId, question, answer)
-VALUES (5, 'How do I update my contact information?', 'To update your contact information, go to the "Profile" section. There, you can modify your email address, phone number, or any other relevant details.');
+VALUES (6, 'How do I update my contact information?', 'To update your contact information, go to the "Profile" section. There, you can modify your email address, phone number, or any other relevant details.');
 
 INSERT INTO FAQ (faqId, question, answer)
-VALUES (6, 'Can I assign a ticket to a specific team or department?', 'Yes, during ticket creation, you can assign the ticket to a specific team or department by selecting the appropriate option from the category dropdown. The ticket will then be routed accordingly.');
+VALUES (7, 'Can I assign a ticket to a specific team or department?', 'Yes, during ticket creation, you can assign the ticket to a specific team or department by selecting the appropriate option from the category dropdown. The ticket will then be routed accordingly.');
