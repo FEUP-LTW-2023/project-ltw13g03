@@ -25,7 +25,7 @@
         }
 
         static function getAllUsers(PDO $db) : array {
-            $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.userId = a.userId LEFT JOIN Admin ad ON a.userId = ad.userId');
+            $stmt = $db->prepare('SELECT c.username, c.name, c.email, COALESCE(a.isAgent, false) as isAgent, COALESCE(ad.isAdmin, false) as isAdmin FROM Client c LEFT JOIN Agent a ON c.userId = a.userId LEFT JOIN Admin ad ON a.userId = ad.userId ORDER BY a.isAgent DESC, ad.isAdmin DESC');
             $stmt->execute();
             $users = array();
             while ($user = $stmt->fetch()) {
