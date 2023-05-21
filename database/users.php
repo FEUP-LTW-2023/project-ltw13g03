@@ -61,7 +61,7 @@ function validateRegister(): array {
         $errors['username'] = "Please enter a username.";
     } else if($client && $_POST['username'] == $client['username']) {
         $errors['username'] = "This username is already taken.";
-    } else if (!preg_match ("/^[a-zA-Z0-9]+$/", $_POST['name'])) {
+    } else if (!preg_match ("/^[a-zA-Z0-9]+$/", $_POST['username'])) {
         $errors['username'] = "Username must only contain letters or numbers.";
     }
 

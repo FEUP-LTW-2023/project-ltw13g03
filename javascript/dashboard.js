@@ -17,7 +17,6 @@ async function showActiveTicketsChart() {
 
     const data = await response.json()
     const activeTickets = []
-    console.log(data)
     Object.entries(data.activeTicketsData).forEach(([date, count]) => {
         activeTickets.push({ date, count })
     })
@@ -75,13 +74,14 @@ function renderChart(data, type) {
     const chartConfig = {
         type: type,
         data: {
-            labels: (type === 'line') ? data.map(entry => entry.date) : data.map(item => item.label || item.date),
+            labels: (type === 'line') ? data.map(entry => entry.date).reverse() : data.map(item => item.label || item.date),
             datasets: [{
                 label: (type === 'line') ? 'Open Tickets' : undefined,
-                data: data.map(item => item.count),
-                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
-                borderColor: '#fff',
-                borderWidth: 1
+                data: (type === 'line') ? data.map(item => item.count).reverse() : data.map(item => item.count),
+                backgroundColor: (type === 'line') ? '#ff6384' : ['#ff6384', '#36a2eb', '#ffce56'],
+                borderWidth: 1,
+                borderColor: (type === 'line') ? '#ff6384' : '#fff',
+                showLine: true
             }]
         },
         options: {
