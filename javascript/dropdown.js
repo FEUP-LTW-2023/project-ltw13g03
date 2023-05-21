@@ -31,7 +31,7 @@ function activateDropdowns() {
     if (faqId) {
         const faq = document.querySelector(`.question[data-faq-id="${faqId}"]`);
         if (faq) {
-            faq.querySelector('.faq-header').click();
+            faq.querySelector('.dropdown-button').click();
             faq.scrollIntoView();
         }
     }

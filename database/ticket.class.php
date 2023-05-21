@@ -143,7 +143,7 @@
         static function addComment(PDO $db, int $ticketId, string $username, string $text, string $faq) {
             $date = date('Y-m-d');
             $userId = Client::getUserId($db, $username);
-            $stmt = $db->prepare('INSERT INTO Comment (ticketID, userId, date, text, faqId) VALUES (?, ?, ?, ?, ?)');
+            $stmt = $db->prepare('INSERT INTO Comment (ticketId, userId, date, text, faqId) VALUES (?, ?, ?, ?, ?)');
             $stmt->execute(array($ticketId, $userId, $date, $text, getFaqId($faq)));
         }
 
