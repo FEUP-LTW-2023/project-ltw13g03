@@ -9,6 +9,7 @@ if (isset($_GET['faq_id'])) {
     $faqId = $_GET['faq_id'];
 
     try {
+        $db->exec( 'PRAGMA foreign_keys = ON;');
         $stmt = $db->prepare('DELETE FROM FAQ WHERE faqId = ?');
         $stmt->execute([$faqId]);
 

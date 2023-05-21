@@ -28,7 +28,7 @@ function output_comments($id, $status){
                     <?=htmlentities($comment['text'])?>
                 </p>
                 <?php if ($comment['faqId'] != null) { ?>
-                    <a href="faq.php#<?=$comment['faqId']?>""> FAQ - <?=getFaqQuestion($comment['faqId'])?></a>
+                    <a href="faq.php#<?=$comment['faqId']?>""> FAQ - <?=getFaqQuestion($comment['faqId'])?> </a>
                 <?php } ?>
             </article>
         <?php }  if ($status != 'Closed') { ?>
