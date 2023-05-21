@@ -67,7 +67,6 @@ if(newTicketForm != null) {
 }
 
 if(newFaqForm != null) {
-    console.log('sdasd')
     newFaqForm.addEventListener('submit', validateNewFAQ);
 }
 
