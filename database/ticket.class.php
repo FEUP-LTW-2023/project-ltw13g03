@@ -33,7 +33,7 @@
         }
 
         static function getAllTickets(PDO $db, string $username) {
-            $stmt = $db->prepare('SELECT * FROM Ticket');
+            $stmt = $db->prepare('SELECT * FROM Ticket ORDER BY date DESC');
             $stmt->execute();
             $filtered_tickets = array();
             while ($ticket = $stmt->fetch()) {
