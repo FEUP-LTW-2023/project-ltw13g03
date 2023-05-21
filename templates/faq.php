@@ -9,6 +9,12 @@ function output_FAQ($faq) { ?>
         </div>
         <div class="dropdown-content">
             <p><?= $faq['answer']?></p>
+            <?php $user = getUserInfo($_SESSION['username']);
+            if ($user['isAdmin'] || $user['isAgent']) { ?>
+                <div class="delete-faq">
+                    <a href="../actions/action_delete_faq.php?faq_id=<?= $faq['faqId'] ?>">Delete</a>
+                </div>
+            <?php } ?>
         </div>
     </div>
 <?php }

@@ -5,9 +5,23 @@
 }
   
 #questions {
-    grid-area: 2 / 1 /span 1 /span 2;
+    grid-column: 1 / span 2;
+    grid-row: 2 / 3;
     width: 60%;
-    margin: 1em auto 0;
+    margin: 0 auto;
+}
+
+#questions > a {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    background-color: var(--header-root-color);
+    margin: 0.5em 0.5em 0.5em auto;
+    width: fit-content;
+    padding: 0.7em;
+    font-weight: bolder;
+    border-radius: 10px;
+    justify-self: end;
 }
 
 .question {
@@ -38,10 +52,26 @@
 }
 
 .question .dropdown-content {
-    padding: 0 1em;
+    padding: 1em;
 }
 
 .question .dropdown-content > p {
     margin: 0;
-    padding: 1em 0;
+}
+
+.delete-faq {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-faq a {
+    background-color: indianred;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.delete-faq a:hover {
+    background-color: red;
 }

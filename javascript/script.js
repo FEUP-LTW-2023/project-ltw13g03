@@ -192,3 +192,23 @@ if (addHashtagButton !== null) {
     newHashtagInput.value=""
   });
 }
+
+const addFAQButton = document.querySelector("div#add-htag img")
+
+if (addHashtagButton !== null) {
+  addHashtagButton.addEventListener('click', async function (event) {
+    const newHashtagInput = document.querySelector("div#add-htag input")
+
+    const response = await fetch('../api/new_entity.php/', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: encodeForAjax({type: 'faq', value: newHashtagInput.value})
+    })
+
+    if (response.status === 200) location.reload()
+
+    newHashtagInput.value=""
+  });
+}

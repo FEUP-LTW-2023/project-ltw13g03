@@ -3,10 +3,8 @@ function activateDropdowns() {
     const dropdownButtons = document.querySelectorAll(".dropdown-button");
     if(dropdownButtons != null) {
         for (const dropdownButton of dropdownButtons) {
-            console.log(dropdownButton)
             dropdownButton.addEventListener("click", function() {
                 const content = this.nextElementSibling;
-                console.log(content)
                 content.style.display = content.style.display === 'block' ? 'none' : 'block';
             })
         }
