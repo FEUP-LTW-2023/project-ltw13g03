@@ -11,7 +11,7 @@
 }
 
 .question {
-    background-color: var(--box-color);
+    background-color: var(--ticket-box-color);
 }
 
 .question .dropdown-button > h3 {

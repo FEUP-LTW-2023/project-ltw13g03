@@ -7,10 +7,17 @@ if(!isset($_SESSION['username'])){
 
 require_once(__DIR__ . '/../templates/common.php');
 require_once(__DIR__ . '/../templates/faq.php');
+$user = getUserInfo($_SESSION['username']);
 
-output_header(isset($_SESSION['username']));
+if (!$user['isAgent'] && !$user['isAdmin']) {
+    header("Location: /pages/index.php");
+}
 
-output_FAQs();
+output_header(true);
+
+new_faq_form();
 
 output_footer();
+
+unset($_SESSION['new_faq_error']);
 ?>

@@ -39,12 +39,7 @@ section.create_ticket > h2 {
 section.create_ticket form label {
     display: flex;
     flex-direction: column;
-    font-size: .7rem;
-    font-weight: bold;
-}
-
-section.create_ticket form label {
-    font-weight: normal;
+    font-size: 1rem;
 }
 
 section.create_ticket form label select {
