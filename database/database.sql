@@ -220,10 +220,43 @@ VALUES
 (21, 'Product Feedback', 'I have some feedback regarding the product. How can I share it with the development team?', 3, '["product feedback","user interface feedback"]', 3, 'Open', '2023-05-20', 8, 3);
 
 
+INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES 
+('Agent', '', '7', '2023-05-20', 15, 7),
+('Agent', '', '3', '2023-05-20', 21, 3),
+('Agent', '', '1', '2023-05-18', 18, 1),
+('Agent', '', '4', '2023-05-18', 20, 4),
+('Agent', '', '1', '2023-05-15', 17, 1),
+('Agent', '', '7', '2023-05-14', 16, 7),
+('Agent', '', '3', '2023-05-02', 14, 3),
+('Agent', '', '4', '2023-05-01', 13, 4),
+('Agent', '', '4', '2023-04-29', 12, 4),
+('Agent', '', '7', '2023-04-21', 10, 7),
+('Agent', '', '7', '2023-04-10', 8, 7),
+('Agent', '', '4', '2023-04-10', 7, 4),
+('Agent', '', '4', '2023-03-19', 6, 4),
+('Agent', '', '1', '2023-03-15', 5, 1);
+
 INSERT INTO Comment (id, ticketID, userId, date, text)
 VALUES (1, 1, 9, '2023-01-20', 'I had forgotten to download the recent version. It does not work with the older one');
 
 
-INSERT INTO FAQ (faqId, question, answer) VALUES (1, 'Como posso criar um ticket?', 'Criar um ticket é mesmo fácil, é só fazer isto e pronto lol');
-INSERT INTO FAQ (faqId, question, answer) VALUES (2, 'O que é que esta empresa vende?', 'Estás no site e não sabes? xd');
-INSERT INTO FAQ (faqId, question, answer) VALUES (3, 'Estou com problemas no login.', 'Como é que estás a ver isto então?');
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (1, 'How do I submit a new ticket?', 'To submit a new ticket, click on the "Submit" button on the new ticket form. Fill in the required details such as ticket subject, priority and description. Then, click on the "Submit" button to create the ticket.');
+
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (2, 'Can I track the progress of my ticket?', 'Yes, you can track the progress of your ticket by clicking on your ticket. There, you will find the status, assigned agent, and any updates related to your ticket.');
+
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (3, 'How long does it take to receive a response to my ticket?', 'The response time for tickets may vary depending on the complexity and priority of the issue. Our support team aims to respond within 24-48 hours, excluding weekends and holidays.');
+
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (4, 'How can I view my ticket history?', 'To view your ticket history, navigate to the your ticket. There, you will find a log will all the changes.');
+
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (5, 'Can I reopen a closed ticket?', 'No, you cannot reopen a closed ticket. If you need further assistance or if the issue reoccurs, create a new ticket.');
+
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (6, 'How do I update my contact information?', 'To update your contact information, go to the "Profile" section. There, you can modify your email address, phone number, or any other relevant details.');
+
+INSERT INTO FAQ (faqId, question, answer)
+VALUES (7, 'Can I assign a ticket to a specific team or department?', 'Yes, during ticket creation, you can assign the ticket to a specific team or department by selecting the appropriate option from the category dropdown. The ticket will then be routed accordingly.');
