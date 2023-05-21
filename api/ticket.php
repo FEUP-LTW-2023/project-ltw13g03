@@ -50,16 +50,20 @@
                 if ($params['field'] === 'hashtag') {
                     $response = Ticket::addHashtag($db, intval($params['ticketId'], 10), $params['hashtag'], Client::getUserId($db, $_SESSION['username']));
                     if ($response === false) http_response_code(404);
+                    else if ($response === null) http_response_code(403);
                     else http_response_code(200);
                 } else if ($params['field'] === 'agent') {
-                    Ticket::changeAgent($db, intval($params['ticketId'],10), $params['agent'], Client::getUserId($db, $_SESSION['username']));
-                    http_response_code(200);
+                    $response = Ticket::changeAgent($db, intval($params['ticketId'],10), $params['agent'], Client::getUserId($db, $_SESSION['username']));
+                    if ($response === false) http_response_code(403);
+                    else http_response_code(200);
                 } else if ($params['field'] === 'department') {
-                    Ticket::changeDepartment($db, intval($params['ticketId'],10), $params['department'], Client::getUserId($db, $_SESSION['username']));
-                    http_response_code(200);
+                    $response = Ticket::changeDepartment($db, intval($params['ticketId'],10), $params['department'], Client::getUserId($db, $_SESSION['username']));
+                    if ($response === false) http_response_code(403);
+                    else http_response_code(200);
                 } else if ($params['field'] === 'status') {
-                    Ticket::changeStatus($db, intval($params['ticketId'],10), $params['oldStatus'], $params['newStatus'], Client::getUserId($db, $_SESSION['username']));
-                    http_response_code(200);
+                    $response = Ticket::changeStatus($db, intval($params['ticketId'],10), $params['oldStatus'], $params['newStatus'], Client::getUserId($db, $_SESSION['username']));
+                    if ($response === false) http_response_code(403);
+                    else http_response_code(200);
                 } else http_response_code(404);
                 break;
             case 'DELETE':
@@ -68,6 +72,7 @@
                 if ($params['field'] === 'hashtag') {
                     $response = Ticket::removeHashtag($db, intval($params['ticketId'], 10), $params['hashtag'], Client::getUserId($db, $_SESSION['username']));
                     if ($response === false) http_response_code(404);
+                    else if ($response === null) http_response_code(403);
                     else http_response_code(200);
                 } else http_response_code(400);
                 break;

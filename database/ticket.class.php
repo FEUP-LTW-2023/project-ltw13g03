@@ -163,10 +163,12 @@
         }
 
         static function removeHashtag(PDO $db, int $ticketId, string $hashtag, int $userId) {
-            $stmt = $db->prepare('SELECT hashtags FROM Ticket WHERE ticketId=?');
-            $stmt->execute(array($ticketId));
+            $ticket = Ticket::getTicket($db, $ticketId);
+
+            $user = Client::getUser($db, Client::getUsername($db, $userId));
+            if (!($user->isAgent || $user->isAdmin || $userId == $ticket->client)) return null;
             
-            $hashtags = json_decode($stmt->fetch()['hashtags'], true);
+            $hashtags = $ticket->hashtags;
 
             $key = array_search($hashtag, $hashtags);
             if ($key === false) return false;
@@ -181,17 +183,21 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
+
+            return true;
         }
 
         static function addHashtag(PDO $db, int $ticketId, string $hashtag, int $userId) {
+            $ticket = Ticket::getTicket($db, $ticketId);
+
+            $user = Client::getUser($db, Client::getUsername($db, $userId));
+            if (!($user->isAgent || $user->isAdmin || $userId == $ticket->client)) return null;
+
             $stmt = $db->prepare('SELECT name FROM Hashtag');
             $stmt->execute();
             $global_hashtags = $stmt->fetchAll();
-
-            $stmt = $db->prepare('SELECT hashtags FROM Ticket WHERE ticketId=?');
-            $stmt->execute(array($ticketId));
             
-            $hashtags = $stmt->fetch()['hashtags'];
+            $hashtags = $ticket->hashtags;
 
             $found = false;
             foreach ($global_hashtags as $global_hashtag){
@@ -200,9 +206,6 @@
             }
             if (!$found)
                 return false;
-
-            $hashtags = json_decode($hashtags, true);
-
             
             foreach ($hashtags as $tag){
                 if ($tag === $hashtag) return false;
@@ -218,9 +221,14 @@
 
             $stmt = $db->prepare('UPDATE Ticket SET hashtags=? WHERE ticketId=?');
             $stmt->execute(array($hashtags, $ticketId));
+
+            return true;
         }
 
         static function changeDepartment(PDO $db, int $ticketId, string $department, int $userId) {
+            $user = Client::getUser($db, Client::getUsername($db, $userId));
+            if (!($user->isAgent || $user->isAdmin)) return false;
+
             $departmentId = getDepartmentId($department);
 
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId)
@@ -232,6 +240,9 @@
         }
 
         static function changeAgent(PDO $db, int $ticketId, string $agent, int $userId) {
+            $user = Client::getUser($db, Client::getUsername($db, $userId));
+            if (!($user->isAgent || $user->isAdmin)) return false;
+
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) 
                         SELECT ?, ifnull(agent, ""), ?, ?, ?, ? FROM Ticket WHERE ticketId = ?');
             $stmt->execute(array("Agent", Client::getUserId($db, $agent), date('Y-m-d'), $ticketId, $userId, $ticketId));
@@ -258,6 +269,9 @@
         }
 
         static function changeStatus(PDO $db, int $ticketId, string $oldStatus, string $newStatus, int $userId) {
+            $user = Client::getUser($db, Client::getUsername($db, $userId));
+            if (!($user->isAgent || $user->isAdmin)) return false;
+
             if ($oldStatus === $newStatus) return;
             
             $stmt = $db->prepare('INSERT INTO Modification (field, old, new, date, ticketID, userId) VALUES
