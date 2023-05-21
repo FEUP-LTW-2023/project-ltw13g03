@@ -111,6 +111,7 @@
         <section class="create_ticket">
             <h2>Create a New Ticket</h2>
             <form method="post" action="../actions/action_create_ticket.php">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label id="ticket_title">
                     Title
                     <input type="text" name="ticket_title" autocomplete="off">

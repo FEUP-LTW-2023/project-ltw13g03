@@ -16,6 +16,7 @@ if (!empty($errors)) {
 
 if (userExists($_POST['username'], $_POST['password'])){
     $_SESSION['username'] = $_POST['username'];
+    $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
     header('Location: /');
 } else {
     $errors['undefined'] = 'Invalid username/password.';

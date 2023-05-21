@@ -5,6 +5,14 @@
   require_once(__DIR__ . '/../database/ticket.class.php');
   require_once(__DIR__ . '/../database/client.class.php');
 
+  if(!isset($_SESSION['username'])){
+    die(header("Location: /pages/login.php"));
+ }
+ 
+ if ($_SESSION['csrf'] !== $_POST['csrf']) {
+     die(header('Location: /pages/new_ticket.php'));
+ }
+
   $db = getDatabaseConnection();
     
   try {

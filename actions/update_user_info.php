@@ -4,6 +4,14 @@ require_once(__DIR__ . '/../database/client.class.php');
 
 session_start();
 
+if(!isset($_SESSION['username'])){
+    die(header("Location: /pages/login.php"));
+ }
+ 
+ if ($_SESSION['csrf'] !== $_POST['csrf']) {
+     die(header('Location: /pages/new_ticket.php'));
+ }
+
 $error = false;
 $db = getDatabaseConnection();
 $id = Client::getUserId($db, $_SESSION['username']);
@@ -53,3 +61,5 @@ if ($file != "") {
 }
 
 header("Location: /pages/edit_profile.php");
+
+?>

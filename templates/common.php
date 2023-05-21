@@ -54,7 +54,10 @@
                                 <a href="control_panel.php">Control Panel
                             <?php } ?>
                             <a href="edit_profile.php">Edit profile</a>
-                            <a href="../actions/action_logout.php">Sign out</a>
+                            <form action="../actions/action_logout.php" method="post">
+                                <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+                                <button type="submit">Sign out</button>
+                            </form>
                         </div>
                     </div>
                 <?php } ?>

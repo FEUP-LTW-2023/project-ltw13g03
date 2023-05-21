@@ -19,6 +19,7 @@ if (!empty($errors)) {
 
 if (createAccount($_POST['name'], $_POST['username'], $_POST['email'], $_POST['password1'])){
     $_SESSION['username'] = $_POST['username'];
+    $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
 
     $file = $_FILES['profile-input']['name'];
 

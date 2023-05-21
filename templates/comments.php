@@ -36,6 +36,7 @@ function output_comments($id, $status){
     <form method="post" action="../actions/action_comment.php">
         <h3>Leave a comment</h3>
         <input type="hidden" name="ticketId" value="<?=$id?>"/>
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
         <textarea name="text" placeholder="Your thoughts here..."></textarea>
         <span class="error"></span>
         <?php

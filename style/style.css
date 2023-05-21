@@ -84,7 +84,14 @@ header h2 {
     border-radius: 1em;
 }
 
-.profile-dropdown-content a {
+.profile-dropdown-content button {
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.profile-dropdown-content a, .profile-dropdown-content button {
     display: block;
     color: var(--text-color);
     font-size: .9rem;
@@ -93,7 +100,7 @@ header h2 {
     text-decoration: none;
 }
 
-.profile-dropdown-content a:hover {
+.profile-dropdown-content a:hover, .profile-dropdown-content button:hover {
     background-color: var(--ticket-box-color);
     color: var(--text-color-2);
 }

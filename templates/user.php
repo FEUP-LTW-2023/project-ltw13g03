@@ -7,6 +7,7 @@
         <section class="userprofile">
             <h2>Profile</h2>
             <form action="../actions/update_user_info.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
                 <label id="name">
                     Name <input type="text" required name="name" value="<?php echo htmlentities($user['name']); ?>">
                 </label>
